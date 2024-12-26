@@ -15,17 +15,19 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchUserType = async () => {
-      if (!user) {
-        const student = sessionStorage.getItem("student");
-        if (student) {
-          const parsedStudent = JSON.parse(student);
-          parsedStudent.name =
-            parsedStudent.name.charAt(0).toUpperCase() +
-            parsedStudent.name.slice(1);
-          setUserType("student");
-          setStudentName(parsedStudent.name);
-        } else {
-          setUserType("admin");
+      if (typeof window !== "undefined") {
+        if (!user) {
+          const student = sessionStorage.getItem("student");
+          if (student) {
+            const parsedStudent = JSON.parse(student);
+            parsedStudent.name =
+              parsedStudent.name.charAt(0).toUpperCase() +
+              parsedStudent.name.slice(1);
+            setUserType("student");
+            setStudentName(parsedStudent.name);
+          } else {
+            setUserType("admin");
+          }
         }
       }
     };
@@ -91,7 +93,7 @@ const Navbar = () => {
             <div className='absolute right-2 top-16 border-2 border-[#f2a65a] rounded-xl p-2'>
               <button
                 onClick={handleLogout}
-                className=' cursor-pointer text-[#930c0c]'
+                className='cursor-pointer text-[#930c0c]'
               >
                 Déconnexion
               </button>

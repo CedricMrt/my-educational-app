@@ -3,7 +3,7 @@ import Navbar from "@/app/components/Navbar";
 import StudentGuard from "@/app/utils/StudentGuard";
 import Link from "next/link";
 
-const studentDashboard = () => {
+const StudentDashboard = () => {
   return (
     <StudentGuard>
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen">
@@ -46,4 +46,4 @@ const studentDashboard = () => {
   );
 };
 
-export default studentDashboard;
+export default StudentDashboard;
