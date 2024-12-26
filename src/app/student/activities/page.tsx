@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { db } from "../../lib/firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -13,6 +13,12 @@ import DiscoveryWorldGame from "./discoveryWorldGame/page"; */
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
+
+const Loading = () => (
+  <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
+    <p className='text-2xl'>Chargement...</p>
+  </div>
+);
 
 const SubjectPage = () => {
   interface Student {
@@ -222,4 +228,10 @@ const SubjectPage = () => {
   );
 };
 
-export default SubjectPage;
+const SubjectPageWrapper = () => (
+  <Suspense fallback={<Loading />}>
+    <SubjectPage />
+  </Suspense>
+);
+
+export default SubjectPageWrapper;
