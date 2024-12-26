@@ -8,8 +8,8 @@ import MathsGame2 from "./mathsGame/ordre";
 import MathsGame3 from "./mathsGame/comparaison";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
-import EnglishGame from "./englishGame/page";
-import DiscoveryWorldGame from "./discoveryWorldGame/page";
+/* import EnglishGame from "./englishGame/page";
+import DiscoveryWorldGame from "./discoveryWorldGame/page"; */
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
