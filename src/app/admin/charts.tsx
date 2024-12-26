@@ -1,6 +1,11 @@
 import { Line } from "react-chartjs-2";
 
-const Chart = ({ data }) => {
+interface ChartData {
+  labels: string[];
+  values: number[];
+}
+
+const Chart = ({ data }: { data: ChartData }) => {
   const chartData = {
     labels: data.labels,
     datasets: [
