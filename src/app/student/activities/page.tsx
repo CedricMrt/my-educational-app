@@ -196,7 +196,7 @@ const SubjectPage = () => {
               period={Number(period.id)}
             />
           )}
-          {selectedActivity === "englishGame1" && student && subject && (
+          {/* {selectedActivity === "englishGame1" && student && subject && (
             <EnglishGame
               subject={subject}
               studentId={student.id}
@@ -209,7 +209,7 @@ const SubjectPage = () => {
               studentId={student.id}
               period={Number(period.id)}
             />
-          )}
+          )} */}
           <Link
             href='/student/dashboard'
             className='absolute bottom-[-5px] [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
