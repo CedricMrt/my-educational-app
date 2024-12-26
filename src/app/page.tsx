@@ -13,7 +13,7 @@ import "./components/LandscapeWarning.css";
 export default function Home() {
   const currentYear = new Date().getFullYear();
   const [user] = useAuthState(auth);
-  const student = sessionStorage?.getItem("student") || null;
+  const [student, setStudent] = useState<string | null>(null);
   const router = useRouter();
   const [isPortrait, setIsPortrait] = useState(true);
 
@@ -32,6 +32,13 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", checkOrientation);
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const studentFromStorage = sessionStorage.getItem("student");
+      setStudent(studentFromStorage);
+    }
   }, []);
 
   useEffect(() => {
