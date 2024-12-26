@@ -2,8 +2,19 @@
 import Navbar from "@/app/components/Navbar";
 import StudentGuard from "@/app/utils/StudentGuard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const StudentDashboard = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [student, setStudent] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const studentFromStorage = sessionStorage.getItem("student");
+      setStudent(studentFromStorage);
+    }
+  }, []);
+
   return (
     <StudentGuard>
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen">
