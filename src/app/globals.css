@@ -15,7 +15,79 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  color: #b4ff55;
+}
+
+.box-outer {
+  position: relative;
+  width: 50%;
+  min-width: 18rem;
+  border: 2px solid #f2a65a;
+  transition: all 0.3s ease-in-out;
+}
+
+.activityChoice {
+  margin: 0.4rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  border: 2px solid #f2a65a;
+  background-color: rgba(0, 0, 0, 0.527);
+}
+
+.activityChoice::before,
+.activityChoice::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #f2a65a;
+  top: 7px;
+}
+
+.activityChoice::before {
+  left: 7px;
+}
+
+.activityChoice::after {
+  right: 6px;
+}
+
+.box-outer::before,
+.box-outer::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #f2a65a;
+  bottom: 6px;
+}
+
+.box-outer::before {
+  left: 7px;
+}
+
+.box-outer::after {
+  right: 6px;
+}
+
+.activity {
+  width: clamp(12rem, 70%, 80%);
+  background: linear-gradient(315deg, #9d523c 0%, #f2a65a 74%);
+  border: 2px solid #9d523c;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+  color: #ffd700;
+  font-size: 2rem;
+  text-shadow: 4px 0px 3px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
