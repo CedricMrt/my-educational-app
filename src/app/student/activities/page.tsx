@@ -87,8 +87,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/griffondor.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("mathsGame1")}
@@ -100,8 +100,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/serdaigle.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("mathsGame2")}
@@ -113,8 +113,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/serpentar.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("mathsGame3")}
@@ -126,8 +126,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/poufsouffle.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("mathsGame4")}
@@ -143,8 +143,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/griffondor.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("frenchGame1")}
@@ -156,8 +156,8 @@ const SubjectPage = () => {
                 </h2>
                 <Image
                   className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   src={"/img/serdaigle.png"}
                   alt='activity icon'
                   onClick={() => handleActivityClick("frenchGame2")}
@@ -166,7 +166,7 @@ const SubjectPage = () => {
             </div>
           )}
         </div>
-        <div className="bg-[url('/img/livre_ouvert.png')] bg-contain bg-center bg-no-repeat self-center flex items-center justify-center w-3/4 h-[500px] max-md:h-[400px] max-sm:h-[300px] relative">
+        <div className="bg-[url('/img/livre_ouvert.png')] bg-contain bg-center bg-no-repeat self-center flex items-center justify-center relative aspect-[16/9] h-[75%] max-w-[95%]">
           {selectedActivity === "mathsGame1" && student && subject && (
             <MathsGame1
               subject={subject}
@@ -218,7 +218,7 @@ const SubjectPage = () => {
           )} */}
           <Link
             href='/student/dashboard'
-            className='absolute bottom-[-5px] [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
+            className='absolute bottom-[-10px] max-sm:bottom-[10px] [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
           >
             Retour vers la liste des matières
           </Link>

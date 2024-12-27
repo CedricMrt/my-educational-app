@@ -28,7 +28,7 @@ const Tool = ({ label, type }: { label: string; type: string }) => {
   return (
     <div
       ref={drag as unknown as React.Ref<HTMLDivElement>}
-      className='px-2 py-1 rounded-lg bg-gradient-to-r from-[#9d523c] to-[#f2a65a] text-center text-white cursor-grab mx-4'
+      className='flex items-center justify-center w-16 h-10 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#9d523c] to-[#f2a65a] drop-shadow-lg'
       style={{
         backgroundColor: isDragging ? "#ddd" : "#0070f3",
       }}
@@ -338,9 +338,9 @@ const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='flex flex-col justify-around items-center w-[500px] max-md:w-[400px] max-sm:w-[300px] space-y-12 max-md:space-y-8 max-sm:space-y-5'>
+      <div className='flex flex-col justify-around items-center w-[90%] space-y-12 max-lg:space-y-16 max-md:space-y-6 max-sm:space-y-2 h650:space-y-10 aspect-auto'>
         <h1 className='text-2xl text-black'>Corrige la phrase</h1>
-        <p>
+        <p className='max-w-[68%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
           {currentSentence.map((word, index) => (
             <Word
               key={`${word}-${index}`}
@@ -352,16 +352,18 @@ const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
           ))}
         </p>
         <div className='space-x-5'>
-          <strong>Outils :</strong>
-          <div className='flex'>
-            <Tool label='ABC...' type='uppercase' />
+          <strong className='[text-shadow:_1px_1px_0px_rgb(0_0_0_/_0.8)] max-sm:hidden'>
+            Outils :
+          </strong>
+          <div className='flex gap-5'>
+            <Tool label='ABC' type='uppercase' />
             <Tool label=',' type='comma' />
             <Tool label='.' type='period' />
           </div>
         </div>
         <button
           onClick={validateCorrection}
-          className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+          className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer max-sm:px-2 max-sm:py-1'
         >
           Valider
         </button>
