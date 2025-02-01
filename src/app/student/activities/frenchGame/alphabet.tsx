@@ -56,15 +56,19 @@ const AlphabetActivity = ({ period, studentId, subject }: GameProps) => {
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-[500px] max-md:w-[400px] max-sm:w-[300px] space-y-12 max-md:space-y-8 max-sm:space-y-5'>
-      <h1 className='text-black'>Complétez l&apos;Alphabet</h1>
-      <p className='text-black'>Remplissez les lettres manquantes :</p>
+    <div className='flex flex-col justify-around items-center w-full h-full'>
+      <h1 className='text-black font-bold text-2xl'>
+        Complétez l&apos;Alphabet
+      </h1>
+      <p className='text-black font-bold'>
+        Remplissez les lettres manquantes :
+      </p>
       <div className='flex justify-center flex-wrap gap-2 mt-5'>
         {fullAlphabet.map((letter, index) =>
           missingIndexes.includes(index) ? (
             <input
               key={index}
-              className='w-8 h-8 text-2xl text-center bg-[#8f1818] rounded-lg'
+              className='w-10 h-10 text-2xl text-center bg-[#8f1818] rounded-lg'
               type='text'
               maxLength={1}
               value={userInput[index] || ""}
@@ -73,7 +77,7 @@ const AlphabetActivity = ({ period, studentId, subject }: GameProps) => {
           ) : (
             <span
               key={index}
-              className='text-2xl font-bold w-8 text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
+              className='text-3xl font-bold w-8 text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
             >
               {letter}
             </span>
@@ -81,10 +85,10 @@ const AlphabetActivity = ({ period, studentId, subject }: GameProps) => {
         )}
       </div>
       <button
-        className='mt-5 p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='mt-5 text-2xl p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
         onClick={checkAnswers}
       >
-        Vérifier mes réponses
+        Valider
       </button>
       <p
         className={`text-[#291b17] transition-opacity duration-500 ${

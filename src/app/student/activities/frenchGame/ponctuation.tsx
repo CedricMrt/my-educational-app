@@ -28,7 +28,7 @@ const Tool = ({ label, type }: { label: string; type: string }) => {
   return (
     <div
       ref={drag as unknown as React.Ref<HTMLDivElement>}
-      className='flex items-center justify-center w-16 h-10 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#9d523c] to-[#f2a65a] drop-shadow-lg'
+      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#9d523c] to-[#f2a65a] drop-shadow-lg'
       style={{
         backgroundColor: isDragging ? "#ddd" : "#0070f3",
       }}
@@ -66,6 +66,7 @@ const Word = ({
       style={{
         backgroundColor: isOver ? "#f0f0f0" : "transparent",
         border: isOver ? "1px dashed #0070f3" : "none",
+        padding: isOver ? "1rem" : "4px",
       }}
     >
       {word}
@@ -338,9 +339,9 @@ const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='flex flex-col justify-around items-center w-[90%] space-y-12 max-lg:space-y-16 max-md:space-y-6 max-sm:space-y-2 h650:space-y-10 aspect-auto'>
+      <div className='flex flex-col justify-around items-center w-full h-full'>
         <h1 className='text-2xl text-black'>Corrige la phrase</h1>
-        <p className='max-w-[68%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
+        <p className='max-w-[90%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
           {currentSentence.map((word, index) => (
             <Word
               key={`${word}-${index}`}
@@ -363,7 +364,7 @@ const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
         </div>
         <button
           onClick={validateCorrection}
-          className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer max-sm:px-2 max-sm:py-1'
+          className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer max-sm:px-2 max-sm:py-1'
         >
           Valider
         </button>
