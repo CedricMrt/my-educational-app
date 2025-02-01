@@ -330,7 +330,7 @@ const Dashboard = () => {
     <AdminGuard>
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen">
         <Navbar />
-        <aside className='fixed left-0 z-40 w-64 border-green-500 h-screen pl-4 pt-2'>
+        <aside className='fixed left-0 z-40 w-64 bg-[#f2a65a52]  h-screen pl-4 pt-2 rounded-lg'>
           <h1 className='text-2xl text-black font-bold mb-4'>
             Tableau de bord
           </h1>
@@ -348,6 +348,7 @@ const Dashboard = () => {
                   key={period.id}
                 >
                   <input
+                    className=' focus:ring-[#9d523c]'
                     type='radio'
                     checked={period.active}
                     onChange={() => handleTogglePeriod(period.id)}

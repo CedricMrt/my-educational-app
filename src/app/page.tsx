@@ -77,8 +77,8 @@ export default function Home() {
               <Image
                 src='/img/logo-cm.png'
                 alt='logo createur du site'
-                width={50}
-                height={50}
+                width={30}
+                height={30}
                 style={{ width: "auto", height: "auto" }}
               />
             </a>
