@@ -85,12 +85,17 @@ const SortingGame = ({ period, studentId, subject }: GameProps) => {
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-[500px] max-md:w-[400px] max-sm:w-[300px] space-y-12 max-md:space-y-8 max-sm:space-y-5'>
-      <div className='text-black text-lg font-bold'>
+    <div className='flex flex-col justify-around items-center w-full h-full'>
+      <div className='text-black text-2xl font-bold'>
         Trier en ordre : {orderType === "asc" ? "Croissant" : "Décroissant"}
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId='droppable-here'>
+        <Droppable
+          droppableId='droppable-here'
+          isDropDisabled={false}
+          isCombineEnabled={false}
+          ignoreContainerClipping={false}
+        >
           {(provided) => (
             <ul
               {...provided.droppableProps}
@@ -108,7 +113,7 @@ const SortingGame = ({ period, studentId, subject }: GameProps) => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className='p-2 bg-gradient-to-r from-[#9d523c] to-[#f2a65a] text-white text-center rounded-lg'
+                      className='py-3 px-5 bg-gradient-to-r from-[#9d523c] to-[#f2a65a] text-4xl max-lg:text-3xl max-md:text-xl max-sm:text-lg text-white text-center rounded-lg'
                     >
                       {num}
                     </li>
@@ -121,7 +126,7 @@ const SortingGame = ({ period, studentId, subject }: GameProps) => {
         </Droppable>
       </DragDropContext>
       <button
-        className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer text-2xl'
         onClick={handleValidate}
       >
         Valider

@@ -8,7 +8,7 @@ const LandscapeWarning = () => {
           <IoIosTabletPortrait />
         </div>
       </div>
-      <h1 className='[text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)]'>
+      <h1 className='text-center [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)]'>
         Svp veuillez passer en mode paysage pour une meilleure experience
         utilisateur
       </h1>

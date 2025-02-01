@@ -49,7 +49,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='flex justify-between p-4'>
+    <nav className='flex justify-between px-4 pt-2'>
       <Image
         src='/img/logo 4 maisons.png'
         alt='logo des 4 maisons harry potter'

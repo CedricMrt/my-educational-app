@@ -69,9 +69,9 @@ const Game = ({ period, studentId, subject }: GameProps) => {
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-[500px] max-md:w-[400px] max-sm:w-[300px] space-y-12 max-md:space-y-8 max-sm:space-y-5'>
+    <div className='flex flex-col justify-around items-center w-full h-full'>
       <select
-        className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+        className='p-2 rounded-xl text-2xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
         value={operation}
         onChange={(e) => setOperation(e.target.value)}
       >
@@ -82,20 +82,20 @@ const Game = ({ period, studentId, subject }: GameProps) => {
           Soustraction
         </option>
       </select>
-      <div className='space-x-4 flex'>
-        <span className='text-5xl'>{number1}</span>
-        <span className='text-5xl'>{operation === "addition" ? "+" : "-"}</span>
-        <span className='text-5xl'>{number2}</span>
-        <span className='text-5xl'>=</span>
+      <div className='space-x-3 flex'>
+        <span className='text-6xl'>{number1}</span>
+        <span className='text-6xl'>{operation === "addition" ? "+" : "-"}</span>
+        <span className='text-6xl'>{number2}</span>
+        <span className='text-6xl'>=</span>
         <input
-          className='max-w-16 text-center text-2xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+          className='max-w-16 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
           type='text'
           value={userAnswer}
           onChange={(e) => setUserAnswer(e.target.value)}
         />
       </div>
       <button
-        className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
         onClick={handleValidate}
       >
         Valider

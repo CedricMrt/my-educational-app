@@ -1,4 +1,5 @@
 "use client";
+import Layout from "@/app/components/Layout";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { db } from "../../lib/firebaseConfig";
@@ -75,134 +76,144 @@ const SubjectPage = () => {
   }
 
   return (
-    <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen">
-      <Navbar />
-      <div className='flex flex-col items-center justify-center w-full h-full'>
-        <div className='mb-4 min-h-16 w-full'>
-          {subject === "mathsGame" && (
-            <div className='flex justify-around w-full'>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Opérations
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/griffondor.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("mathsGame1")}
-                />
-              </div>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Ordre
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/serdaigle.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("mathsGame2")}
-                />
-              </div>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Comparaison
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/serpentar.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("mathsGame3")}
-                />
-              </div>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Positions
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/poufsouffle.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("mathsGame4")}
-                />
-              </div>
+    <Layout>
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen">
+        <Navbar />
+        <div className='flex flex-col items-center justify-center w-full h-full px-2 py-8 landscape:flex-row'>
+          <div className='flex flex-col items-center'>
+            <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
+              {subject === "mathsGame" && (
+                <div className='flex justify-around w-full landscape:flex-wrap gap-4'>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Opérations
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame1")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Ordre
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serdaigle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame2")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Comparaison
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serpentar.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame3")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Positions
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/poufsouffle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame4")}
+                    />
+                  </div>
+                </div>
+              )}
+              {subject === "frenchGame" && Number(period.id) === 1 && (
+                <div className='flex justify-around w-full'>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Ponctuation
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame1")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Alphabet
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serdaigle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame2")}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-          {subject === "frenchGame" && Number(period.id) === 1 && (
-            <div className='flex justify-around w-full'>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Ponctuation
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/griffondor.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("frenchGame1")}
+            <Link
+              href='/student/dashboard'
+              className='text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)] mb-4'
+            >
+              Retour vers la liste des matières
+            </Link>
+          </div>
+          <div className="bg-[url('/img/livre_ouvert.png')] bg-cover bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow h-full max-h-[calc(100vh-60px)] max-w-full">
+            <div className='w-[85%] h-[96%] flex items-center justify-center'>
+              {selectedActivity === "mathsGame1" && student && subject && (
+                <MathsGame1
+                  subject={subject}
+                  studentId={student.id}
+                  period={Number(period.id)}
                 />
-              </div>
-              <div className='flex flex-col items-center'>
-                <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                  Alphabet
-                </h2>
-                <Image
-                  className='cursor-pointer rounded-lg drop-shadow-lg'
-                  width={70}
-                  height={70}
-                  src={"/img/serdaigle.png"}
-                  alt='activity icon'
-                  onClick={() => handleActivityClick("frenchGame2")}
+              )}
+              {selectedActivity === "mathsGame2" && student && subject && (
+                <MathsGame2
+                  subject={subject}
+                  studentId={student.id}
+                  period={Number(period.id)}
                 />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="bg-[url('/img/livre_ouvert.png')] bg-contain bg-center bg-no-repeat self-center flex items-center justify-center relative aspect-[16/9] h-[75%] max-w-[95%]">
-          {selectedActivity === "mathsGame1" && student && subject && (
-            <MathsGame1
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-            />
-          )}
-          {selectedActivity === "mathsGame2" && student && subject && (
-            <MathsGame2
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-            />
-          )}
-          {selectedActivity === "mathsGame3" && student && subject && (
-            <MathsGame3
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-            />
-          )}
-          {selectedActivity === "frenchGame1" && student && subject && (
-            <FrenchGame1
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-            />
-          )}
-          {selectedActivity === "frenchGame2" && student && subject && (
-            <FrenchGame2
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-            />
-          )}
-          {/* {selectedActivity === "englishGame1" && student && subject && (
+              )}
+              {selectedActivity === "mathsGame3" && student && subject && (
+                <MathsGame3
+                  subject={subject}
+                  studentId={student.id}
+                  period={Number(period.id)}
+                />
+              )}
+              {selectedActivity === "frenchGame1" && student && subject && (
+                <FrenchGame1
+                  subject={subject}
+                  studentId={student.id}
+                  period={Number(period.id)}
+                />
+              )}
+              {selectedActivity === "frenchGame2" && student && subject && (
+                <FrenchGame2
+                  subject={subject}
+                  studentId={student.id}
+                  period={Number(period.id)}
+                />
+              )}
+              {/* {selectedActivity === "englishGame1" && student && subject && (
             <EnglishGame
               subject={subject}
               studentId={student.id}
@@ -216,15 +227,11 @@ const SubjectPage = () => {
               period={Number(period.id)}
             />
           )} */}
-          <Link
-            href='/student/dashboard'
-            className='absolute bottom-[-10px] max-sm:bottom-[10px] [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
-          >
-            Retour vers la liste des matières
-          </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -89,12 +89,10 @@ const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-[500px] max-md:w-[400px] max-sm:w-[300px] space-y-10 max-md:space-y-6 max-sm:space-y-3'>
-      <p className='text-black'>
-        Fais glisser le signe correct entre les nombres !
-      </p>
+    <div className='flex flex-col justify-around items-center w-full h-full'>
+      <p className='text-black'>Glisse le signe correct entre les nombres !</p>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className='flex items-center gap-4 p-2'>
+        <div className='flex items-center gap-5 p-2'>
           <span className='text-5xl max-sm:text-3xl text-center min-w-14'>
             {number1}
           </span>
@@ -106,7 +104,7 @@ const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
           >
             {(provided) => (
               <div
-                className={`flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12  text-3xl rounded-lg ${
+                className={`flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12 text-3xl rounded-lg ${
                   droppedSign !== null
                     ? "bg-gradient-to-r from-[#9d523c] to-[#f2a65a]"
                     : "bg-[#8f1818]"
@@ -164,7 +162,7 @@ const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
         </Droppable>
       </DragDropContext>
       <button
-        className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
         onClick={handleValidate}
       >
         Valider
