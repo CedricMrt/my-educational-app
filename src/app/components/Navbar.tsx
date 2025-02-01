@@ -62,8 +62,8 @@ const Navbar = () => {
             Bienvenue, {user ? "Professeur" : studentName}
           </span>
           <svg
-            width='46px'
-            height='46px'
+            width='30px'
+            height='35px'
             className='cursor-pointer relative'
             onClick={handleSvgClick}
             viewBox='0 0 24.00 24.00'
@@ -90,7 +90,7 @@ const Navbar = () => {
             </g>
           </svg>
           {showLogout && (
-            <div className='absolute right-2 top-16 border-2 border-[#f2a65a] rounded-xl p-2'>
+            <div className='absolute right-2 top-12 border-2 border-[#f2a65a] rounded-xl p-2'>
               <button
                 onClick={handleLogout}
                 className='cursor-pointer text-[#930c0c]'

@@ -91,3 +91,18 @@ body {
   text-shadow: 4px 0px 3px rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
+
+@media (max-height: 431px) {
+  .box-outer {
+    width: 80%; /* Ajustez cette valeur selon vos besoins */
+    height: auto; /* Ajustez cette valeur selon vos besoins */
+  }
+
+  .activityChoice {
+    flex-direction: row;
+  }
+
+  .activity {
+    font-size: 1.2rem;
+  }
+}

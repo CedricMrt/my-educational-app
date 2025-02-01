@@ -328,177 +328,184 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen">
-        <Navbar />
-        <aside className='fixed left-0 z-40 w-64 bg-[#f2a65a52]  h-screen pl-4 pt-2 rounded-lg'>
-          <h1 className='text-2xl text-black font-bold mb-4'>
-            Tableau de bord
-          </h1>
-          <h2 className='text-xl text-black'>Périodes actives:</h2>
-          <div className='space-y-4'>
-            {periods
-              .sort((a, b) => a.id - b.id)
-              .map((period) => (
-                <div
-                  className={`${
-                    period.active
-                      ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full text-black p-1"
-                      : "text-black p-1"
-                  }`}
-                  key={period.id}
-                >
-                  <input
-                    className=' focus:ring-[#9d523c]'
-                    type='radio'
-                    checked={period.active}
-                    onChange={() => handleTogglePeriod(period.id)}
-                  />
-                  Période {period.id}
-                </div>
-              ))}
-          </div>
-          <h2
-            className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer pl-1 py-4 rounded-l-full ${
-              showStudentForm
-                ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
-                : ""
-            }`}
-            onClick={toggleStudentForm}
-          >
-            Ajouter/Supprimer élèves
-          </h2>
-          <h2
-            className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer  pl-1 py-4 rounded-l-full ${
-              showStudentStats
-                ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
-                : ""
-            }`}
-            onClick={toggleStudentStats}
-          >
-            Stats d&apos;un élève
-          </h2>
-        </aside>
-        <div className='ml-64 p-4 text-black'>
-          {showStudentForm && (
-            <>
-              {students.map((student, index) => (
-                <div className='space-x-2 mb-2 flex' key={index}>
-                  <input
-                    className='w-1/4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    type='text'
-                    value={student.name}
-                    onChange={(e) =>
-                      handleStudentChange(index, "name", e.target.value)
-                    }
-                    placeholder="Prénom de l'élève"
-                  />
-                  <input
-                    className='w-1/4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    type='text'
-                    value={student.lastName}
-                    onChange={(e) =>
-                      handleStudentChange(index, "lastName", e.target.value)
-                    }
-                    placeholder="Nom de l'élève"
-                  />
-                  <input
-                    className='w-1/4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    type='password'
-                    value={student.password}
-                    onChange={(e) =>
-                      handleStudentChange(index, "password", e.target.value)
-                    }
-                    placeholder="Mot de passe de l'élève"
-                  />
-                  {index !== 0 && (
-                    <Image
-                      className='cursor-pointer'
-                      width={50}
-                      height={50}
-                      alt='delete icon'
-                      src='/img/delete.svg'
-                      onClick={() => handleDeleteStudentField(index)}
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col">
+        <div className='bg-[#0000006b] h-screen'>
+          <Navbar />
+          <aside className='fixed left-0 z-40 w-64 bg-[#c08448b9] pl-4 pt-2 rounded-lg h-screen'>
+            <h1 className='text-2xl text-black font-bold mb-4'>
+              Tableau de bord
+            </h1>
+            <h2 className='text-xl text-black'>Périodes actives:</h2>
+            <div className='space-y-1'>
+              {periods
+                .sort((a, b) => a.id - b.id)
+                .map((period) => (
+                  <div
+                    className={`${
+                      period.active
+                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full text-black p-1"
+                        : "text-black p-1"
+                    }`}
+                    key={period.id}
+                  >
+                    <input
+                      className='accent-black'
+                      type='radio'
+                      checked={period.active}
+                      onChange={() => handleTogglePeriod(period.id)}
                     />
-                  )}
+                    Période {period.id}
+                  </div>
+                ))}
+            </div>
+            <h2
+              className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer pl-1 rounded-l-full ${
+                showStudentForm
+                  ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
+                  : ""
+              }`}
+              onClick={toggleStudentForm}
+            >
+              Ajouter/Supprimer élèves
+            </h2>
+            <h2
+              className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer  pl-1 rounded-l-full ${
+                showStudentStats
+                  ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
+                  : ""
+              }`}
+              onClick={toggleStudentStats}
+            >
+              Stats d&apos;un élève
+            </h2>
+          </aside>
+          <div className='ml-64 p-2 text-black space-y-2'>
+            {showStudentForm && (
+              <>
+                {students.map((student, index) => (
+                  <div className='flex space-x-2 w-full' key={index}>
+                    <input
+                      className='w-1/3 max-h-7 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      type='text'
+                      value={student.name}
+                      onChange={(e) =>
+                        handleStudentChange(index, "name", e.target.value)
+                      }
+                      placeholder='Prénom'
+                    />
+                    <input
+                      className='w-1/3 max-h-7 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      type='text'
+                      value={student.lastName}
+                      onChange={(e) =>
+                        handleStudentChange(index, "lastName", e.target.value)
+                      }
+                      placeholder='Nom'
+                    />
+                    <input
+                      className='w-1/3 max-h-7 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      type='password'
+                      value={student.password}
+                      onChange={(e) =>
+                        handleStudentChange(index, "password", e.target.value)
+                      }
+                      placeholder='Mot de passe'
+                    />
+                    {index !== 0 && (
+                      <Image
+                        className='cursor-pointer'
+                        width={30}
+                        height={30}
+                        alt='delete icon'
+                        src='/img/delete.svg'
+                        onClick={() => handleDeleteStudentField(index)}
+                      />
+                    )}
+                  </div>
+                ))}
+                <div className='mt-4 flex space-x-10'>
+                  <button
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    onClick={handleAddStudentField}
+                  >
+                    Ajouter un Champs
+                  </button>
+                  <button
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    onClick={handleCreateStudent}
+                  >
+                    Créer compte(s) élèves
+                  </button>
                 </div>
-              ))}
-              <div className='mt-4 flex space-x-10'>
-                <button
-                  className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
-                  onClick={handleAddStudentField}
-                >
-                  Ajouter un Champs
-                </button>
-                <button
-                  className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
-                  onClick={handleCreateStudent}
-                >
-                  Créer compte(s) élèves
-                </button>
-              </div>
-
-              <h2 className='text-xl mt-4'>Liste des élèves:</h2>
-              {existingStudents.map((student) => (
-                <div
-                  key={student.id}
-                  className='flex justify-between items-center'
-                >
-                  <span>
-                    {student.name} {student.lastName}
-                  </span>
-                  <Image
-                    className='cursor-pointer'
-                    width={50}
-                    height={50}
-                    alt='delete icon'
-                    src={"/img/delete.svg"}
-                    onClick={() => handleDeleteStudent(student.id)}
-                  ></Image>
+                <h2 className='text-xl text-white mt-4'>Liste des élèves:</h2>
+                <div className='w-full max-h-[calc(100vh-150px)] overflow-y-auto mt-4'>
+                  <div className='flex flex-col gap-2'>
+                    {existingStudents.map((student) => (
+                      <div
+                        key={student.id}
+                        className='flex gap-2 items-center text-white text-sm'
+                      >
+                        <span>
+                          {student.name} {student.lastName}
+                        </span>
+                        <Image
+                          className='cursor-pointer'
+                          width={30}
+                          height={30}
+                          alt='delete icon'
+                          src={"/img/delete.svg"}
+                          onClick={() => handleDeleteStudent(student.id)}
+                        ></Image>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </>
-          )}
-          {showStudentStats && (
-            <>
-              <div className='space-x-10'>
-                <select
-                  className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
-                  onChange={(e) => setSelectedStudentId(e.target.value)}
-                >
-                  <option value={""}>Choisir un éleve</option>
-                  {existingStudents.map((student) => (
-                    <option key={student.id} value={student.id}>
-                      {student.name} {student.lastName}
+              </>
+            )}
+            {showStudentStats && (
+              <>
+                <div className='space-x-5'>
+                  <select
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    onChange={(e) => setSelectedStudentId(e.target.value)}
+                  >
+                    <option value={""}>Choisir un éleve</option>
+                    {existingStudents.map((student) => (
+                      <option key={student.id} value={student.id}>
+                        {student.name} {student.lastName}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                  >
+                    <option value=''>Choisir une matière</option>
+                    <option value='frenchGame'>Français</option>
+                    <option value='mathsGame'>Mathématiques</option>
+                    <option value='englishGame'>Anglais</option>
+                    <option value='discoveryWorldGame'>
+                      Découverte du monde
                     </option>
-                  ))}
-                </select>
-                <select
-                  className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                >
-                  <option value=''>Choisir une matière</option>
-                  <option value='frenchGame'>Français</option>
-                  <option value='mathsGame'>Mathématiques</option>
-                  <option value='englishGame'>Anglais</option>
-                  <option value='discoveryWorldGame'>
-                    Découverte du monde
-                  </option>
-                </select>
-              </div>
-              <div className='w-full min-h-[600px] flex flex-wrap gap-1'>
-                {chartData &&
-                  chartData.map((data, index) => (
-                    <div
-                      className='mt-4 px-1 bg-[#f2a65a] opacity-80 h-max rounded-lg'
-                      key={index}
-                    >
-                      <Bar data={data} options={data.options} />
-                      <p>Moyenne: {data.average}/20</p>
-                    </div>
-                  ))}
-              </div>
-            </>
-          )}
+                  </select>
+                </div>
+                <div className='w-full max-h-[calc(100vh-150px)] overflow-y-auto mt-4'>
+                  <div className='flex flex-col gap-4'>
+                    {chartData &&
+                      chartData.map((data, index) => (
+                        <div
+                          className='px-1 bg-[#f2a65a] opacity-80 rounded-lg h-max'
+                          key={index}
+                        >
+                          <Bar data={data} options={data.options} />
+                          <p>Moyenne: {data.average}/20</p>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </AdminGuard>
