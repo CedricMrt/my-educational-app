@@ -90,7 +90,7 @@ const Navbar = () => {
             </g>
           </svg>
           {showLogout && (
-            <div className='absolute right-2 top-12 border-2 border-[#f2a65a] rounded-xl p-2'>
+            <div className='absolute right-12 top-2 border-2 border-[#f2a65a] rounded-xl p-2'>
               <button
                 onClick={handleLogout}
                 className='cursor-pointer text-[#930c0c]'

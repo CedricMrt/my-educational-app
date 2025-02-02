@@ -20,9 +20,11 @@ const LoginForm = () => {
   const handleTeacherLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Connexion réussie !");
       router.push("/admin/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
+      toast.error("Erreur de connexion. Veuillez réessayer.");
     }
   };
 
@@ -35,17 +37,19 @@ const LoginForm = () => {
         where("password", "==", password)
       );
       const studentSnapshot = await getDocs(studentQuery);
-      sessionStorage.setItem(
-        "student",
-        JSON.stringify(studentSnapshot.docs[0].data())
-      );
-      if (!studentSnapshot.empty) {
-        router.push("/student/dashboard");
-      } else {
-        toast.error("Elève non trouvé");
+
+      if (studentSnapshot.empty) {
+        toast.error("Elève non trouvé ou mot de passe incorrect.");
+        return;
       }
+
+      const studentData = studentSnapshot.docs[0].data();
+      sessionStorage.setItem("student", JSON.stringify(studentData));
+      toast.success("Connexion réussie !");
+      router.push("/student/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
+      toast.error("Erreur de connexion. Veuillez réessayer.");
     }
   };
 
@@ -68,9 +72,11 @@ const LoginForm = () => {
         await addDoc(collection(db, "periods"), period);
       });
 
+      toast.success("Inscription réussie !");
       router.push("/admin/dashboard");
     } catch (error) {
       console.error("Error signing up:", error);
+      toast.error("Erreur d'inscription. Veuillez réessayer.");
     }
   };
 
@@ -79,7 +85,7 @@ const LoginForm = () => {
       <div className='flex gap-2 flex-col'>
         <button
           onClick={() => setFormType("teacherLogin")}
-          className={`p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] ${
+          className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] transition-transform duration-200 active:scale-95 ${
             formType === "teacherLogin" ? "" : "text-black"
           }`}
         >
@@ -87,7 +93,7 @@ const LoginForm = () => {
         </button>
         <button
           onClick={() => setFormType("studentLogin")}
-          className={`p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] ${
+          className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] transition-transform duration-200 active:scale-95 ${
             formType === "studentLogin" ? "" : "text-black"
           }`}
         >
@@ -95,17 +101,17 @@ const LoginForm = () => {
         </button>
         <button
           onClick={() => setFormType("teacherSignUp")}
-          className={`p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] ${
+          className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] transition-transform duration-200 active:scale-95 ${
             formType === "teacherSignUp" ? "" : "text-black"
           }`}
         >
           Inscription Administrateur
         </button>
       </div>
-      <div>
+      <div className='transition-opacity duration-500 ease-in-out [box-shadow:3px_3px_14px_3px_rgb(255_255_255_/_40%)] rounded-lg'>
         {formType === "teacherLogin" && (
-          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 '>
-            <h2 className='text-2xl font-bold text-center [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)]'>
+          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+            <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
               Connexion Administrateur
             </h2>
             <div className=''>
@@ -141,7 +147,7 @@ const LoginForm = () => {
             <div className=''>
               <button
                 onClick={handleTeacherLogin}
-                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500'
+                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-transform duration-200 active:scale-95'
               >
                 Connexion
               </button>
@@ -150,8 +156,8 @@ const LoginForm = () => {
         )}
 
         {formType === "studentLogin" && (
-          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3'>
-            <h2 className='text-2xl font-bold text-center [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)]'>
+          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+            <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
               Connexion Elève
             </h2>
             <div className='flex space-x-1 max-w-80'>
@@ -204,7 +210,7 @@ const LoginForm = () => {
             <div>
               <button
                 onClick={handleStudentLogin}
-                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500'
+                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-transform duration-200 active:scale-95'
               >
                 Connexion
               </button>
@@ -213,8 +219,8 @@ const LoginForm = () => {
         )}
 
         {formType === "teacherSignUp" && (
-          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 '>
-            <h2 className='text-2xl font-bold text-center [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)]'>
+          <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+            <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
               Inscription Administrateur
             </h2>
             <div>
@@ -250,7 +256,7 @@ const LoginForm = () => {
             <div className='mb-4'>
               <button
                 onClick={handleTeacherSignUp}
-                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500'
+                className='w-full bg-green-500 text-white py-1 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-transform duration-200 active:scale-95'
               >
                 Inscription
               </button>

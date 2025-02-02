@@ -39,7 +39,7 @@ export default function Home() {
         <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
           <LoginForm />
         </main>
-        <footer className='flex items-center justify-center'>
+        <footer className='flex items-center justify-center bg-[#00000050]'>
           <p>© {currentYear} Ecole Chavernac website made by</p>
           <a
             href='https://cedricmrt.github.io/'

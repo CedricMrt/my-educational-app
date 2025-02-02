@@ -331,7 +331,7 @@ const Dashboard = () => {
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col">
         <div className='bg-[#0000006b] h-screen'>
           <Navbar />
-          <aside className='fixed left-0 z-40 w-64 bg-[#c08448b9] pl-4 pt-2 rounded-lg h-screen'>
+          <aside className='fixed left-0 z-40 w-64 bg-[#c08448b9] pl-4 pt-2 mt-2 rounded-lg h-screen'>
             <h1 className='text-2xl text-black font-bold mb-4'>
               Tableau de bord
             </h1>
