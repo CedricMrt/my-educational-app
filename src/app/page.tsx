@@ -33,10 +33,10 @@ export default function Home() {
   return (
     <div>
       <Layout>
-        <header>
+        <header className='bg-[#00000050]'>
           <Navbar />
         </header>
-        <main>
+        <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
           <LoginForm />
         </main>
         <footer className='flex items-center justify-center'>
