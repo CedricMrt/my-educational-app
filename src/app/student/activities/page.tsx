@@ -192,11 +192,11 @@ const SubjectPage = () => {
               width={150}
               height={150}
               className='absolute top-[20px] left-50%'
-              initial={{ opacity: 1, y: 90 }}
-              animate={showNiffleur ? { y: -20 } : { y: 90 }}
+              initial={{ opacity: 1, y: 110 }}
+              animate={showNiffleur ? { y: 20 } : { y: 110 }}
               transition={{ duration: 0.4 }}
             />
-            <div className="bg-[url('/img/livre_ouvert.png')] bg-cover bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow h-full max-h-[calc(100vh-60px)] max-w-full">
+            <div className="bg-[url('/img/livre_ouvert.png')] bg-cover bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[70%] h-full max-h-[calc(100dvh-200px)]">
               <div className='w-[85%] h-[96%] flex items-center justify-center'>
                 {selectedActivity === "mathsGame1" &&
                   student &&
