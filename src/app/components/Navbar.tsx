@@ -82,10 +82,10 @@ const Navbar = () => {
             ></g>
             <g id='SVGRepo_iconCarrier'>
               {" "}
-              <circle cx='12' cy='6' r='4' fill='#109e12'></circle>{" "}
+              <circle cx='12' cy='6' r='4' fill='#FFE770'></circle>{" "}
               <path
                 d='M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z'
-                fill='#109e12'
+                fill='#FFE770'
               ></path>{" "}
             </g>
           </svg>
@@ -120,10 +120,10 @@ const Navbar = () => {
           ></g>
           <g id='SVGRepo_iconCarrier'>
             {" "}
-            <circle cx='12' cy='6' r='4' fill='#c80303'></circle>{" "}
+            <circle cx='12' cy='6' r='4' fill='#2D2305'></circle>{" "}
             <path
               d='M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z'
-              fill='#c80303'
+              fill='#2D2305'
             ></path>{" "}
           </g>
         </svg>

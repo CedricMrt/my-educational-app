@@ -3,16 +3,25 @@ import { saveResponse } from "@/app/lib/firebaseConfig";
 import { useState, useEffect } from "react";
 
 interface GameProps {
+  school: { id: string; name: string; level: string };
   period: number;
   studentId: string;
   subject: string;
+  onCorrectAnswer: () => void;
 }
-const Game = ({ period, studentId, subject }: GameProps) => {
+const Game = ({
+  school,
+  period,
+  studentId,
+  subject,
+  onCorrectAnswer,
+}: GameProps) => {
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [operation, setOperation] = useState("addition");
   const [userAnswer, setUserAnswer] = useState("");
   const [message, setMessage] = useState("");
+  const [displayMode, setDisplayMode] = useState("inline");
 
   useEffect(() => {
     generateGame(period);
@@ -39,6 +48,8 @@ const Game = ({ period, studentId, subject }: GameProps) => {
     setNumber2(sortedNumbers[1]);
     setUserAnswer("");
     setMessage("");
+
+    setDisplayMode(Math.random() < 0.5 ? "inline" : "column");
   };
 
   const handleValidate = async () => {
@@ -54,9 +65,17 @@ const Game = ({ period, studentId, subject }: GameProps) => {
     const isCorrect = parseInt(userAnswer) === correctAnswer;
 
     try {
-      await saveResponse(studentId, subject, period, "operations", isCorrect);
-      setMessage("Bravo ! Bonne réponse 🎉");
+      await saveResponse(
+        school,
+        studentId,
+        subject,
+        period,
+        "operations",
+        isCorrect
+      );
       if (isCorrect) {
+        onCorrectAnswer();
+        setMessage("Bravo ! Bonne réponse 🎉");
         setTimeout(() => {
           generateGame(period);
         }, 2000);
@@ -82,18 +101,36 @@ const Game = ({ period, studentId, subject }: GameProps) => {
           Soustraction
         </option>
       </select>
-      <div className='space-x-3 flex'>
-        <span className='text-6xl'>{number1}</span>
-        <span className='text-6xl'>{operation === "addition" ? "+" : "-"}</span>
-        <span className='text-6xl'>{number2}</span>
-        <span className='text-6xl'>=</span>
-        <input
-          className='max-w-16 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-          type='text'
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-        />
-      </div>
+      {displayMode === "inline" ? (
+        <div className='space-x-3 flex'>
+          <span className='text-6xl'>{number1}</span>
+          <span className='text-6xl'>
+            {operation === "addition" ? "+" : "-"}
+          </span>
+          <span className='text-6xl'>{number2}</span>
+          <span className='text-6xl'>=</span>
+          <input
+            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+            type='text'
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+          />
+        </div>
+      ) : (
+        <div className='flex flex-col items-center text-6xl'>
+          <span>{number1}</span>
+          <span>
+            {operation === "addition" ? "+" : "-"} {number2}
+          </span>
+          <hr className='w-full border-2 border-black my-2' />
+          <input
+            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+            type='text'
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+          />
+        </div>
+      )}
       <button
         className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
         onClick={handleValidate}

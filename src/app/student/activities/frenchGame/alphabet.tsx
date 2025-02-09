@@ -2,12 +2,20 @@ import { saveResponse } from "@/app/lib/firebaseConfig";
 import { useState } from "react";
 
 interface GameProps {
+  school: { id: string; name: string; level: string };
   period: number;
   studentId: string;
   subject: string;
+  onCorrectAnswer: () => void;
 }
 
-const AlphabetActivity = ({ period, studentId, subject }: GameProps) => {
+const AlphabetActivity = ({
+  school,
+  period,
+  studentId,
+  subject,
+  onCorrectAnswer,
+}: GameProps) => {
   const [message, setMessage] = useState("");
   const fullAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   const [missingIndexes, setMissingIndexes] = useState<number[]>(
@@ -35,12 +43,14 @@ const AlphabetActivity = ({ period, studentId, subject }: GameProps) => {
     if (correctAnswers) {
       try {
         await saveResponse(
+          school,
           studentId,
           subject,
           period,
           "alphabet",
           correctAnswers
         );
+        onCorrectAnswer();
         setMessage("Bravo ! Toutes les réponses sont correctes 🎉");
         setTimeout(() => {
           setMissingIndexes(generateMissingIndexes());

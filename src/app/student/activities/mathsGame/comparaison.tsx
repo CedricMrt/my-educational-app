@@ -9,12 +9,20 @@ import {
 } from "react-beautiful-dnd";
 
 interface GameProps {
+  school: { id: string; name: string; level: string };
   period: number;
   studentId: string;
   subject: string;
+  onCorrectAnswer: () => void;
 }
 
-const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
+const ComparisonGame = ({
+  school,
+  period,
+  studentId,
+  subject,
+  onCorrectAnswer,
+}: GameProps) => {
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [message, setMessage] = useState("");
@@ -69,6 +77,7 @@ const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
         (droppedSign === "=" && number1 === number2);
 
       await saveResponse(
+        school,
         studentId,
         subject,
         period,
@@ -76,6 +85,7 @@ const ComparisonGame = ({ period, studentId, subject }: GameProps) => {
         isAnswerCorrect
       );
       if (isAnswerCorrect) {
+        onCorrectAnswer();
         setMessage("Bravo ! Bonne réponse 🎉");
         setTimeout(() => {
           generateGame(period);

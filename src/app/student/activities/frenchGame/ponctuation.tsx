@@ -8,9 +8,11 @@ interface Punctuation {
   symbol: string;
 }
 interface GameProps {
+  school: { id: string; name: string; level: string };
   period: number;
   studentId: string;
   subject: string;
+  onCorrectAnswer: () => void;
 }
 const DRAG_TYPES = {
   TOOL: "tool",
@@ -75,7 +77,13 @@ const Word = ({
   );
 };
 
-const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
+const InteractiveCorrection = ({
+  school,
+  period,
+  studentId,
+  subject,
+  onCorrectAnswer,
+}: GameProps) => {
   const sentences = [
     [
       "harry",
@@ -319,9 +327,17 @@ const InteractiveCorrection = ({ period, studentId, subject }: GameProps) => {
     ];
     try {
       const isCorrect = correctedSentence.includes(getCorrectedSentence());
-      await saveResponse(studentId, subject, period, "ponctuation", isCorrect);
+      await saveResponse(
+        school,
+        studentId,
+        subject,
+        period,
+        "ponctuation",
+        isCorrect
+      );
 
       if (isCorrect) {
+        onCorrectAnswer();
         setMessage("Bravo ! La correction est parfaite !");
         setTimeout(() => {
           const randomIndex = Math.floor(Math.random() * sentences.length);

@@ -9,12 +9,20 @@ import {
 } from "react-beautiful-dnd";
 
 interface GameProps {
+  school: { id: string; name: string; level: string };
   period: number;
   studentId: string;
   subject: string;
+  onCorrectAnswer: () => void;
 }
 
-const SortingGame = ({ period, studentId, subject }: GameProps) => {
+const SortingGame = ({
+  school,
+  period,
+  studentId,
+  subject,
+  onCorrectAnswer,
+}: GameProps) => {
   const [numbers, setNumbers] = useState<number[]>([]);
   const [orderType, setOrderType] = useState("");
   const [message, setMessage] = useState("");
@@ -72,9 +80,17 @@ const SortingGame = ({ period, studentId, subject }: GameProps) => {
     const isCorrect = JSON.stringify(numbers) === JSON.stringify(sortedNumbers);
 
     try {
-      await saveResponse(studentId, subject, period, "ordre", isCorrect);
-      setMessage("Bravo ! tu as bien classé tous les nombres 🎉");
+      await saveResponse(
+        school,
+        studentId,
+        subject,
+        period,
+        "ordre",
+        isCorrect
+      );
       if (isCorrect) {
+        onCorrectAnswer();
+        setMessage("Bravo ! tu as bien classé tous les nombres 🎉");
         setTimeout(() => generateNumbers(period), 2000);
       } else {
         setMessage("Ce n'est pas correct. Essayez encore !");

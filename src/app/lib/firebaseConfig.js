@@ -26,6 +26,7 @@ const db = getFirestore(app);
 export { auth, db };
 
 export const saveResponse = async (
+  school,
   studentId,
   subject,
   period,
@@ -33,7 +34,7 @@ export const saveResponse = async (
   isCorrect
 ) => {
   try {
-    const studentDocRef = doc(db, "students", studentId);
+    const studentDocRef = doc(db, `schools/${school?.id}/students`, studentId);
     const studentDoc = await getDoc(studentDocRef);
 
     if (studentDoc.exists()) {
@@ -72,9 +73,9 @@ export const saveResponse = async (
   }
 };
 
-export const getStudentStats = async (studentId, period, subject) => {
+export const getStudentStats = async (school, studentId, period, subject) => {
   try {
-    const studentDocRef = doc(db, "students", studentId);
+    const studentDocRef = doc(db, `schools/${school?.id}/students`, studentId);
     const studentDoc = await getDoc(studentDocRef);
 
     if (studentDoc.exists()) {

@@ -25,6 +25,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSchool } from "@/app/utils/SchoolContext";
 
 const Dashboard = () => {
   interface Period {
@@ -50,6 +51,7 @@ const Dashboard = () => {
     Legend
   );
 
+  const { school } = useSchool();
   const [students, setStudents] = useState<Student[]>([
     { id: "", name: "", lastName: "", password: "", uid: "" },
   ]);
@@ -87,9 +89,9 @@ const Dashboard = () => {
   const [chartData, setChartData] = useState<ChartData[] | null>(null);
 
   const fetchPeriods = useCallback(async () => {
-    if (user) {
+    if (user && school) {
       const periodsQuery = query(
-        collection(db, "periods"),
+        collection(db, `schools/${school?.id}/periods`),
         where("uid", "==", user.uid)
       );
       const periodsSnapshot = await getDocs(periodsQuery);
@@ -100,12 +102,12 @@ const Dashboard = () => {
       }));
       setPeriods(periodsData);
     }
-  }, [user]);
+  }, [school, user]);
 
   const fetchStudents = useCallback(async () => {
-    if (user) {
+    if (user && school) {
       const studentsQuery = query(
-        collection(db, "students"),
+        collection(db, `schools/${school.id}/students`),
         where("uid", "==", user.uid)
       );
       const studentsSnapshot = await getDocs(studentsQuery);
@@ -118,7 +120,7 @@ const Dashboard = () => {
       }));
       setExistingStudents(studentsData);
     }
-  }, [user]);
+  }, [user, school]);
 
   useEffect(() => {
     fetchPeriods();
@@ -130,19 +132,31 @@ const Dashboard = () => {
       const batch = writeBatch(db);
       students.forEach((student) => {
         if (student.name && student.lastName && student.password) {
-          const studentRef = doc(collection(db, "students"));
+          if (!school) {
+            throw new Error("School is null");
+          }
+
+          // Création d'un identifiant unique (ex: "john.doe.281299")
+          const uniquename = `${student.name.toLowerCase()}.${student.lastName.toLowerCase()}.${
+            student.password
+          }`;
+
+          const studentRef = doc(
+            collection(db, `schools/${school.id}/students`)
+          );
           batch.set(studentRef, {
             id: studentRef.id,
             name: student.name.toLowerCase(),
             lastName: student.lastName.toLowerCase(),
             password: student.password,
+            uniquename,
             uid: user?.uid,
           });
         }
       });
       await batch.commit();
       setStudents([{ id: "", name: "", lastName: "", password: "", uid: "" }]);
-      fetchStudents();
+      await fetchStudents();
     } catch (error) {
       console.error("Error creating students:", error);
     }
@@ -175,14 +189,22 @@ const Dashboard = () => {
     try {
       updatedPeriods.forEach(async (period) => {
         const periodQuery = query(
-          collection(db, "periods"),
+          collection(db, `schools/${school?.id}/periods`),
           where("uid", "==", user?.uid),
           where("id", "==", period.id)
         );
         const periodSnapshot = await getDocs(periodQuery);
-        const periodDoc = periodSnapshot.docs[0];
-        const periodRef = doc(db, "periods", periodDoc.id);
-        await updateDoc(periodRef, { active: period.active });
+        if (!periodSnapshot.empty) {
+          const periodDoc = periodSnapshot.docs[0];
+          const periodRef = doc(
+            db,
+            `schools/${school?.id}/periods`,
+            periodDoc.id
+          );
+          await updateDoc(periodRef, { active: period.active });
+        } else {
+          console.error("Aucune période trouvée pour cet ID");
+        }
       });
       setPeriods(updatedPeriods);
     } catch (error) {
@@ -192,9 +214,12 @@ const Dashboard = () => {
 
   const handleDeleteStudent = async (studentId: string) => {
     try {
-      const studentRef = doc(db, "students", studentId);
+      if (!school) {
+        throw new Error("School is null");
+      }
+      const studentRef = doc(db, `schools/${school.id}/students`, studentId);
       await deleteDoc(studentRef);
-      fetchStudents(); // Refresh the list of students
+      await fetchStudents(); // Refresh the list of students
     } catch (error) {
       console.error("Error deleting student:", error);
     }
@@ -244,7 +269,7 @@ const Dashboard = () => {
           title: {
             display: true,
             text: `Statistiques pour ${gameName}`,
-            color: "black",
+            color: "#F6EEB4",
             size: 20,
             weight: "bold",
           },
@@ -252,7 +277,7 @@ const Dashboard = () => {
           plugins: {
             legend: {
               position: "top",
-              color: "black",
+              color: "#F6EEB4",
             },
           },
           scales: {
@@ -261,13 +286,13 @@ const Dashboard = () => {
               title: {
                 display: false,
                 text: "Type de Réponse",
-                color: "black", // Couleur du titre de l'axe X
+                color: "#F6EEB4", // Couleur du titre de l'axe X
               },
               ticks: {
-                color: "black", // Couleur des étiquettes de l'axe X
+                color: "#F6EEB4", // Couleur des étiquettes de l'axe X
               },
               grid: {
-                color: "black", // Couleur es de grill)
+                color: "#F6EEB4", // Couleur es de grill)
               },
             },
             y: {
@@ -275,13 +300,13 @@ const Dashboard = () => {
               title: {
                 display: false,
                 text: "Nombre de Réponses",
-                color: "black", // Couleur du titre de l'axe Y
+                color: "#F6EEB4", // Couleur du titre de l'axe Y
               },
               ticks: {
-                color: "black", // Couleur des étiquettes de l'axe Y
+                color: "#F6EEB4", // Couleur des étiquettes de l'axe Y
               },
               grid: {
-                color: "black", // Couleur des lignes de grille de l'axe Y
+                color: "#F6EEB4", // Couleur des lignes de grille de l'axe Y
               },
             },
           },
@@ -299,6 +324,7 @@ const Dashboard = () => {
         const activePeriod = periods.find((period) => period.active)?.id;
         if (activePeriod) {
           const stats = await getStudentStats(
+            school,
             selectedStudentId,
             activePeriod,
             selectedSubject
@@ -316,7 +342,7 @@ const Dashboard = () => {
     };
 
     fetchStats();
-  }, [selectedStudentId, selectedSubject, periods, calculateChartData]);
+  }, [school, selectedStudentId, selectedSubject, periods, calculateChartData]);
 
   if (loading) {
     return (
@@ -328,14 +354,12 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col text-[#F6EEB4]">
         <div className='bg-[#0000006b] h-screen'>
           <Navbar />
-          <aside className='fixed left-0 z-40 w-64 bg-[#c08448b9] pl-4 pt-2 mt-2 rounded-lg h-screen'>
-            <h1 className='text-2xl text-black font-bold mb-4'>
-              Tableau de bord
-            </h1>
-            <h2 className='text-xl text-black'>Périodes actives:</h2>
+          <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-screen'>
+            <h1 className='text-2xl font-bold mb-4'>Tableau de bord</h1>
+            <h2 className='text-xl'>Périodes actives:</h2>
             <div className='space-y-1'>
               {periods
                 .sort((a, b) => a.id - b.id)
@@ -343,8 +367,8 @@ const Dashboard = () => {
                   <div
                     className={`${
                       period.active
-                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full text-black p-1"
-                        : "text-black p-1"
+                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full p-1"
+                        : "p-1"
                     }`}
                     key={period.id}
                   >
@@ -359,7 +383,7 @@ const Dashboard = () => {
                 ))}
             </div>
             <h2
-              className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer pl-1 rounded-l-full ${
+              className={`w-full inline-block text-xl hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer pl-1 rounded-l-full ${
                 showStudentForm
                   ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
                   : ""
@@ -369,7 +393,7 @@ const Dashboard = () => {
               Ajouter/Supprimer élèves
             </h2>
             <h2
-              className={`w-full inline-block text-xl text-black hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer  pl-1 rounded-l-full ${
+              className={`w-full inline-block text-xl hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer  pl-1 rounded-l-full ${
                 showStudentStats
                   ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
                   : ""
@@ -379,7 +403,7 @@ const Dashboard = () => {
               Stats d&apos;un élève
             </h2>
           </aside>
-          <div className='ml-64 p-2 text-black space-y-2'>
+          <div className='ml-64 p-2 space-y-2'>
             {showStudentForm && (
               <>
                 {students.map((student, index) => (
@@ -425,13 +449,13 @@ const Dashboard = () => {
                 ))}
                 <div className='mt-4 flex space-x-10'>
                   <button
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
                     onClick={handleAddStudentField}
                   >
                     Ajouter un Champs
                   </button>
                   <button
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
                     onClick={handleCreateStudent}
                   >
                     Créer compte(s) élèves
@@ -439,14 +463,14 @@ const Dashboard = () => {
                 </div>
                 <h2 className='text-xl text-white mt-4'>Liste des élèves:</h2>
                 <div className='w-full max-h-[calc(100vh-150px)] overflow-y-auto mt-4'>
-                  <div className='flex flex-col gap-2'>
+                  <div className='grid grid-cols-2 gap-6'>
                     {existingStudents.map((student) => (
                       <div
                         key={student.id}
-                        className='flex gap-2 items-center text-white text-sm'
+                        className='flex gap-2 items-center text-white text-md'
                       >
                         <span>
-                          {student.name} {student.lastName}
+                          {student.name} {student.lastName} {student.password}
                         </span>
                         <Image
                           className='cursor-pointer'
@@ -466,7 +490,7 @@ const Dashboard = () => {
               <>
                 <div className='space-x-5'>
                   <select
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    className='p-2 rounded-xl bg-[#433500] bg-gradient-to-r from-[#2D2305] to-[#433500]'
                     onChange={(e) => setSelectedStudentId(e.target.value)}
                   >
                     <option value={""}>Choisir un éleve</option>
@@ -477,7 +501,7 @@ const Dashboard = () => {
                     ))}
                   </select>
                   <select
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                    className='p-2 rounded-xl bg-[#433500] bg-gradient-to-r from-[#2D2305] to-[#433500]'
                     onChange={(e) => setSelectedSubject(e.target.value)}
                   >
                     <option value=''>Choisir une matière</option>
@@ -494,7 +518,7 @@ const Dashboard = () => {
                     {chartData &&
                       chartData.map((data, index) => (
                         <div
-                          className='px-1 bg-[#f2a65a] opacity-80 rounded-lg h-max'
+                          className='px-1 bg-gradient-to-r from-[#2D2305] to-[#433500] opacity-80 rounded-lg h-max'
                           key={index}
                         >
                           <Bar data={data} options={data.options} />

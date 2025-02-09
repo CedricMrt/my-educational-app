@@ -20,14 +20,14 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-  color: #9dff1d;
+  color: #fee949f5;
 }
 
 .box-outer {
   position: relative;
   width: 50%;
   min-width: 18rem;
-  border: 2px solid #f2a65a;
+  border: 2px solid #836a21;
   transition: all 0.3s ease-in-out;
 }
 
@@ -38,7 +38,7 @@ body {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  border: 2px solid #f2a65a;
+  border: 2px solid #836a21;
   background-color: rgba(0, 0, 0, 0.527);
 }
 
@@ -48,7 +48,7 @@ body {
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 2px solid #f2a65a;
+  border: 2px solid #836a21;
   top: 7px;
 }
 
@@ -66,7 +66,7 @@ body {
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 2px solid #f2a65a;
+  border: 2px solid #836a21;
   bottom: 6px;
 }
 
@@ -80,13 +80,12 @@ body {
 
 .activity {
   width: clamp(12rem, 70%, 80%);
-  background: linear-gradient(315deg, #9d523c 0%, #f2a65a 74%);
-  border: 2px solid #9d523c;
+  background: linear-gradient(315deg, #2d2305 0%, #433500 74%);
+  border: 2px solid #836a21;
   padding: 0.5rem 1rem;
   border-radius: 50px;
   text-decoration: none;
   text-align: center;
-  color: #ffd700;
   font-size: 2rem;
   text-shadow: 4px 0px 3px rgba(0, 0, 0, 0.8);
   cursor: pointer;
@@ -94,8 +93,8 @@ body {
 
 @media (max-height: 431px) {
   .box-outer {
-    width: 80%; /* Ajustez cette valeur selon vos besoins */
-    height: auto; /* Ajustez cette valeur selon vos besoins */
+    width: 80%;
+    height: auto;
   }
 
   .activityChoice {

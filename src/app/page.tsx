@@ -1,5 +1,4 @@
 "use client";
-import LoginForm from "../app/components/LoginForms";
 import Image from "next/image";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -7,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./lib/firebaseConfig";
 import { useEffect, useState } from "react";
-import Layout from "./components/Layout";
+import SchoolClassSelector from "./components/SchoolClassSelector";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -32,30 +31,24 @@ export default function Home() {
 
   return (
     <div>
-      <Layout>
-        <header className='bg-[#00000050]'>
-          <Navbar />
-        </header>
-        <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
-          <LoginForm />
-        </main>
-        <footer className='flex items-center justify-center bg-[#00000050]'>
-          <p>© {currentYear} Ecole Chavernac website made by</p>
-          <a
-            href='https://cedricmrt.github.io/'
-            target='_blank'
-            rel='noreferrer'
-          >
-            <Image
-              src='/img/logo-cm.png'
-              alt='logo createur du site'
-              width={30}
-              height={30}
-              style={{ width: "auto", height: "auto" }}
-            />
-          </a>
-        </footer>
-      </Layout>
+      <header className='bg-[#00000050]'>
+        <Navbar />
+      </header>
+      <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
+        <SchoolClassSelector />
+      </main>
+      <footer className='flex items-center justify-center bg-[#00000050]'>
+        <p>© {currentYear} application made by</p>
+        <a href='https://cedricmrt.github.io/' target='_blank' rel='noreferrer'>
+          <Image
+            src='/img/logo-cm.png'
+            alt='logo createur du site'
+            width={30}
+            height={30}
+            style={{ width: "auto", height: "auto" }}
+          />
+        </a>
+      </footer>
     </div>
   );
 }
