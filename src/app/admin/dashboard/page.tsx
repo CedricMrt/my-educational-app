@@ -52,7 +52,6 @@ const Dashboard = () => {
   );
 
   const { school } = useSchool();
-  console.log("school:", school);
   const [students, setStudents] = useState<Student[]>([
     { id: "", name: "", lastName: "", password: "", uid: "" },
   ]);
@@ -347,7 +346,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100dvh] flex justify-center items-center">
         <p className='text-2xl'>Chargement...</p>
       </div>
     );
@@ -355,7 +354,7 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col text-[#F6EEB4]">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100dvh] flex flex-col text-[#F6EEB4]">
         <div className='bg-[#0000006b] h-screen'>
           <Navbar />
           <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-screen'>

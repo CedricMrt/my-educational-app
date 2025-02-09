@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html lang='fr'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100dvh]`}
       >
-        <div className='bg-[#0000001c] h-screen'>
+        <div className='bg-[#0000001c] h-[100dvh]'>
           <SchoolProvider>
             <Toaster position='top-center' />
             {children}
