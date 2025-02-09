@@ -117,12 +117,17 @@ const Game = ({
           />
         </div>
       ) : (
-        <div className='flex flex-col items-center text-6xl'>
-          <span>{number1}</span>
-          <span>
-            {operation === "addition" ? "+" : "-"} {number2}
-          </span>
-          <hr className='w-full border-2 border-black my-2' />
+        <div className='flex flex-col items-end text-6xl font-mono'>
+          <div className='flex gap-2'>
+            <span className='w-16 text-right'>{number1}</span>
+          </div>
+          <div className='flex gap-2'>
+            <span className='text-left w-6'>
+              {operation === "addition" ? "+" : "-"}
+            </span>
+            <span className='w-16 text-right'>{number2}</span>
+          </div>
+          <hr className='w-20 border-2 border-black my-2' />
           <input
             className='max-w-20 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
             type='text'
