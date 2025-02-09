@@ -23,7 +23,7 @@ const StudentDashboard = () => {
 
   return (
     <StudentGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen relative">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-screen">
         <Navbar />
 
         {/* Niffleur - Animation d'arrivée depuis la gauche */}
@@ -31,7 +31,7 @@ const StudentDashboard = () => {
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className='absolute bottom-[-5] left-0'
+          className='absolute bottom-0 left-0'
         >
           <Image
             width={200}

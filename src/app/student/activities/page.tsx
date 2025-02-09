@@ -192,8 +192,8 @@ const SubjectPage = () => {
               width={150}
               height={150}
               className='absolute top-[20px] left-50%'
-              initial={{ opacity: 0, y: 90 }} // Cache et position en bas
-              animate={showNiffleur ? { y: 0 } : { y: 90 }} // Animation d'entrée/sortie
+              initial={{ opacity: 1, y: 90 }}
+              animate={showNiffleur ? { y: -20 } : { y: 90 }}
               transition={{ duration: 0.4 }}
             />
             <div className="bg-[url('/img/livre_ouvert.png')] bg-cover bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow h-full max-h-[calc(100vh-60px)] max-w-full">

@@ -52,6 +52,7 @@ const Dashboard = () => {
   );
 
   const { school } = useSchool();
+  console.log("school:", school);
   const [students, setStudents] = useState<Student[]>([
     { id: "", name: "", lastName: "", password: "", uid: "" },
   ]);
