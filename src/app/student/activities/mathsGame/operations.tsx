@@ -90,14 +90,14 @@ const Game = ({
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
       <select
-        className='p-2 rounded-xl text-2xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+        className='p-2 rounded-xl text-2xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
         value={operation}
         onChange={(e) => setOperation(e.target.value)}
       >
-        <option className='bg-black' value='addition'>
+        <option className='bg-[#433500]' value='addition'>
           Addition
         </option>
-        <option className='bg-black' value='soustraction'>
+        <option className='bg-[#433500]' value='soustraction'>
           Soustraction
         </option>
       </select>
@@ -137,7 +137,7 @@ const Game = ({
         </div>
       )}
       <button
-        className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         onClick={handleValidate}
       >
         Valider

@@ -43,8 +43,8 @@ const StudentDashboard = () => {
         </motion.div>
         {showBotruc && (
           <motion.div
-            initial={{ x: -280, y: 190, opacity: 0 }}
-            animate={{ x: -280, y: 45, opacity: 1 }}
+            initial={{ x: -200, y: 390, opacity: 0 }}
+            animate={{ x: -200, y: 225, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className='absolute right-0 z-[0]'
           >

@@ -30,7 +30,7 @@ const Tool = ({ label, type }: { label: string; type: string }) => {
   return (
     <div
       ref={drag as unknown as React.Ref<HTMLDivElement>}
-      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#9d523c] to-[#f2a65a] drop-shadow-lg'
+      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
       style={{
         backgroundColor: isDragging ? "#ddd" : "#0070f3",
       }}
@@ -380,7 +380,7 @@ const InteractiveCorrection = ({
         </div>
         <button
           onClick={validateCorrection}
-          className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer max-sm:px-2 max-sm:py-1'
+          className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         >
           Valider
         </button>

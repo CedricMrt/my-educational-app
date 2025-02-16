@@ -1,5 +1,4 @@
 "use client";
-import Layout from "@/app/components/Layout";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { db } from "../../lib/firebaseConfig";
@@ -7,6 +6,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import MathsGame1 from "./mathsGame/operations";
 import MathsGame2 from "./mathsGame/ordre";
 import MathsGame3 from "./mathsGame/comparaison";
+import MathsGame4 from "./mathsGame/Heures";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
 /* import EnglishGame from "./englishGame/page";
@@ -40,9 +40,11 @@ const SubjectPage = () => {
   const [showNiffleur, setShowNiffleur] = useState(false);
 
   useEffect(() => {
-    const storedStudent = sessionStorage.getItem("student");
-    if (storedStudent) {
-      setStudent(JSON.parse(storedStudent));
+    if (typeof window !== "undefined") {
+      const storedStudent = sessionStorage.getItem("student");
+      if (storedStudent) {
+        setStudent(JSON.parse(storedStudent));
+      }
     }
   }, []);
 
@@ -62,7 +64,7 @@ const SubjectPage = () => {
 
     fetchActivePeriod();
   }, [school]);
-
+  console.log(student, period);
   interface ActivityClickHandler {
     (activity: string): void;
   }
@@ -76,79 +78,86 @@ const SubjectPage = () => {
     setTimeout(() => setShowNiffleur(false), 3000);
   };
 
-  if (!period) {
+  if (!student) {
     return (
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
-        <p className='text-2xl'>Chargement...</p>
+        <p className='text-2xl'>Aucun étudiant trouvé.</p>
+        <Link
+          href='/'
+          className='px-4 py-2 bg-[#433500] text-white rounded-lg hover:bg-[#2D2305] transition'
+        >
+          Retour à l&apos;accueil
+        </Link>
       </div>
     );
   }
 
   return (
-    <Layout>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen">
-        <div className='bg-[#0000006b] h-screen flex flex-col'>
-          <Navbar />
-          <div className='flex flex-col items-center justify-center w-full h-full px-2 py-8 landscape:flex-row'>
-            <div className='flex flex-col items-center'>
-              <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
-                {subject === "mathsGame" && (
-                  <div className='flex justify-around w-full landscape:flex-wrap gap-4'>
-                    <div className='flex flex-col items-center'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Opérations
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/griffondor.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("mathsGame1")}
-                      />
-                    </div>
-                    <div className='flex flex-col items-center'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Ordre
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/serdaigle.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("mathsGame2")}
-                      />
-                    </div>
-                    <div className='flex flex-col items-center'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Comparaison
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/serpentar.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("mathsGame3")}
-                      />
-                    </div>
-                    <div className='flex flex-col items-center'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Positions
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/poufsouffle.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("mathsGame4")}
-                      />
-                    </div>
+    <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen">
+      <div className='bg-[#0000006b] h-screen flex flex-col'>
+        <Navbar />
+        <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row'>
+          <div className='flex flex-col items-center'>
+            <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
+              {subject === "mathsGame" && (
+                <div className='flex justify-around w-full landscape:flex-wrap gap-4'>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Opérations
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame1")}
+                    />
                   </div>
-                )}
-                {subject === "frenchGame" && Number(period.id) === 1 && (
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Ordre
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serdaigle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame2")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Comparaison
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serpentar.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame3")}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Les Heures
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/poufsouffle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("mathsGame4")}
+                    />
+                  </div>
+                </div>
+              )}
+              {subject === "frenchGame" &&
+                period &&
+                Number(period.id) === 1 && (
                   <div className='flex justify-around w-full'>
                     <div className='flex flex-col items-center'>
                       <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
@@ -178,87 +187,99 @@ const SubjectPage = () => {
                     </div>
                   </div>
                 )}
-              </div>
-              <Link
-                href='/student/dashboard'
-                className='text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)] mb-4'
-              >
-                Retour vers la liste des matières
-              </Link>
             </div>
-            <motion.img
-              src='/img/niffleur-unscreen.gif'
-              alt='gif niffleur'
-              width={150}
-              height={150}
-              className='absolute top-[20px] left-50%'
-              initial={{ opacity: 1, y: 120 }}
-              animate={showNiffleur ? { y: 20 } : { y: 120 }}
-              transition={{ duration: 0.4 }}
-            />
-            <div className="bg-[url('/img/livre_ouvert.png')] bg-cover bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[70%] h-full max-h-[calc(100dvh-200px)]">
-              <div className='w-[85%] h-[96%] flex items-center justify-center'>
-                {selectedActivity === "mathsGame1" &&
-                  student &&
-                  subject &&
-                  school && (
-                    <MathsGame1
-                      school={school}
-                      subject={subject}
-                      studentId={student.id}
-                      period={Number(period.id)}
-                      onCorrectAnswer={handleCorrectAnswer}
-                    />
-                  )}
-                {selectedActivity === "mathsGame2" &&
-                  student &&
-                  subject &&
-                  school && (
-                    <MathsGame2
-                      school={school}
-                      subject={subject}
-                      studentId={student.id}
-                      period={Number(period.id)}
-                      onCorrectAnswer={handleCorrectAnswer}
-                    />
-                  )}
-                {selectedActivity === "mathsGame3" &&
-                  student &&
-                  subject &&
-                  school && (
-                    <MathsGame3
-                      school={school}
-                      subject={subject}
-                      studentId={student.id}
-                      period={Number(period.id)}
-                      onCorrectAnswer={handleCorrectAnswer}
-                    />
-                  )}
-                {selectedActivity === "frenchGame1" &&
-                  student &&
-                  subject &&
-                  school && (
-                    <FrenchGame1
-                      school={school}
-                      subject={subject}
-                      studentId={student.id}
-                      period={Number(period.id)}
-                      onCorrectAnswer={handleCorrectAnswer}
-                    />
-                  )}
-                {selectedActivity === "frenchGame2" &&
-                  student &&
-                  subject &&
-                  school && (
-                    <FrenchGame2
-                      school={school}
-                      subject={subject}
-                      studentId={student.id}
-                      period={Number(period.id)}
-                      onCorrectAnswer={handleCorrectAnswer}
-                    />
-                  )}
-                {/* {selectedActivity === "englishGame1" && student && subject && school && (
+            <Link
+              href='/student/dashboard'
+              className='text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)] mb-4'
+            >
+              Retour vers la liste des matières
+            </Link>
+          </div>
+          <motion.img
+            src='/img/niffleur-unscreen.gif'
+            alt='gif niffleur'
+            width={150}
+            height={150}
+            className='absolute top-[20px] left-50%'
+            initial={{ opacity: 1, y: 135 }}
+            animate={showNiffleur ? { y: 150 } : { y: 250 }}
+            transition={{ duration: 0.4 }}
+          />
+          <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(100dvh-600px)]">
+            <div className='w-[85%] h-[85%] flex items-center justify-center'>
+              {selectedActivity === "mathsGame1" &&
+                student &&
+                subject &&
+                school && (
+                  <MathsGame1
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "mathsGame2" &&
+                student &&
+                subject &&
+                school && (
+                  <MathsGame2
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "mathsGame3" &&
+                student &&
+                subject &&
+                school && (
+                  <MathsGame3
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "mathsGame4" &&
+                student &&
+                subject &&
+                school && (
+                  <MathsGame4
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "frenchGame1" &&
+                student &&
+                subject &&
+                school && (
+                  <FrenchGame1
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "frenchGame2" &&
+                student &&
+                subject &&
+                school && (
+                  <FrenchGame2
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {/* {selectedActivity === "englishGame1" && student && subject && school && (
             <EnglishGame
             school={school}
               subject={subject}
@@ -276,12 +297,11 @@ const SubjectPage = () => {
               onCorrectAnswer={handleCorrectAnswer}
             />
           )} */}
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

@@ -1,5 +1,11 @@
 "use client";
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+} from "react";
 
 interface School {
   id: string;
@@ -12,22 +18,27 @@ const SchoolContext = createContext<{
   setSchool: React.Dispatch<React.SetStateAction<School | null>>;
 }>({
   school: null,
-  setSchool: () => {},
+  setSchool: () => {
+    throw new Error("setSchool must be used within a SchoolProvider");
+  },
 });
 
-import { ReactNode } from "react";
-
 export const SchoolProvider = ({ children }: { children: ReactNode }) => {
-  const [school, setSchool] = useState<School | null>(null);
+  const [school, setSchool] = useState<School | null>(() => {
+    if (typeof window !== "undefined") {
+      const savedSchool = sessionStorage.getItem("school");
+      return savedSchool ? JSON.parse(savedSchool) : null;
+    }
+    return null;
+  });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const schoolData = sessionStorage.getItem("school");
-      if (schoolData) {
-        setSchool(JSON.parse(schoolData));
-      }
+    if (school) {
+      sessionStorage.setItem("school", JSON.stringify(school));
+    } else {
+      sessionStorage.removeItem("school");
     }
-  }, []);
+  }, [school]);
 
   return (
     <SchoolContext.Provider value={{ school, setSchool }}>

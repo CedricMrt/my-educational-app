@@ -100,7 +100,9 @@ const ComparisonGame = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
-      <p className='text-black'>Glisse le signe correct entre les nombres !</p>
+      <p className='text-black text-2xl font-bold'>
+        Glisse le signe correct entre les nombres !
+      </p>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className='flex items-center gap-5 p-2'>
           <span className='text-5xl max-sm:text-3xl text-center min-w-14'>
@@ -116,8 +118,8 @@ const ComparisonGame = ({
               <div
                 className={`flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12 text-3xl rounded-lg ${
                   droppedSign !== null
-                    ? "bg-gradient-to-r from-[#9d523c] to-[#f2a65a]"
-                    : "bg-[#8f1818]"
+                    ? "bg-gradient-to-r from-[#2D2305] to-[#433500]"
+                    : "bg-[#2D2305]"
                 }`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -152,7 +154,7 @@ const ComparisonGame = ({
                 >
                   {(provided) => (
                     <div
-                      className='flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12  text-3xl rounded-lg cursor-grab bg-gradient-to-r from-[#9d523c] to-[#f2a65a]'
+                      className='flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12  text-3xl rounded-lg cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500]'
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -172,7 +174,7 @@ const ComparisonGame = ({
         </Droppable>
       </DragDropContext>
       <button
-        className='p-2 text-2xl rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         onClick={handleValidate}
       >
         Valider

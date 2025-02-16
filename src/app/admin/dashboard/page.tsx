@@ -355,9 +355,9 @@ const Dashboard = () => {
   return (
     <AdminGuard>
       <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100dvh] flex flex-col text-[#F6EEB4]">
-        <div className='bg-[#0000006b] h-screen'>
+        <div className='bg-[#0000006b] h-[100dvh]'>
           <Navbar />
-          <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-screen'>
+          <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-full'>
             <h1 className='text-2xl font-bold mb-4'>Tableau de bord</h1>
             <h2 className='text-xl'>Périodes actives:</h2>
             <div className='space-y-1'>

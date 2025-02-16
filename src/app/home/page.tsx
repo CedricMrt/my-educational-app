@@ -9,9 +9,9 @@ import { useSchool } from "../utils/SchoolContext";
 import { useRouter } from "next/navigation";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
-import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [formType, setFormType] = useState("teacherLogin");
@@ -96,12 +96,16 @@ const LoginForm = () => {
     }
   };
 
+  const deleteSchoolStorage = () => {
+    sessionStorage.removeItem("school");
+  };
+
   return (
-    <Layout>
+    <>
       <header className='bg-[#00000050]'>
         <Navbar />
       </header>
-      <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
+      <main className='min-h-[calc(100vh-98.5px)] flex flex-col justify-center items-center bg-[#00000050] space-y-10'>
         <div className='flex items-center justify-around w-full px-6'>
           <div className='flex gap-2 flex-col'>
             <button
@@ -292,6 +296,15 @@ const LoginForm = () => {
             )}
           </div>
         </div>
+        <div>
+          <Link
+            href='/'
+            className='px-4 py-2 bg-[#433500] rounded-lg hover:bg-[#2D2305] transition'
+            onClick={deleteSchoolStorage}
+          >
+            Retour au choix d&apos;école
+          </Link>
+        </div>
       </main>
       <footer className='flex items-center justify-center bg-[#00000050]'>
         <p>
@@ -307,7 +320,7 @@ const LoginForm = () => {
           />
         </a>
       </footer>
-    </Layout>
+    </>
   );
 };
 

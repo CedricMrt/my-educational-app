@@ -78,7 +78,7 @@ const AlphabetActivity = ({
           missingIndexes.includes(index) ? (
             <input
               key={index}
-              className='w-10 h-10 text-2xl text-center bg-[#8f1818] rounded-lg'
+              className='w-10 h-10 text-2xl text-center bg-[#14120B] rounded-lg'
               type='text'
               maxLength={1}
               value={userInput[index] || ""}
@@ -95,7 +95,7 @@ const AlphabetActivity = ({
         )}
       </div>
       <button
-        className='mt-5 text-2xl p-2 rounded-xl bg-gradient-to-r from-[#9d523c] to-[#f2a65a] cursor-pointer'
+        className='mt-5 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         onClick={checkAnswers}
       >
         Valider
