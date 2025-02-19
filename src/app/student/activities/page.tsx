@@ -306,7 +306,7 @@ const SubjectPage = () => {
                     school={school}
                     subject={subject}
                     studentId={student.id}
-                    period={Number(period.id)}
+                    period={period ? Number(period.id) : 0}
                     onCorrectAnswer={handleCorrectAnswer}
                   />
                 )}
