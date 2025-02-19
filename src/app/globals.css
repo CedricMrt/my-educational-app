@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   height: 100dvh;
   margin: 0;
@@ -103,5 +91,11 @@ body {
 
   .activity {
     font-size: 1.2rem;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
   }
 }

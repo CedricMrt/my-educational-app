@@ -9,8 +9,8 @@ import MathsGame3 from "./mathsGame/comparaison";
 import MathsGame4 from "./mathsGame/Heures";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
-/* import EnglishGame from "./englishGame/page";
-import DiscoveryWorldGame from "./discoveryWorldGame/page"; */
+import EnglishGame1 from "./englishGame/relier";
+/*import DiscoveryWorldGame from "./discoveryWorldGame/page"; */
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -187,6 +187,25 @@ const SubjectPage = () => {
                     </div>
                   </div>
                 )}
+              {subject === "englishGame" &&
+                period &&
+                Number(period.id) === 1 && (
+                  <div className='flex justify-around w-full'>
+                    <div className='flex flex-col items-center'>
+                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                        Relier
+                      </h2>
+                      <Image
+                        className='cursor-pointer rounded-lg drop-shadow-lg'
+                        width={60}
+                        height={60}
+                        src={"/img/griffondor.png"}
+                        alt='activity icon'
+                        onClick={() => handleActivityClick("englishGame1")}
+                      />
+                    </div>
+                  </div>
+                )}
             </div>
             <Link
               href='/student/dashboard'
@@ -279,16 +298,19 @@ const SubjectPage = () => {
                     onCorrectAnswer={handleCorrectAnswer}
                   />
                 )}
-              {/* {selectedActivity === "englishGame1" && student && subject && school && (
-            <EnglishGame
-            school={school}
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-              onCorrectAnswer={handleCorrectAnswer}
-            />
-          )}
-          {selectedActivity === "discoveryWorldGame" && student && subject && school && (
+              {selectedActivity === "englishGame1" &&
+                student &&
+                subject &&
+                school && (
+                  <EnglishGame1
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={Number(period.id)}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {/*{selectedActivity === "discoveryWorldGame" && student && subject && school && (
             <DiscoveryWorldGame
             school={school}
               subject={subject}

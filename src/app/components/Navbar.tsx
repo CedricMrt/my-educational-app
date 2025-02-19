@@ -38,6 +38,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     if (userType === "student") {
       sessionStorage.removeItem("student");
+      sessionStorage.removeItem("school");
     } else {
       await signOut(auth);
     }
