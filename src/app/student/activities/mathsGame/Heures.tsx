@@ -11,9 +11,19 @@ interface GameProps {
   onCorrectAnswer: () => void;
 }
 
-const getRandomTime = () => {
+const getRandomTime = (period: number) => {
   const hours = Math.floor(Math.random() * 12) + 1;
-  const minutes = Math.floor(Math.random() * 12) * 5;
+  let minutes;
+
+  if (period === 1) {
+    // Si period = 1, on ne prend que 00, 15, 30, 45
+    const validMinutes = [0, 15, 30, 45];
+    minutes = validMinutes[Math.floor(Math.random() * validMinutes.length)];
+  } else {
+    // Sinon, on garde des minutes en multiples de 5
+    minutes = Math.floor(Math.random() * 12) * 5;
+  }
+
   return { hours, minutes };
 };
 
@@ -24,7 +34,7 @@ const ClockGame = ({
   subject,
   onCorrectAnswer,
 }: GameProps) => {
-  const [targetTime, setTargetTime] = useState(getRandomTime());
+  const [targetTime, setTargetTime] = useState(getRandomTime(period));
   const [selectedTime, setSelectedTime] = useState({ hours: 12, minutes: 0 });
   const [inputTime, setInputTime] = useState("");
   const [message, setMessage] = useState("");
@@ -32,7 +42,7 @@ const ClockGame = ({
   const [isSettingHours, setIsSettingHours] = useState(false);
 
   useEffect(() => {
-    setTargetTime(getRandomTime());
+    setTargetTime(getRandomTime(period));
     setSelectedTime({ hours: 12, minutes: 0 });
     setInputTime("");
     setMessage("");
@@ -67,7 +77,7 @@ const ClockGame = ({
       onCorrectAnswer();
       setMessage("Bravo ! Bonne réponse 🎉");
       setTimeout(() => {
-        setTargetTime(getRandomTime());
+        setTargetTime(getRandomTime(period));
         setSelectedTime({ hours: 12, minutes: 0 });
         setInputTime("");
         setMessage("");
@@ -98,17 +108,24 @@ const ClockGame = ({
       const hours = Math.round(normalizedAngle / 30) || 12;
       setSelectedTime((prev) => ({ ...prev, hours }));
     } else {
-      // Réglage des minutes
-      const minutes = (Math.round(normalizedAngle / 30) * 5) % 60;
+      let minutes;
+      if (period === 1) {
+        // Si period = 1, ne prendre que 00, 15, 30, 45
+        const validMinutes = [0, 15, 30, 45];
+        const index = Math.round(normalizedAngle / 90) % 4;
+        minutes = validMinutes[index];
+      } else {
+        minutes = (Math.round(normalizedAngle / 30) * 5) % 60;
+      }
       setSelectedTime((prev) => ({ ...prev, minutes }));
     }
   };
 
-  const hourDeg =
+  /* const hourDeg =
     (gameMode === 1 ? targetTime.hours % 12 : selectedTime.hours % 12) * 30 +
     (gameMode === 1 ? targetTime.minutes : selectedTime.minutes) * 0.5;
   const minuteDeg =
-    (gameMode === 1 ? targetTime.minutes : selectedTime.minutes) * 6;
+    (gameMode === 1 ? targetTime.minutes : selectedTime.minutes) * 6; */
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
@@ -119,13 +136,17 @@ const ClockGame = ({
             <div className='hours-container'>
               <div
                 className='hours'
-                style={{ transform: `rotate(${hourDeg}deg)` }}
+                style={{
+                  transform: `rotate(${
+                    (targetTime.hours % 12) * 30 + targetTime.minutes * 0.5
+                  }deg)`,
+                }}
               ></div>
             </div>
             <div className='minutes-container'>
               <div
                 className='minutes'
-                style={{ transform: `rotate(${minuteDeg}deg)` }}
+                style={{ transform: `rotate(${targetTime.minutes * 6}deg)` }}
               ></div>
             </div>
           </article>
@@ -133,7 +154,18 @@ const ClockGame = ({
             type='text'
             placeholder='hh:mm'
             value={inputTime}
-            onChange={(e) => setInputTime(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              const regex = /^([0-9]{1,2}):([0-9]{2})$/;
+              const match = value.match(regex);
+              if (match) {
+                const minutes = parseInt(match[2]);
+                if (period === 1 && ![0, 15, 30, 45].includes(minutes)) {
+                  return;
+                }
+              }
+              setInputTime(value);
+            }}
             className='mt-4 p-2 text-center text-xl border rounded-lg bg-[#2D2305] max-w-32'
           />
         </>
@@ -148,13 +180,17 @@ const ClockGame = ({
             <div className='hours-container'>
               <div
                 className='hours'
-                style={{ transform: `rotate(${hourDeg}deg)` }}
+                style={{
+                  transform: `rotate(${
+                    (selectedTime.hours % 12) * 30 + selectedTime.minutes * 0.5
+                  }deg)`,
+                }}
               ></div>
             </div>
             <div className='minutes-container'>
               <div
                 className='minutes'
-                style={{ transform: `rotate(${minuteDeg}deg)` }}
+                style={{ transform: `rotate(${selectedTime.minutes * 6}deg)` }}
               ></div>
             </div>
           </article>
