@@ -23,7 +23,7 @@ const Tool = ({ label, type }: { label: string; type: string }) => {
     type: DRAG_TYPES.TOOL,
     item: { type },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     }),
   }));
 
@@ -33,6 +33,7 @@ const Tool = ({ label, type }: { label: string; type: string }) => {
       className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
       style={{
         backgroundColor: isDragging ? "#ddd" : "#0070f3",
+        opacity: isDragging ? 0.5 : 1,
       }}
     >
       {label}
