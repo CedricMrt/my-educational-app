@@ -19,6 +19,9 @@ const Game = ({
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [operation, setOperation] = useState("addition");
+  const [units, setUnits] = useState("");
+  const [tens, setTens] = useState("");
+  const [hundreds, setHundreds] = useState("");
   const [userAnswer, setUserAnswer] = useState("");
   const [message, setMessage] = useState("");
   const [displayMode, setDisplayMode] = useState("inline");
@@ -47,22 +50,36 @@ const Game = ({
     setNumber1(sortedNumbers[0]);
     setNumber2(sortedNumbers[1]);
     setUserAnswer("");
+    setUnits("");
+    setTens("");
+    setHundreds("");
     setMessage("");
-
     setDisplayMode(Math.random() < 0.5 ? "inline" : "column");
   };
 
   const handleValidate = async () => {
-    if (isNaN(Number(userAnswer))) {
-      setMessage("Veuillez entrer un nombre valide.");
-      return;
-    }
-
     const correctAnswer =
       operation === "addition"
         ? number1 + number2
         : Math.abs(number1 - number2);
-    const isCorrect = parseInt(userAnswer) === correctAnswer;
+
+    let userResponse = 0;
+
+    if (displayMode === "inline") {
+      userResponse = parseInt(userAnswer);
+    } else {
+      userResponse =
+        (parseInt(hundreds) || 0) * 100 +
+        (parseInt(tens) || 0) * 10 +
+        (parseInt(units) || 0);
+    }
+
+    if (isNaN(userResponse)) {
+      setMessage("Veuillez entrer un nombre valide.");
+      return;
+    }
+
+    const isCorrect = userResponse === correctAnswer;
 
     try {
       await saveResponse(
@@ -119,21 +136,38 @@ const Game = ({
       ) : (
         <div className='flex flex-col items-end text-6xl font-mono'>
           <div className='flex gap-2'>
-            <span className='w-16 text-right'>{number1}</span>
+            <span className='w-18 text-right tracking-[0.5rem]'>{number1}</span>
           </div>
           <div className='flex gap-2'>
             <span className='text-left w-6'>
               {operation === "addition" ? "+" : "-"}
             </span>
-            <span className='w-16 text-right'>{number2}</span>
+            <span className='w-32 text-right tracking-[0.5rem]'>{number2}</span>
           </div>
-          <hr className='w-20 border-2 border-black my-2' />
-          <input
-            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-            type='text'
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-          />
+          <hr className='w-32 border-2 border-black my-2' />
+          <div className='flex gap-2'>
+            <input
+              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              type='text'
+              maxLength={1}
+              value={hundreds}
+              onChange={(e) => setHundreds(e.target.value)}
+            />
+            <input
+              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              type='text'
+              maxLength={1}
+              value={tens}
+              onChange={(e) => setTens(e.target.value)}
+            />
+            <input
+              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              type='text'
+              maxLength={1}
+              value={units}
+              onChange={(e) => setUnits(e.target.value)}
+            />
+          </div>
         </div>
       )}
       <button
