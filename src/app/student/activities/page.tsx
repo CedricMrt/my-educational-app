@@ -96,7 +96,7 @@ const SubjectPage = () => {
     <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen">
       <div className='bg-[#0000006b] h-screen flex flex-col'>
         <Navbar />
-        <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row'>
+        <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row landscape:h-full'>
           <div className='flex flex-col items-center'>
             <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
               {subject === "mathsGame" && (
@@ -224,7 +224,7 @@ const SubjectPage = () => {
             animate={showNiffleur ? { y: 150 } : { y: 250 }}
             transition={{ duration: 0.4 }}
           />
-          <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(100dvh-600px)]">
+          <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(100dvh-600px)] landscape:max-h-[calc(100dvh-150px)]">
             <div className='w-[85%] h-[85%] flex items-center justify-center'>
               {selectedActivity === "mathsGame1" &&
                 student &&

@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../lib/firebaseConfig";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { useSchool } from "../utils/SchoolContext";
 import { useRouter } from "next/navigation";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -13,15 +12,21 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 
+interface School {
+  id: string;
+  name: string;
+  level: string;
+}
+
 const LoginForm = () => {
   const [formType, setFormType] = useState("teacherLogin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  /*   const [surname, setSurname] = useState(""); */
   const router = useRouter();
   const currentYear = new Date().getFullYear();
-  const { school } = useSchool();
+  const [school, setSchool] = useState<School>({ id: "", name: "", level: "" });
 
   const handleTeacherLogin = async () => {
     try {
@@ -34,12 +39,24 @@ const LoginForm = () => {
     }
   };
 
+  useEffect(() => {
+    const storedSchool = sessionStorage.getItem("school");
+    if (storedSchool) {
+      try {
+        const parsedSchool = JSON.parse(storedSchool);
+        setSchool(parsedSchool);
+      } catch (error) {
+        console.error("Erreur de parsing du sessionStorage:", error);
+      }
+    }
+  }, []);
+
   const handleStudentLogin = async () => {
     try {
-      const uniquename = `${name.toLowerCase()}.${surname.toLowerCase()}.${password}`;
+      const uniquename = `${name.toLowerCase()}.${password}`;
 
       const studentQuery = query(
-        collection(db, `schools/${school?.id}/students`),
+        collection(db, `schools/${school.id}/students`),
         where("uniquename", "==", uniquename)
       );
       const studentSnapshot = await getDocs(studentQuery);
@@ -68,7 +85,7 @@ const LoginForm = () => {
       );
       const user = userCredential.user;
 
-      if (!school?.id) {
+      if (!school.id) {
         toast.error("École non trouvée. Veuillez réessayer.");
         return;
       }
@@ -207,7 +224,7 @@ const LoginForm = () => {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <label
                       className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
                       htmlFor='surname'
@@ -221,7 +238,7 @@ const LoginForm = () => {
                       value={surname}
                       onChange={(e) => setSurname(e.target.value)}
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <label
@@ -308,7 +325,7 @@ const LoginForm = () => {
       </main>
       <footer className='flex items-center justify-center bg-[#00000050]'>
         <p>
-          © {currentYear} {school?.name || "School"} website made by
+          © {currentYear} {school.name || "School"} website made by
         </p>
         <a href='https://cedricmrt.github.io/' target='_blank' rel='noreferrer'>
           <Image

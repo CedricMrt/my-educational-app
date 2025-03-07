@@ -59,11 +59,21 @@ const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
   const [showStudentForm, setShowStudentForm] = useState(false);
   const [showStudentStats, setShowStudentStats] = useState(false);
+  const [totalAverage, setTotalAverage] = useState<number | null>(null);
   const [existingStudents, setExistingStudents] = useState<Student[]>([]);
   const [selectedStudentId, setSelectedStudentId] = useState<string | null>(
     null
   );
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<
+    keyof typeof subjectMap | null
+  >(null);
+
+  const subjectMap: { [key: string]: string } = {
+    frenchGame: "Français",
+    mathsGame: "Mathématiques",
+    englishGame: "Anglais",
+    discoveryWorldGame: "Découverte du monde",
+  };
 
   interface GameStats {
     correctCount: number;
@@ -219,7 +229,7 @@ const Dashboard = () => {
       }
       const studentRef = doc(db, `schools/${school.id}/students`, studentId);
       await deleteDoc(studentRef);
-      await fetchStudents(); // Refresh the list of students
+      await fetchStudents();
     } catch (error) {
       console.error("Error deleting student:", error);
     }
@@ -337,6 +347,14 @@ const Dashboard = () => {
           });
 
           setChartData(chartDataList);
+
+          const total = chartDataList.reduce((sum, data) => {
+            const average = parseFloat(data.average);
+            return sum + (isNaN(average) ? 0 : average);
+          }, 0);
+
+          const avg = total / chartDataList.length;
+          setTotalAverage(avg);
         }
       }
     };
@@ -514,6 +532,15 @@ const Dashboard = () => {
                   </select>
                 </div>
                 <div className='w-full max-h-[calc(100vh-150px)] overflow-y-auto mt-4'>
+                  <div className='px-1 bg-gradient-to-r from-[#2D2305] to-[#433500] opacity-80 rounded-lg h-max mb-2 p-1'>
+                    <p>
+                      Moyenne totale en{" "}
+                      {selectedSubject && subjectMap[selectedSubject]} :
+                      {totalAverage !== null
+                        ? ` ${totalAverage.toFixed(2)}/20`
+                        : " N/A"}
+                    </p>
+                  </div>
                   <div className='flex flex-col gap-4'>
                     {chartData &&
                       chartData.map((data, index) => (
@@ -522,7 +549,13 @@ const Dashboard = () => {
                           key={index}
                         >
                           <Bar data={data} options={data.options} />
-                          <p>Moyenne: {data.average}/20</p>
+                          <div>
+                            <p>
+                              {data.gameName.charAt(0).toUpperCase() +
+                                data.gameName.slice(1).toLowerCase()}
+                            </p>
+                            <p>Moyenne: {data.average}/20</p>
+                          </div>
                         </div>
                       ))}
                   </div>

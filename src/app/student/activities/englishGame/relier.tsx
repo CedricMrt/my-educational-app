@@ -68,9 +68,13 @@ const categories: Record<
   ],
 };
 
-const getRandomCategory = (): Category => {
+const getRandomCategory = (previousCategory?: Category): Category => {
   const keys = Object.keys(categories) as Category[];
-  return keys[Math.floor(Math.random() * keys.length)];
+  let newCategory;
+  do {
+    newCategory = keys[Math.floor(Math.random() * keys.length)];
+  } while (newCategory === previousCategory);
+  return newCategory;
 };
 
 const getRandomItems = (category: Category) => {
@@ -175,7 +179,7 @@ const MatchingGame = ({
         onCorrectAnswer();
         setMessage("Bravo ! Toutes les connexions sont correctes 🎉");
         setTimeout(() => {
-          setCategory(getRandomCategory());
+          setCategory(getRandomCategory(category));
           setConnections([]);
           setLines([]);
           setMessage("");
