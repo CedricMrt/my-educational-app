@@ -385,7 +385,7 @@ const Dashboard = () => {
                   <div
                     className={`${
                       period.active
-                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full w-[38%] p-1 hover:opacity-70 cursor-pointer"
+                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full w-[38%] min-w-[93px] p-1 hover:opacity-70 cursor-pointer"
                         : "p-1 hover:opacity-70 cursor-pointer"
                     }`}
                     key={period.id}
