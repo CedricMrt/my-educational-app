@@ -364,7 +364,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[var(--dvh)] flex justify-center items-center">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex justify-center items-center">
         <p className='text-2xl'>Chargement...</p>
       </div>
     );
@@ -372,8 +372,8 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[var(--dvh)] flex flex-col text-[#F6EEB4]">
-        <div className='bg-[#0000006b] h-[var(--dvh)]'>
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex flex-col text-[#F6EEB4]">
+        <div className='bg-[#0000006b] h-[100vh]'>
           <Navbar />
           <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-full'>
             <h1 className='text-2xl font-bold mb-4'>Tableau de bord</h1>

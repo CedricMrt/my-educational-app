@@ -18,15 +18,20 @@ const Tool = ({
   label,
   type,
   onClick,
+  isActive,
 }: {
   label: string;
   type: string;
   onClick: (type: string) => void;
+  isActive: boolean;
 }) => {
   return (
     <div
       onClick={() => onClick(type)}
       className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
+      style={{
+        opacity: isActive ? 0.5 : 1,
+      }}
     >
       {label}
     </div>
@@ -356,9 +361,24 @@ const InteractiveCorrection = ({
           Outils :
         </strong>
         <div className='flex gap-5'>
-          <Tool label='ABC' type='uppercase' onClick={setActiveTool} />
-          <Tool label=',' type='comma' onClick={setActiveTool} />
-          <Tool label='.' type='period' onClick={setActiveTool} />
+          <Tool
+            label='ABC'
+            type='uppercase'
+            onClick={setActiveTool}
+            isActive={activeTool === "uppercase"}
+          />
+          <Tool
+            label=','
+            type='comma'
+            onClick={setActiveTool}
+            isActive={activeTool === "comma"}
+          />
+          <Tool
+            label='.'
+            type='period'
+            onClick={setActiveTool}
+            isActive={activeTool === "period"}
+          />
         </div>
       </div>
       <button
