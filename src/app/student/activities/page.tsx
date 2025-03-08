@@ -224,7 +224,7 @@ const SubjectPage = () => {
             animate={showNiffleur ? { y: 150 } : { y: 250 }}
             transition={{ duration: 0.4 }}
           />
-          <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(100dvh-600px)] landscape:max-h-[calc(100dvh-150px)]">
+          <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(var(--dvh)-600px)] landscape:max-h-[calc(var(--dvh)-150px)]">
             <div className='w-[85%] h-[85%] flex items-center justify-center'>
               {selectedActivity === "mathsGame1" &&
                 student &&

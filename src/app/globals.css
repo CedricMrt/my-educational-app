@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+root {
+  --dvh: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --dvh: 100dvh;
+  }
+}
+
 body {
   height: 100dvh;
   margin: 0;

@@ -23,7 +23,7 @@ const StudentDashboard = () => {
 
   return (
     <StudentGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-[100dvh]">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat flex flex-col h-[var(--dvh)]">
         <Navbar />
 
         {/* Niffleur - Animation d'arrivée depuis la gauche */}
