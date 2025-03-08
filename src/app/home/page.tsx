@@ -124,10 +124,10 @@ const LoginForm = () => {
       </header>
       <main className='min-h-[calc(100vh-98.5px)] flex flex-col justify-center items-center bg-[#00000050] space-y-10'>
         <div className='flex items-center justify-around w-full px-6'>
-          <div className='flex gap-2 flex-col'>
+          <div className='flex flex-col'>
             <button
               onClick={() => setFormType("teacherLogin")}
-              className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] p-2 rounded-xl transition-transform duration-200 active:scale-95 ${
+              className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] mb-4 p-2 rounded-xl transition-transform duration-200 active:scale-95 ${
                 formType === "teacherLogin"
                   ? "text-[#473B1F] bg-gradient-to-r from-[#FEFCE9] to-[#FFFAB8]"
                   : "text-[#fee949f5] bg-gradient-to-r from-[#14120B] to-[#1B180F]"
@@ -137,7 +137,7 @@ const LoginForm = () => {
             </button>
             <button
               onClick={() => setFormType("studentLogin")}
-              className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] p-2 rounded-xl transition-transform duration-200 active:scale-95 ${
+              className={`[box-shadow:1px_3px_4px_0px_rgb(255_255_255_/_40%)] mb-4 p-2 rounded-xl transition-transform duration-200 active:scale-95 ${
                 formType === "studentLogin"
                   ? "text-[#473B1F] bg-gradient-to-r from-[#FEFCE9] to-[#FFFAB8]"
                   : "text-[#fee949f5] bg-gradient-to-r from-[#14120B] to-[#1B180F]"

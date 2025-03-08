@@ -364,7 +364,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex justify-center items-center">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh] flex justify-center items-center">
         <p className='text-2xl'>Chargement...</p>
       </div>
     );
@@ -372,7 +372,7 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex flex-col text-[#F6EEB4]">
+      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh] flex flex-col text-[#F6EEB4]">
         <div className='bg-[#0000006b] h-[100vh]'>
           <Navbar />
           <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-full'>
@@ -385,8 +385,8 @@ const Dashboard = () => {
                   <div
                     className={`${
                       period.active
-                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full p-1"
-                        : "p-1"
+                        ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] rounded-l-full w-[38%] p-1 hover:opacity-70 cursor-pointer"
+                        : "p-1 hover:opacity-70 cursor-pointer"
                     }`}
                     key={period.id}
                   >
@@ -401,7 +401,7 @@ const Dashboard = () => {
                 ))}
             </div>
             <h2
-              className={`w-full inline-block text-xl hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer pl-1 rounded-l-full ${
+              className={`w-full inline-block text-xl hover:opacity-70 mt-4 cursor-pointer pl-1 rounded-l-full ${
                 showStudentForm
                   ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
                   : ""
@@ -411,7 +411,7 @@ const Dashboard = () => {
               Ajouter/Supprimer élèves
             </h2>
             <h2
-              className={`w-full inline-block text-xl hover:[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)] mt-4 cursor-pointer  pl-1 rounded-l-full ${
+              className={`w-full inline-block text-xl hover:opacity-70 mt-4 cursor-pointer  pl-1 rounded-l-full ${
                 showStudentStats
                   ? "[box-shadow:_0_1px_0_rgb(255_255_255_/_40%)]"
                   : ""
@@ -422,6 +422,107 @@ const Dashboard = () => {
             </h2>
           </aside>
           <div className='ml-64 p-2 space-y-2'>
+            {!showStudentForm && !showStudentStats && (
+              <>
+                <h2 className='text-2xl text-[#FFE629]'>Français</h2>
+                <ul className='ml-5'>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Ponctuation:</h3>
+                    <p>
+                      Cliquer sur un outils (&quot;ABC&quot;, &quot;,&quot; ou
+                      &quot;.&quot;) puis cliquer sur un ou plusieurs mots pour
+                      l&apos;appliquer.
+                    </p>
+                  </li>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Alphabet:</h3>
+                    <p>
+                      Séléctionner une boite vide et saisir la lettre manquante.
+                    </p>
+                  </li>
+                </ul>
+                <h2 className='text-2xl text-[#FFE629]'>Mathématiques</h2>
+                <ul className='ml-5'>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Opérations:</h3>
+                    <p>
+                      Séléctionnez Addition ou Soustraction, aléatoirement les
+                      opérations seront en ligne ou en colonne avec des nombres
+                      compris entre{" "}
+                      {(() => {
+                        const activePeriodId = periods.find(
+                          (period) => period.active
+                        )?.id;
+                        switch (activePeriodId) {
+                          case 2:
+                            return "0 et 60";
+                          case 3:
+                            return "0 et 69";
+                          default:
+                            return "0 et 20";
+                        }
+                      })()}
+                      .
+                    </p>
+                  </li>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Ordre:</h3>
+                    <p>
+                      Lire la consigne pour l&apos;ordre Croissant/Décroissant,
+                      faire glisser les nombres entre eux.
+                    </p>
+                  </li>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Comparaison:</h3>
+                    <p>
+                      Faire glisser le signe &quot;&lt;&quot; &quot;&gt;&quot;
+                      ou &quot;=&quot;, les nombres seront compris entre{" "}
+                      {(() => {
+                        const activePeriodId = periods.find(
+                          (period) => period.active
+                        )?.id;
+                        switch (activePeriodId) {
+                          case 2:
+                            return "0 et 60";
+                          case 3:
+                            return "0 et 69";
+                          default:
+                            return "0 et 20";
+                        }
+                      })()}
+                      .
+                    </p>
+                  </li>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Les heures:</h3>
+                    <p>
+                      Deux mode de jeu choisi aléatoirement, soit lire
+                      l&apos;heure et saisir la réponse, soit régler les
+                      aiguilles suivant l&apos; heure indiquée en séléctionnant
+                      avec le bouton celles des heures ou des minutes.
+                    </p>
+                  </li>
+                </ul>
+                <h2 className='text-2xl text-[#FFE629]'>Anglais</h2>
+                <ul className='ml-5'>
+                  <li className='mb-4'>
+                    <h3 className='underline'>Relier:</h3>
+                    <p>
+                      Relier les mots en anglais soit à leur traduction en
+                      français, soit leur image ou bien leur couleur. Il suffit
+                      de cliquer sur le mot anglais puis sur la reponse voulu.
+                    </p>
+                  </li>
+                </ul>
+                <h2 className='text-2xl text-[#FFE629]'>Découverte du monde</h2>
+                <ul className='ml-5'>
+                  <li className='mb-4'>
+                    <h3 className='underline'></h3>
+                    <p>Aucun jeu encore...</p>
+                  </li>
+                </ul>
+              </>
+            )}
             {showStudentForm && (
               <>
                 {students.map((student, index) => (

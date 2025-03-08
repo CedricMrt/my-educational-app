@@ -100,8 +100,8 @@ const SubjectPage = () => {
           <div className='flex flex-col items-center'>
             <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
               {subject === "mathsGame" && (
-                <div className='flex justify-around w-full landscape:flex-wrap gap-4'>
-                  <div className='flex flex-col items-center'>
+                <div className='flex justify-around w-full landscape:flex-wrap'>
+                  <div className='flex flex-col items-center mr-4'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Opérations
                     </h2>
@@ -114,7 +114,7 @@ const SubjectPage = () => {
                       onClick={() => handleActivityClick("mathsGame1")}
                     />
                   </div>
-                  <div className='flex flex-col items-center'>
+                  <div className='flex flex-col items-center mr-4'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Ordre
                     </h2>
@@ -127,7 +127,7 @@ const SubjectPage = () => {
                       onClick={() => handleActivityClick("mathsGame2")}
                     />
                   </div>
-                  <div className='flex flex-col items-center'>
+                  <div className='flex flex-col items-center mr-4'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Comparaison
                     </h2>
@@ -140,7 +140,7 @@ const SubjectPage = () => {
                       onClick={() => handleActivityClick("mathsGame3")}
                     />
                   </div>
-                  <div className='flex flex-col items-center'>
+                  <div className='flex flex-col items-center mr-4'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Les Heures
                     </h2>
@@ -159,7 +159,7 @@ const SubjectPage = () => {
                 period &&
                 Number(period.id) === 1 && (
                   <div className='flex justify-around w-full'>
-                    <div className='flex flex-col items-center'>
+                    <div className='flex flex-col items-center mr-4'>
                       <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                         Ponctuation
                       </h2>
@@ -172,7 +172,7 @@ const SubjectPage = () => {
                         onClick={() => handleActivityClick("frenchGame1")}
                       />
                     </div>
-                    <div className='flex flex-col items-center'>
+                    <div className='flex flex-col items-center mr-4'>
                       <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                         Alphabet
                       </h2>
@@ -191,7 +191,7 @@ const SubjectPage = () => {
                 period &&
                 Number(period.id) === 1 && (
                   <div className='flex justify-around w-full'>
-                    <div className='flex flex-col items-center'>
+                    <div className='flex flex-col items-center mr-4'>
                       <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                         Relier
                       </h2>
