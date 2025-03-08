@@ -1,5 +1,3 @@
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useState } from "react";
 import { saveResponse } from "@/app/lib/firebaseConfig";
 
@@ -7,6 +5,7 @@ interface Punctuation {
   index: number;
   symbol: string;
 }
+
 interface GameProps {
   school: { id: string; name: string; level: string };
   period: number;
@@ -14,27 +13,20 @@ interface GameProps {
   subject: string;
   onCorrectAnswer: () => void;
 }
-const DRAG_TYPES = {
-  TOOL: "tool",
-};
 
-const Tool = ({ label, type }: { label: string; type: string }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: DRAG_TYPES.TOOL,
-    item: { type },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
-
+const Tool = ({
+  label,
+  type,
+  onClick,
+}: {
+  label: string;
+  type: string;
+  onClick: (type: string) => void;
+}) => {
   return (
     <div
-      ref={drag as unknown as React.Ref<HTMLDivElement>}
-      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
-      style={{
-        backgroundColor: isDragging ? "#ddd" : "#0070f3",
-        opacity: isDragging ? 0.5 : 1,
-      }}
+      onClick={() => onClick(type)}
+      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
     >
       {label}
     </div>
@@ -46,31 +38,20 @@ const Word = ({
   index,
   punctuation,
   applyTool,
+  activeTool,
 }: {
   word: string;
   index: number;
   punctuation: Punctuation[];
   applyTool: (index: number, tool: string) => void;
+  activeTool: string;
 }) => {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: DRAG_TYPES.TOOL,
-    drop: (item: { type: string }) => applyTool(index, item.type),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
-
   const punct = punctuation.find((p) => p.index === index)?.symbol || "";
 
   return (
     <span
-      ref={drop as unknown as React.Ref<HTMLSpanElement>}
+      onClick={() => activeTool && applyTool(index, activeTool)}
       className='inline-block break-all p-1 cursor-pointer text-black'
-      style={{
-        backgroundColor: isOver ? "#f0f0f0" : "transparent",
-        border: isOver ? "1px dashed #0070f3" : "none",
-        padding: isOver ? "1rem" : "4px",
-      }}
     >
       {word}
       {punct}
@@ -265,6 +246,7 @@ const InteractiveCorrection = ({
 
   const [currentSentence, setCurrentSentence] = useState(sentences[0]);
   const [punctuation, setPunctuation] = useState<Punctuation[]>([]);
+  const [activeTool, setActiveTool] = useState<string>("");
 
   const applyTool = (index: number, tool: string) => {
     setCurrentSentence((prevSentence) => {
@@ -355,45 +337,44 @@ const InteractiveCorrection = ({
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className='flex flex-col justify-around items-center w-full h-full'>
-        <h1 className='text-2xl text-black'>Corrige la phrase</h1>
-        <p className='max-w-[90%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
-          {currentSentence.map((word, index) => (
-            <Word
-              key={`${word}-${index}`}
-              word={word}
-              index={index}
-              punctuation={punctuation}
-              applyTool={applyTool}
-            />
-          ))}
-        </p>
-        <div className='space-x-5'>
-          <strong className='[text-shadow:_1px_1px_0px_rgb(0_0_0_/_0.8)] max-sm:hidden'>
-            Outils :
-          </strong>
-          <div className='flex gap-5'>
-            <Tool label='ABC' type='uppercase' />
-            <Tool label=',' type='comma' />
-            <Tool label='.' type='period' />
-          </div>
+    <div className='flex flex-col justify-around items-center w-full h-full'>
+      <h1 className='text-2xl text-black'>Corrige la phrase</h1>
+      <p className='max-w-[90%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
+        {currentSentence.map((word, index) => (
+          <Word
+            key={`${word}-${index}`}
+            word={word}
+            index={index}
+            punctuation={punctuation}
+            applyTool={applyTool}
+            activeTool={activeTool || ""}
+          />
+        ))}
+      </p>
+      <div className='space-x-5'>
+        <strong className='[text-shadow:_1px_1px_0px_rgb(0_0_0_/_0.8)] max-sm:hidden'>
+          Outils :
+        </strong>
+        <div className='flex gap-5'>
+          <Tool label='ABC' type='uppercase' onClick={setActiveTool} />
+          <Tool label=',' type='comma' onClick={setActiveTool} />
+          <Tool label='.' type='period' onClick={setActiveTool} />
         </div>
-        <button
-          onClick={validateCorrection}
-          className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
-        >
-          Valider
-        </button>
-        <p
-          className={`text-[#291b17] transition-opacity duration-500 ${
-            message ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {message}
-        </p>
       </div>
-    </DndProvider>
+      <button
+        onClick={validateCorrection}
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+      >
+        Valider
+      </button>
+      <p
+        className={`text-[#291b17] transition-opacity duration-500 ${
+          message ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {message}
+      </p>
+    </div>
   );
 };
 

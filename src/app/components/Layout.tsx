@@ -32,8 +32,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div
       className={
         isPortrait
-          ? "bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col justify-center items-center"
-          : "bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex flex-col justify-between"
+          ? "bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex flex-col justify-center items-center"
+          : "bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[100vh] flex flex-col justify-between"
       }
     >
       {isPortrait ? (
