@@ -94,7 +94,7 @@ const SubjectPage = () => {
 
   return (
     <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh]">
-      <div className='bg-[#0000006b] h-[100vh] flex flex-col'>
+      <div className='bg-[#0000006b] h-[92.3vh] landscape:h-[87.6vh] flex flex-col'>
         <Navbar />
         <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row landscape:h-full'>
           <div className='flex flex-col items-center'>
