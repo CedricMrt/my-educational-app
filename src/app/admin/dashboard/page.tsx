@@ -423,7 +423,7 @@ const Dashboard = () => {
           </aside>
           <div className='ml-64 p-2 space-y-2'>
             {!showStudentForm && !showStudentStats && (
-              <>
+              <div className='max-h-[calc(100vh-140px)] overflow-y-auto'>
                 <h2 className='text-2xl text-[#FFE629]'>Français</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
@@ -529,7 +529,7 @@ const Dashboard = () => {
                     </p>
                   </li>
                 </ul>
-              </>
+              </div>
             )}
             {showStudentForm && (
               <>
