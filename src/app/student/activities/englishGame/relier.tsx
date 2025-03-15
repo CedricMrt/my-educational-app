@@ -12,12 +12,65 @@ interface GameProps {
   onCorrectAnswer: () => void;
 }
 
-type Category = "fruits" | "animals" | "numbers" | "colours";
+type Category =
+  | "fruits"
+  | "animals"
+  | "numbers"
+  | "colours"
+  | "rooms"
+  | "days"
+  | "family"
+  | "weather";
 
 const categories: Record<
   Category,
   { word: string; image?: string; text?: string; color?: string }[]
 > = {
+  rooms: [
+    { word: "Kitchen", text: "Cuisine" },
+    { word: "Living room", text: "Salon" },
+    { word: "Bedroom", text: "Chambre" },
+    { word: "Bathroom", text: "Salle de bain" },
+    { word: "Garden", text: "Jardin" },
+    { word: "Garage", text: "Garage" },
+    { word: "Office", text: "Bureau" },
+    { word: "Dining room", text: "Salle à manger" },
+    { word: "Toilet", text: "Toilettes" },
+  ],
+
+  days: [
+    { word: "Monday", text: "Lundi" },
+    { word: "Tuesday", text: "Mardi" },
+    { word: "Wednesday", text: "Mercredi" },
+    { word: "Thursday", text: "Jeudi" },
+    { word: "Friday", text: "Vendredi" },
+    { word: "Saturday", text: "Samedi" },
+    { word: "Sunday", text: "Dimanche" },
+  ],
+
+  family: [
+    { word: "Father", text: "Père" },
+    { word: "Mother", text: "Mère" },
+    { word: "Brother", text: "Frère" },
+    { word: "Sister", text: "Soeur" },
+    { word: "Grandfather", text: "Grand-père" },
+    { word: "Grandmother", text: "Grand-mère" },
+    { word: "Uncle", text: "Oncle" },
+    { word: "Aunt", text: "Tante" },
+    { word: "Cousin", text: "Cousin" },
+  ],
+
+  weather: [
+    { word: "Sun", image: "/img/englishGameImg/sun.png" },
+    { word: "Rain", image: "/img/englishGameImg/rain.png" },
+    { word: "Cloud", image: "/img/englishGameImg/cloud.png" },
+    { word: "Snow", image: "/img/englishGameImg/snow.png" },
+    { word: "Wind", image: "/img/englishGameImg/wind.gif" },
+    { word: "Storm", image: "/img/englishGameImg/storm.png" },
+    { word: "Fog", image: "/img/englishGameImg/fog.png" },
+    { word: "Rainbow", image: "/img/englishGameImg/rainbow.png" },
+  ],
+
   fruits: [
     { word: "Apple", image: "/img/englishGameImg/apple.png" },
     { word: "Banana", image: "/img/englishGameImg/banana.png" },
@@ -121,6 +174,13 @@ const MatchingGame = ({
     setSelectedWord(word);
   };
 
+  const handleResetLines = () => {
+    setLines([]);
+    setConnections([]);
+    setSelectedWord(null);
+    setSelectedImg(null);
+  };
+
   const handleSelectImg = (image: string) => {
     if (selectedWord && containerRef.current) {
       const leftElement = containerRef.current.querySelector(
@@ -135,9 +195,9 @@ const MatchingGame = ({
         const leftRect = leftElement.getBoundingClientRect();
         const rightRect = rightElement.getBoundingClientRect();
 
-        const x1 = leftRect.right - containerRect.left - 25;
+        const x1 = leftRect.right - containerRect.left + 56;
         const y1 = leftRect.top + leftRect.height / 2 - containerRect.top;
-        const x2 = rightRect.left - containerRect.left - 25;
+        const x2 = rightRect.left - containerRect.left + 56;
         const y2 = rightRect.top + rightRect.height / 2 - containerRect.top;
 
         setLines((prev) => [...prev, { x1, y1, x2, y2 }]);
@@ -208,12 +268,12 @@ const MatchingGame = ({
       <h2 className='text-black text-2xl font-bold'>
         Relie les éléments entre eux
       </h2>
-      <div className='flex space-x-10 mt-4 relative' ref={containerRef}>
-        <div className='flex flex-col justify-between space-y-2'>
+      <div className='flex relative max-h-[300px] w-3/4' ref={containerRef}>
+        <div className='flex flex-col justify-between items-center w-1/2'>
           {items.map((item) => (
-            <div key={item.word} className='flex items-center space-x-2 h-16'>
+            <div key={item.word} className='flex items-center h-16 w-full'>
               <span
-                className={`p-2 rounded ${
+                className={`w-1/2 p-2 rounded ${
                   selectedWord === item.word ? "bg-[#14120B]" : "bg-[#1B180F]"
                 }`}
                 data-word={item.word}
@@ -222,22 +282,30 @@ const MatchingGame = ({
                 {item.word}
               </span>
               <div
-                className='w-4 h-4 bg-black rounded-full cursor-pointer'
+                className='w-1/2 flex justify-center cursor-pointer'
                 data-word={item.word}
                 onClick={() => handleSelectWord(item.word)}
-              ></div>
+              >
+                <div className='w-4 h-4 rounded-full bg-black'></div>
+              </div>
             </div>
           ))}
         </div>
-        <div className='flex flex-col justify-between space-y-2'>
+        <div className='flex flex-col justify-between items-center w-1/2'>
           {shuffledItems.map((item, index) => (
-            <div key={index} className='flex items-center space-x-2 h-16'>
+            <div key={index} className='flex items-center h-16 w-full'>
               <div
-                className='w-4 h-4 bg-black rounded-full cursor-pointer'
+                className='w-1/2 flex justify-center cursor-pointer'
                 data-image={item}
                 onClick={() => handleSelectImg(item)}
-              ></div>
-              <span data-image={item} onClick={() => handleSelectImg(item)}>
+              >
+                <div className='w-4 h-4 rounded-full bg-black'></div>
+              </div>
+              <span
+                className='w-1/2 p-2 bg-[#1B180F] rounded'
+                data-image={item}
+                onClick={() => handleSelectImg(item)}
+              >
                 {item.includes("/img/") && (
                   <Image
                     src={item}
@@ -248,7 +316,7 @@ const MatchingGame = ({
                   />
                 )}
                 {!item.includes("/img/") && !item.startsWith("#") && (
-                  <span className='p-2 bg-[#1B180F] rounded'>{item}</span>
+                  <span>{item}</span>
                 )}
                 {item.startsWith("#") && (
                   <div
@@ -274,14 +342,30 @@ const MatchingGame = ({
           ))}
         </svg>
       </div>
+      <div className='w-1/2 flex justify-between items-center'>
+        <button
+          onClick={handleResetLines}
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-lg hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        >
+          Annuler
+        </button>
+        <div className=''>
+          <button
+            onClick={handleValidate}
+            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+          >
+            Valider
+          </button>
+        </div>
+      </div>
 
-      <button
-        onClick={handleValidate}
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+      <p
+        className={`text-[#291b17] transition-opacity duration-500 ${
+          message ? "opacity-100" : "opacity-0"
+        }`}
       >
-        Valider
-      </button>
-      <p className='mt-2'>{message}</p>
+        {message}
+      </p>
     </div>
   );
 };

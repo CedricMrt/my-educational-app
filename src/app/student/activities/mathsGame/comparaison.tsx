@@ -100,9 +100,9 @@ const ComparisonGame = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
-      <p className='text-black text-2xl font-bold'>
+      <h3 className='text-black text-2xl font-bold'>
         Glisse le signe correct entre les nombres !
-      </p>
+      </h3>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className='flex items-center gap-5 p-2'>
           <span className='text-5xl max-sm:text-3xl text-center min-w-14'>

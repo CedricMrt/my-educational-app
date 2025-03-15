@@ -364,7 +364,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh] flex justify-center items-center">
+      <div className='h-[100vh] flex justify-center items-center'>
         <p className='text-2xl'>Chargement...</p>
       </div>
     );
@@ -372,7 +372,7 @@ const Dashboard = () => {
 
   return (
     <AdminGuard>
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh] flex flex-col text-[#F6EEB4]">
+      <div className='h-[100vh] flex flex-col text-[#F6EEB4]'>
         <div className='bg-[#0000006b] h-[100vh]'>
           <Navbar />
           <aside className='fixed left-0 z-40 w-64 bg-[#1B180F] pl-4 pt-2 mt-2 rounded-lg h-full'>
@@ -427,7 +427,7 @@ const Dashboard = () => {
                 <h2 className='text-2xl text-[#FFE629]'>Français</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
-                    <h3 className='underline'>Ponctuation:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Ponctuation:</h3>
                     <p>
                       Cliquer sur un outils (&quot;ABC&quot;, &quot;,&quot; ou
                       &quot;.&quot;) puis cliquer sur un ou plusieurs mots pour
@@ -435,7 +435,7 @@ const Dashboard = () => {
                     </p>
                   </li>
                   <li className='mb-4'>
-                    <h3 className='underline'>Alphabet:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Alphabet:</h3>
                     <p>
                       Séléctionner une boite vide et saisir la lettre manquante.
                     </p>
@@ -444,7 +444,7 @@ const Dashboard = () => {
                 <h2 className='text-2xl text-[#FFE629]'>Mathématiques</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
-                    <h3 className='underline'>Opérations:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Opérations:</h3>
                     <p>
                       Séléctionnez Addition ou Soustraction, aléatoirement les
                       opérations seront en ligne ou en colonne avec des nombres
@@ -466,14 +466,14 @@ const Dashboard = () => {
                     </p>
                   </li>
                   <li className='mb-4'>
-                    <h3 className='underline'>Ordre:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Ordre:</h3>
                     <p>
                       Lire la consigne pour l&apos;ordre Croissant/Décroissant,
                       faire glisser les nombres entre eux.
                     </p>
                   </li>
                   <li className='mb-4'>
-                    <h3 className='underline'>Comparaison:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Comparaison:</h3>
                     <p>
                       Faire glisser le signe &quot;&lt;&quot; &quot;&gt;&quot;
                       ou &quot;=&quot;, les nombres seront compris entre{" "}
@@ -494,7 +494,7 @@ const Dashboard = () => {
                     </p>
                   </li>
                   <li className='mb-4'>
-                    <h3 className='underline'>Les heures:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Les heures:</h3>
                     <p>
                       Deux mode de jeu choisi aléatoirement, soit lire
                       l&apos;heure et saisir la réponse, soit régler les
@@ -506,19 +506,27 @@ const Dashboard = () => {
                 <h2 className='text-2xl text-[#FFE629]'>Anglais</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
-                    <h3 className='underline'>Relier:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Relier:</h3>
                     <p>
                       Relier les mots en anglais soit à leur traduction en
                       français, soit leur image ou bien leur couleur. Il suffit
-                      de cliquer sur le mot anglais puis sur la reponse voulu.
+                      de cliquer sur le mot anglais puis sur la réponse voulu.
                     </p>
                   </li>
                 </ul>
                 <h2 className='text-2xl text-[#FFE629]'>Découverte du monde</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
-                    <h3 className='underline'></h3>
-                    <p>Aucun jeu encore...</p>
+                    <h3 className='underline text-[#FFFF57]'>
+                      Classification:
+                    </h3>
+                    <p>
+                      Un theme est choisi au hasard entre Vivant/Non vivant,
+                      Ovipare/Vivipare, Carnivore/Herbivore/Omnivore, ou
+                      Marin/Terrestre/Aérien avec leur définition, suivi
+                      d&apos;une liste de mot à faire glisser dans les
+                      différentes catégories
+                    </p>
                   </li>
                 </ul>
               </>

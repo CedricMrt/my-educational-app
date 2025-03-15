@@ -1,5 +1,6 @@
 "use client";
 import { saveResponse } from "@/app/lib/firebaseConfig";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   DragDropContext,
@@ -102,8 +103,27 @@ const SortingGame = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
-      <div className='text-black text-2xl font-bold'>
-        Trier en ordre : {orderType === "asc" ? "Croissant" : "Décroissant"}
+      <div className='text-black text-2xl font-bold flex items-center justify-center'>
+        <span>
+          Trier en ordre : {orderType === "asc" ? "Croissant" : "Décroissant"}
+        </span>
+        {orderType === "asc" ? (
+          <Image
+            src='/img/signalUp.png'
+            alt='Signal montant'
+            width={50}
+            height={50}
+            className='ml-2'
+          />
+        ) : (
+          <Image
+            src='/img/signalDown.png'
+            alt='Signal descendant'
+            width={50}
+            height={50}
+            className='ml-2'
+          />
+        )}
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable

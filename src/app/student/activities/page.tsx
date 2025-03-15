@@ -10,7 +10,7 @@ import MathsGame4 from "./mathsGame/Heures";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
 import EnglishGame1 from "./englishGame/relier";
-/*import DiscoveryWorldGame from "./discoveryWorldGame/page"; */
+import DiscoveryWorldGame1 from "./discoveryWorldGame/classification";
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -80,7 +80,7 @@ const SubjectPage = () => {
 
   if (!student) {
     return (
-      <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
+      <div className='h-screen flex justify-center items-center'>
         <p className='text-2xl'>Aucun étudiant trouvé.</p>
         <Link
           href='/'
@@ -93,8 +93,8 @@ const SubjectPage = () => {
   }
 
   return (
-    <div className="bg-[url('/img/Hogwarts_Background.webp')] bg-cover bg-center bg-no-repeat h-[92.3vh] landscape:h-[87.6vh]">
-      <div className='bg-[#0000006b] h-[92.3vh] landscape:h-[87.6vh] flex flex-col'>
+    <div>
+      <div className='bg-[#0000006b] h-[100vh] flex flex-col'>
         <Navbar />
         <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row landscape:h-full'>
           <div className='flex flex-col items-center'>
@@ -187,25 +187,40 @@ const SubjectPage = () => {
                     </div>
                   </div>
                 )}
-              {subject === "englishGame" &&
-                period &&
-                Number(period.id) === 1 && (
-                  <div className='flex justify-around w-full'>
-                    <div className='flex flex-col items-center mr-4'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Relier
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/griffondor.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("englishGame1")}
-                      />
-                    </div>
+              {subject === "englishGame" && (
+                <div className='flex justify-around w-full'>
+                  <div className='flex flex-col items-center mr-4'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Relier
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("englishGame1")}
+                    />
                   </div>
-                )}
+                </div>
+              )}
+              {subject === "discoveryWorldGame" && (
+                <div className='flex justify-around w-full'>
+                  <div className='flex flex-col items-center mr-4'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Classification
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("discoveryWorldGame1")}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
             <Link
               href='/student/dashboard'
@@ -310,15 +325,18 @@ const SubjectPage = () => {
                     onCorrectAnswer={handleCorrectAnswer}
                   />
                 )}
-              {/*{selectedActivity === "discoveryWorldGame" && student && subject && school && (
-            <DiscoveryWorldGame
-            school={school}
-              subject={subject}
-              studentId={student.id}
-              period={Number(period.id)}
-              onCorrectAnswer={handleCorrectAnswer}
-            />
-          )} */}
+              {selectedActivity === "discoveryWorldGame1" &&
+                student &&
+                subject &&
+                school && (
+                  <DiscoveryWorldGame1
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
             </div>
           </div>
         </div>

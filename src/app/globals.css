@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  height: 100dvh;
+  height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -91,11 +91,5 @@ body {
 
   .activity {
     font-size: 1.2rem;
-  }
-}
-
-@layer base {
-  :root {
-    --radius: 0.5rem;
   }
 }
