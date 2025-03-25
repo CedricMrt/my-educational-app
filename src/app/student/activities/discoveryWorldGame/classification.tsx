@@ -302,7 +302,7 @@ const ClassificationGame: React.FC<GameProps> = ({
       </h2>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className='w-3/4 flex justify-center bg-[#14120B]'>
+        <div className='w-3/4 flex justify-center bg-[#14120B] rounded-xl'>
           {theme &&
             themes[theme]?.categories?.map((category) => (
               <Droppable
@@ -316,7 +316,7 @@ const ClassificationGame: React.FC<GameProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className='p-2 w-full border-r-2 border-l-2 min-h-[100px] flex flex-col items-center'
+                    className='p-2 w-full border-r-2 border-l-2 min-h-[100px] flex flex-col items-center rounded-xl m-2'
                   >
                     <h3 className='text-lg font-semibold'>{category.name}</h3>
                     <p className='text-sm text-gray-600'>
@@ -370,7 +370,7 @@ const ClassificationGame: React.FC<GameProps> = ({
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className='mr-2 p-2 text-2xl rounded-lg cursor-pointer bg-[#433500] drop-shadow-lg'
+                        className='m-2 p-2 text-2xl rounded-xl cursor-pointer bg-[#433500] drop-shadow-lg'
                       >
                         {word}
                       </div>
@@ -391,7 +391,7 @@ const ClassificationGame: React.FC<GameProps> = ({
         {message}
       </p>
       <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         onClick={handleValidate}
       >
         Valider

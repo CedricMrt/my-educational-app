@@ -156,6 +156,7 @@ const MatchingGame = ({
     { x1: number; y1: number; x2: number; y2: number }[]
   >([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [highlightedWord, setHighlightedWord] = useState<string | null>(null);
 
   useEffect(() => {
     const selectedItems = getRandomItems(category);
@@ -179,6 +180,39 @@ const MatchingGame = ({
     setConnections([]);
     setSelectedWord(null);
     setSelectedImg(null);
+  };
+
+  const handleListenWords = () => {
+    const words = items.map((item) => item.word);
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices();
+    const voice =
+      voices.find((v) => v.name.includes("Google UK English Female")) ||
+      voices[0];
+
+    let index = 0;
+
+    const speakWord = () => {
+      if (index >= words.length) return;
+
+      const word = words[index];
+      setHighlightedWord(word);
+
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.voice = voice;
+      utterance.rate = 0.8;
+      utterance.volume = 1;
+
+      utterance.onend = () => {
+        setHighlightedWord(null);
+        index++;
+        setTimeout(speakWord, 400);
+      };
+
+      synth.speak(utterance);
+    };
+
+    speakWord();
   };
 
   const handleSelectImg = (image: string) => {
@@ -275,6 +309,10 @@ const MatchingGame = ({
               <span
                 className={`w-1/2 p-2 rounded ${
                   selectedWord === item.word ? "bg-[#14120B]" : "bg-[#1B180F]"
+                } ${
+                  highlightedWord === item.word
+                    ? "border-2 border-yellow-500"
+                    : ""
                 }`}
                 data-word={item.word}
                 onClick={() => handleSelectWord(item.word)}
@@ -302,7 +340,7 @@ const MatchingGame = ({
                 <div className='w-4 h-4 rounded-full bg-black'></div>
               </div>
               <span
-                className='w-1/2 p-2 bg-[#1B180F] rounded'
+                className='w-1/2 p-2 max-h-14 bg-[#1B180F] rounded flex items-center justify-center'
                 data-image={item}
                 onClick={() => handleSelectImg(item)}
               >
@@ -342,17 +380,23 @@ const MatchingGame = ({
           ))}
         </svg>
       </div>
-      <div className='w-1/2 flex justify-between items-center'>
+      <div className='w-3/4 flex justify-between items-center'>
+        <button
+          onClick={handleListenWords}
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        >
+          Ecouter
+        </button>
         <button
           onClick={handleResetLines}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-lg hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
         >
           Annuler
         </button>
         <div className=''>
           <button
             onClick={handleValidate}
-            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
           >
             Valider
           </button>

@@ -146,8 +146,8 @@ const Dashboard = () => {
             throw new Error("School is null");
           }
 
-          // Création d'un identifiant unique (ex: "john.doe.281299")
-          const uniquename = `${student.name.toLowerCase()}.${student.lastName.toLowerCase()}.${
+          // Création d'un identifiant unique
+          const uniquename = `${student.name.toLowerCase()}.${
             student.password
           }`;
 
