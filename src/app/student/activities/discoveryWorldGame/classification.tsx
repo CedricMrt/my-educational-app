@@ -83,7 +83,7 @@ const themes: Record<string, Theme> = {
       { word: "girafe", category: "Herbivore" },
       { word: "vache", category: "Herbivore" },
       { word: "cheval", category: "Herbivore" },
-      { word: "baleine", category: "Herbivore" },
+      { word: "kangouroux", category: "Herbivore" },
       { word: "ours", category: "Omnivore" },
       { word: "cochon", category: "Omnivore" },
       { word: "panda", category: "Omnivore" },
