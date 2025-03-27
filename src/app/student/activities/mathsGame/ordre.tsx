@@ -149,7 +149,7 @@ const SortingGame = ({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className='py-3 px-5 bg-gradient-to-r from-[#2D2305] to-[#433500] text-4xl max-lg:text-3xl max-md:text-xl max-sm:text-lg text-center rounded-lg'
+                      className='py-3 px-5 bg-gradient-to-r from-[#2D2305] to-[#433500] text-4xl max-lg:text-3xl max-md:text-xl max-sm:text-lg text-center rounded-xl'
                     >
                       {num}
                     </li>
@@ -162,7 +162,7 @@ const SortingGame = ({
         </Droppable>
       </DragDropContext>
       <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
         onClick={handleValidate}
       >
         Valider

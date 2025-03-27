@@ -383,20 +383,20 @@ const MatchingGame = ({
       <div className='w-3/4 flex justify-between items-center'>
         <button
           onClick={handleListenWords}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
         >
           Ecouter
         </button>
         <button
           onClick={handleResetLines}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
         >
           Annuler
         </button>
         <div className=''>
           <button
             onClick={handleValidate}
-            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
           >
             Valider
           </button>

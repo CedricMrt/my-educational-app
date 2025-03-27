@@ -28,7 +28,7 @@ const Tool = ({
   return (
     <div
       onClick={() => onClick(type)}
-      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-lg cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
+      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-xl cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
       style={{
         opacity: isActive ? 0.5 : 1,
       }}
@@ -383,7 +383,7 @@ const InteractiveCorrection = ({
       </div>
       <button
         onClick={validateCorrection}
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
       >
         Valider
       </button>

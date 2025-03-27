@@ -127,7 +127,7 @@ const Game = ({
           <span className='text-6xl'>{number2}</span>
           <span className='text-6xl'>=</span>
           <input
-            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
             type='text'
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
@@ -147,21 +147,21 @@ const Game = ({
           <hr className='w-32 border-2 border-black my-2' />
           <div className='flex gap-2'>
             <input
-              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              className='w-10 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
               type='text'
               maxLength={1}
               value={hundreds}
               onChange={(e) => setHundreds(e.target.value)}
             />
             <input
-              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              className='w-10 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
               type='text'
               maxLength={1}
               value={tens}
               onChange={(e) => setTens(e.target.value)}
             />
             <input
-              className='w-10 text-center text-4xl border rounded-lg bg-green-200 text-gray-600'
+              className='w-10 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
               type='text'
               maxLength={1}
               value={units}
@@ -171,7 +171,7 @@ const Game = ({
         </div>
       )}
       <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
         onClick={handleValidate}
       >
         Valider
