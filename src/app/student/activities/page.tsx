@@ -155,38 +155,36 @@ const SubjectPage = () => {
                   </div>
                 </div>
               )}
-              {subject === "frenchGame" &&
-                period &&
-                Number(period.id) === 1 && (
-                  <div className='flex justify-around w-full'>
-                    <div className='flex flex-col items-center mr-4'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Ponctuation
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/griffondor.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("frenchGame1")}
-                      />
-                    </div>
-                    <div className='flex flex-col items-center mr-4'>
-                      <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                        Alphabet
-                      </h2>
-                      <Image
-                        className='cursor-pointer rounded-lg drop-shadow-lg'
-                        width={60}
-                        height={60}
-                        src={"/img/serdaigle.png"}
-                        alt='activity icon'
-                        onClick={() => handleActivityClick("frenchGame2")}
-                      />
-                    </div>
+              {subject === "frenchGame" && period && (
+                <div className='flex justify-around w-full'>
+                  <div className='flex flex-col items-center mr-4'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Ponctuation
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/griffondor.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame1")}
+                    />
                   </div>
-                )}
+                  <div className='flex flex-col items-center mr-4'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Alphabet
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      width={60}
+                      height={60}
+                      src={"/img/serdaigle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame2")}
+                    />
+                  </div>
+                </div>
+              )}
               {subject === "englishGame" && (
                 <div className='flex justify-around w-full'>
                   <div className='flex flex-col items-center mr-4'>

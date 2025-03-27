@@ -182,7 +182,7 @@ type ActionType =
         destination: DropResult["destination"];
       };
     }
-  | { type: "RESET" }
+  | { type: "RESET"; payload: string }
   | { type: "SET_PROPOSITIONS"; payload: Proposition[] };
 
 const dragReducer = (state: StateType, action: ActionType): StateType => {
@@ -204,7 +204,17 @@ const dragReducer = (state: StateType, action: ActionType): StateType => {
       };
 
     case "RESET":
-      return initialState;
+      const resetCategories = themes[action.payload].categories.reduce(
+        (acc: Record<string, string[]>, category) => {
+          acc[category.name] = [];
+          return acc;
+        },
+        {}
+      );
+      return {
+        ...resetCategories,
+        propositions: [],
+      };
 
     case "SET_PROPOSITIONS":
       const initialCategories = themes[
@@ -241,6 +251,7 @@ const ClassificationGame: React.FC<GameProps> = ({
   }, [theme]);
 
   const loadNewPropositions = (theme: string) => {
+    dispatch({ type: "RESET", payload: theme });
     const newPropositions = getRandomPropositions(theme, 5);
     setPropositions(newPropositions);
     dispatch({
@@ -281,7 +292,7 @@ const ClassificationGame: React.FC<GameProps> = ({
         onCorrectAnswer();
         setMessage("Bravo ! Toutes les réponses sont correctes 🎉");
         setTimeout(() => {
-          dispatch({ type: "RESET" });
+          dispatch({ type: "RESET", payload: theme });
           setTheme(getRandomTheme(theme));
           loadNewPropositions(theme);
           setMessage("");
@@ -335,7 +346,7 @@ const ClassificationGame: React.FC<GameProps> = ({
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                className='mb-2 p-2 text-2xl rounded-lg cursor-grab bg-[#433500] drop-shadow-lg'
+                                className='mb-2 p-2 text-2xl rounded-xl cursor-grab bg-[#433500] drop-shadow-lg'
                               >
                                 {word}
                               </div>

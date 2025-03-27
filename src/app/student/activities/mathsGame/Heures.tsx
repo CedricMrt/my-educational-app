@@ -36,7 +36,8 @@ const ClockGame = ({
 }: GameProps) => {
   const [targetTime, setTargetTime] = useState(getRandomTime(period));
   const [selectedTime, setSelectedTime] = useState({ hours: 12, minutes: 0 });
-  const [inputTime, setInputTime] = useState("");
+  const [inputTimeHour, setInputTimeHour] = useState("");
+  const [inputTimeMinutes, setInputTimeMinutes] = useState("");
   const [message, setMessage] = useState("");
   const [gameMode, setGameMode] = useState(1);
   const [isSettingHours, setIsSettingHours] = useState(false);
@@ -44,7 +45,8 @@ const ClockGame = ({
   useEffect(() => {
     setTargetTime(getRandomTime(period));
     setSelectedTime({ hours: 12, minutes: 0 });
-    setInputTime("");
+    setInputTimeHour("");
+    setInputTimeMinutes("");
     setMessage("");
     setGameMode(Math.random() < 0.5 ? 1 : 2); // Mode 1 ou 2 aléatoire
   }, [period]);
@@ -53,10 +55,9 @@ const ClockGame = ({
     let isCorrect = false;
 
     if (gameMode === 1) {
-      // Mode 1 - Lecture de l'heure
-      const [inputHours, inputMinutes] = inputTime.split(":").map(Number);
       isCorrect =
-        inputHours === targetTime.hours && inputMinutes === targetTime.minutes;
+        Number(inputTimeHour) === targetTime.hours &&
+        Number(inputTimeMinutes) === targetTime.minutes;
     } else {
       // Mode 2 - Réglage des aiguilles
       isCorrect =
@@ -79,7 +80,8 @@ const ClockGame = ({
       setTimeout(() => {
         setTargetTime(getRandomTime(period));
         setSelectedTime({ hours: 12, minutes: 0 });
-        setInputTime("");
+        setInputTimeHour("");
+        setInputTimeMinutes("");
         setMessage("");
         setGameMode(Math.random() < 0.5 ? 1 : 2); // Changer de mode à chaque fois
       }, 2000);
@@ -150,24 +152,45 @@ const ClockGame = ({
               ></div>
             </div>
           </article>
-          <input
-            type='text'
-            placeholder='hh:mm'
-            value={inputTime}
-            onChange={(e) => {
-              const value = e.target.value;
-              const regex = /^([0-9]{1,2}):([0-9]{2})$/;
-              const match = value.match(regex);
-              if (match) {
-                const minutes = parseInt(match[2]);
-                if (period === 1 && ![0, 15, 30, 45].includes(minutes)) {
-                  return;
+          <div className='flex items-center justify-center'>
+            <input
+              type='text'
+              placeholder='hh'
+              value={inputTimeHour}
+              onChange={(e) => {
+                const value = e.target.value;
+                const regex = /^([0-9]{1,2})$/;
+                const match = value.match(regex);
+                if (match) {
+                  const minutes = parseInt(match[2]);
+                  if (period === 1 && ![0, 15, 30, 45].includes(minutes)) {
+                    return;
+                  }
                 }
-              }
-              setInputTime(value);
-            }}
-            className='mt-4 p-2 text-center text-xl border rounded-lg bg-[#2D2305] max-w-32'
-          />
+                setInputTimeHour(value);
+              }}
+              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16'
+            />
+            <p className='mt-4 mx-3 text-3xl'>:</p>
+            <input
+              type='text'
+              placeholder='mm'
+              value={inputTimeMinutes}
+              onChange={(e) => {
+                const value = e.target.value;
+                const regex = /^([0-9]{2})$/;
+                const match = value.match(regex);
+                if (match) {
+                  const minutes = parseInt(match[2]);
+                  if (period === 1 && ![0, 15, 30, 45].includes(minutes)) {
+                    return;
+                  }
+                }
+                setInputTimeMinutes(value);
+              }}
+              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16'
+            />
+          </div>
         </>
       ) : (
         <>
@@ -196,7 +219,7 @@ const ClockGame = ({
           </article>
           <button
             onClick={() => setIsSettingHours((prev) => !prev)}
-            className={`mt-2 p-2 text-xl rounded-lg ${
+            className={`mt-2 p-2 text-xl rounded-xl ${
               isSettingHours
                 ? "bg-[#F5E147] text-[#433500]"
                 : "bg-[#433500] text-[#F5E147]"
@@ -209,7 +232,7 @@ const ClockGame = ({
 
       <button
         onClick={handleValidate}
-        className='mt-4 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+        className='mt-4 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
       >
         Valider
       </button>
