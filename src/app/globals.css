@@ -93,3 +93,30 @@ body {
     font-size: 1.2rem;
   }
 }
+
+.bubble {
+  position: absolute;
+  border: 0.5vmin solid #836a21;
+  border-radius: 100%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 3vmin;
+  background: #2d2305;
+  box-shadow: 0 -0.25vmin, 0 0.125vmin;
+}
+
+.bubble::before {
+  content: "";
+  color: #836a21;
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  bottom: -47%;
+  border-radius: 50%;
+  left: -15%;
+  box-shadow: 0.5vmin 0, 2vmin -0.5vmin #2d2305, 2vmin -0.5vmin 0 0.5vmin;
+  clip-path: polygon(0% 49%, 150% 48%, 150% 100%, 0% 100%);
+}

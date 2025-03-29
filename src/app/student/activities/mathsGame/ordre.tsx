@@ -114,6 +114,7 @@ const SortingGame = ({
             width={50}
             height={50}
             className='ml-2'
+            style={{ width: "auto", height: "auto" }}
           />
         ) : (
           <Image
@@ -122,6 +123,7 @@ const SortingGame = ({
             width={50}
             height={50}
             className='ml-2'
+            style={{ width: "auto", height: "auto" }}
           />
         )}
       </div>

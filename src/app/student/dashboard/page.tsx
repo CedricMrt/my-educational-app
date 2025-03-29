@@ -39,6 +39,7 @@ const StudentDashboard = () => {
             alt='niffleur'
             src='/img/niffleur.png'
             priority={false}
+            style={{ width: "auto", height: "auto" }}
           />
         </motion.div>
         {showBotruc && (
@@ -54,6 +55,7 @@ const StudentDashboard = () => {
               alt='botruc'
               src='/img/botruc.png'
               priority={false}
+              style={{ width: "auto", height: "auto" }}
             />
           </motion.div>
         )}

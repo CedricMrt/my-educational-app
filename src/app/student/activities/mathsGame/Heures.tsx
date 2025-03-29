@@ -219,7 +219,7 @@ const ClockGame = ({
           </article>
           <button
             onClick={() => setIsSettingHours((prev) => !prev)}
-            className={`mt-2 p-2 text-xl rounded-xl ${
+            className={`mt-2 p-2 text-xl rounded-xl drop-shadow-lg ${
               isSettingHours
                 ? "bg-[#F5E147] text-[#433500]"
                 : "bg-[#433500] text-[#F5E147]"

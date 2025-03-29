@@ -9,6 +9,7 @@ import MathsGame3 from "./mathsGame/comparaison";
 import MathsGame4 from "./mathsGame/Heures";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
+import FrenchGame3 from "./frenchGame/relier";
 import EnglishGame1 from "./englishGame/relier";
 import DiscoveryWorldGame1 from "./discoveryWorldGame/classification";
 import Navbar from "@/app/components/Navbar";
@@ -38,6 +39,14 @@ const SubjectPage = () => {
   const subject = searchParams.get("subject");
   const [period, setPeriod] = useState<{ id: string } | null>(null);
   const [showNiffleur, setShowNiffleur] = useState(false);
+  const messages = [
+    "Bravo!",
+    "Super!",
+    "Bien joué!",
+    "Excellent!",
+    "Fantastique!",
+  ];
+  const [bubbleMessage, setBubbleMessage] = useState("Bravo!");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -74,6 +83,8 @@ const SubjectPage = () => {
   };
 
   const handleCorrectAnswer = () => {
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    setBubbleMessage(messages[randomIndex]);
     setShowNiffleur(true);
     setTimeout(() => setShowNiffleur(false), 3000);
   };
@@ -98,7 +109,7 @@ const SubjectPage = () => {
         <Navbar />
         <div className='flex flex-col items-center justify-center w-full h-[65%] px-2 py-8 landscape:flex-row landscape:h-full'>
           <div className='flex flex-col items-center'>
-            <div className='mb-4 min-h-16 w-full landscape:max-w-[200px]'>
+            <div className='mb-4 min-h-16 w-full'>
               {subject === "mathsGame" && (
                 <div className='flex justify-around w-full landscape:flex-wrap'>
                   <div className='flex flex-col items-center mr-4'>
@@ -106,12 +117,13 @@ const SubjectPage = () => {
                       Opérations
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame1")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className='flex flex-col items-center mr-4'>
@@ -119,12 +131,13 @@ const SubjectPage = () => {
                       Ordre
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/serdaigle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame2")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className='flex flex-col items-center mr-4'>
@@ -132,12 +145,13 @@ const SubjectPage = () => {
                       Comparaison
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/serpentar.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame3")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className='flex flex-col items-center mr-4'>
@@ -145,12 +159,13 @@ const SubjectPage = () => {
                       Les Heures
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/poufsouffle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame4")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -162,12 +177,13 @@ const SubjectPage = () => {
                       Ponctuation
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("frenchGame1")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className='flex flex-col items-center mr-4'>
@@ -175,12 +191,27 @@ const SubjectPage = () => {
                       Alphabet
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/serdaigle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("frenchGame2")}
+                      style={{ width: "auto", height: "auto" }}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center mr-4'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Relier
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
+                      width={60}
+                      height={60}
+                      src={"/img/poufsouffle.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame3")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -192,12 +223,13 @@ const SubjectPage = () => {
                       Relier
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("englishGame1")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -209,12 +241,13 @@ const SubjectPage = () => {
                       Classification
                     </h2>
                     <Image
-                      className='cursor-pointer rounded-lg drop-shadow-lg'
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
                       width={60}
                       height={60}
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("discoveryWorldGame1")}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -232,11 +265,27 @@ const SubjectPage = () => {
             alt='gif niffleur'
             width={150}
             height={150}
-            className='absolute top-[20px] left-50%'
-            initial={{ opacity: 1, y: 135 }}
-            animate={showNiffleur ? { y: 150 } : { y: 250 }}
-            transition={{ duration: 0.4 }}
+            className='absolute top-[20px] left-[40%]'
+            initial={{ opacity: 0, y: 300 }}
+            animate={
+              showNiffleur ? { opacity: 1, y: 155 } : { opacity: 0, y: 300 }
+            }
+            transition={{ duration: 0.5 }}
           />
+          <motion.div
+            className='bubble top-[13%] left-[55%]'
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={
+              showNiffleur
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.5 }
+            }
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <p>
+              {bubbleMessage} {student.name}
+            </p>
+          </motion.div>
           <div className="bg-[url('/img/livre_ouvert.png')] bg-[contain] bg-center bg-no-repeat self-center flex items-center justify-center relative flex-grow w-full max-w-[100%] h-full max-h-[calc(100vh)-600px)] landscape:max-h-[calc(100vh)-150px)] landscape:max-w-[70%]">
             <div className='w-[85%] h-[85%] flex items-center justify-center'>
               {selectedActivity === "mathsGame1" &&
@@ -304,6 +353,18 @@ const SubjectPage = () => {
                 subject &&
                 school && (
                   <FrenchGame2
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "frenchGame3" &&
+                student &&
+                subject &&
+                school && (
+                  <FrenchGame3
                     school={school}
                     subject={subject}
                     studentId={student.id}

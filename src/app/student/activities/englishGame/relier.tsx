@@ -351,6 +351,7 @@ const MatchingGame = ({
                     width={50}
                     height={50}
                     className='max-h-14'
+                    style={{ width: "auto", height: "auto" }}
                   />
                 )}
                 {!item.includes("/img/") && !item.startsWith("#") && (

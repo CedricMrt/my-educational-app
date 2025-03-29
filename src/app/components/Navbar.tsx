@@ -56,6 +56,7 @@ const Navbar = () => {
         alt='logo des 4 maisons harry potter'
         width={56}
         height={56}
+        style={{ width: "auto", height: "auto" }}
       />
       {user || userType === "student" ? (
         <>
@@ -94,7 +95,7 @@ const Navbar = () => {
             <div className='absolute right-12 top-2 border-2 border-[#f2a65a] rounded-xl p-2'>
               <button
                 onClick={handleLogout}
-                className='cursor-pointer text-[#930c0c]'
+                className='cursor-pointer text-[#930c0c] drop-shadow-lg'
               >
                 Déconnexion
               </button>

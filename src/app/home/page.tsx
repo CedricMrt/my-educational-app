@@ -195,7 +195,7 @@ const LoginForm = () => {
                 <div className=''>
                   <button
                     onClick={handleTeacherLogin}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
                   >
                     Connexion
                   </button>
@@ -258,7 +258,7 @@ const LoginForm = () => {
                 <div>
                   <button
                     onClick={handleStudentLogin}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
                   >
                     Connexion
                   </button>
@@ -304,7 +304,7 @@ const LoginForm = () => {
                 <div className='mb-4'>
                   <button
                     onClick={handleTeacherSignUp}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer'
+                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
                   >
                     Inscription
                   </button>

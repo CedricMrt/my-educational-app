@@ -98,7 +98,7 @@ const SchoolClassSelector = () => {
         </select>
 
         <button
-          className='p-2 text-2xl border-[#FDCB225C] text-[#FEE949F5] rounded-xl border bg-[#362B00] cursor-pointer'
+          className='p-2 text-2xl border-[#FDCB225C] text-[#FEE949F5] rounded-xl border bg-[#362B00] cursor-pointer drop-shadow-lg'
           onClick={handleSubmit}
         >
           Sélectionner
@@ -127,7 +127,7 @@ const SchoolClassSelector = () => {
 
         <div className='flex items-center space-x-3'>
           <button
-            className='p-2 text-2xl border-[#FDCB225C] text-[#FEE949F5] rounded-xl border bg-[#362B00] cursor-pointer'
+            className='p-2 text-2xl border-[#FDCB225C] text-[#FEE949F5] rounded-xl border bg-[#362B00] cursor-pointer drop-shadow-lg'
             onClick={handleCreateSchool}
           >
             Créer école

@@ -570,19 +570,20 @@ const Dashboard = () => {
                         alt='delete icon'
                         src='/img/delete.svg'
                         onClick={() => handleDeleteStudentField(index)}
+                        style={{ width: "auto", height: "auto" }}
                       />
                     )}
                   </div>
                 ))}
                 <div className='mt-4 flex space-x-10'>
                   <button
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
                     onClick={handleAddStudentField}
                   >
                     Ajouter un Champs
                   </button>
                   <button
-                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
+                    className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
                     onClick={handleCreateStudent}
                   >
                     Créer compte(s) élèves
@@ -606,7 +607,8 @@ const Dashboard = () => {
                           alt='delete icon'
                           src={"/img/delete.svg"}
                           onClick={() => handleDeleteStudent(student.id)}
-                        ></Image>
+                          style={{ width: "auto", height: "auto" }}
+                        />
                       </div>
                     ))}
                   </div>
