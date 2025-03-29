@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { saveResponse } from "@/app/lib/firebaseConfig";
-import Image from "next/image";
 
 interface GameProps {
   school: { id: string; name: string; level: string };
