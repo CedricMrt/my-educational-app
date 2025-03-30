@@ -251,10 +251,25 @@ const ClassificationGame: React.FC<GameProps> = ({
   period,
   onCorrectAnswer,
 }) => {
+  const [showDefinitions, setShowDefinitions] = useState<boolean>(true);
   const [categoriesData, dispatch] = useReducer(dragReducer, initialState);
   const [theme, setTheme] = useState<string>(getRandomTheme());
   const [, setPropositions] = useState<Proposition[]>([]);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setShowDefinitions(window.innerWidth >= 500 && window.innerHeight >= 500);
+    };
+
+    checkScreenSize();
+
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   useEffect(() => {
     loadNewPropositions(theme);
@@ -317,13 +332,13 @@ const ClassificationGame: React.FC<GameProps> = ({
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-full h-full'>
-      <h2 className='text-black text-2xl font-bold'>
+    <div className='flex flex-col justify-around items-center w-full h-full h400:w-[84%]'>
+      <h2 className='text-black text-2xl font-bold smallFont'>
         Classe les mots dans les bonnes catégories
       </h2>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className='w-3/4 flex justify-center bg-[#14120B] rounded-xl'>
+        <div className='w-3/4 max-sm:w-full flex justify-center bg-[#14120B] rounded-xl'>
           {theme &&
             themes[theme]?.categories?.map((category) => (
               <Droppable
@@ -337,12 +352,14 @@ const ClassificationGame: React.FC<GameProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className='p-2 w-full border-r-2 border-l-2 min-h-[100px] flex flex-col items-center rounded-xl m-2'
+                    className='p-2 w-full border-r-2 border-l-2 min-h-[100px] flex flex-col items-center rounded-xl m-2 h400:min-h-[50px] max-sm:min-h-[50px]'
                   >
                     <h3 className='text-lg font-semibold'>{category.name}</h3>
-                    <p className='text-sm text-gray-600'>
-                      {category.definition}
-                    </p>{" "}
+                    {showDefinitions && (
+                      <p className='text-sm text-gray-600'>
+                        {category.definition}
+                      </p>
+                    )}{" "}
                     {categoriesData &&
                       categoriesData[category.name]?.map(
                         (word: string, index: number) => (
@@ -356,7 +373,7 @@ const ClassificationGame: React.FC<GameProps> = ({
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                className='mb-2 p-2 text-2xl rounded-xl cursor-grab bg-[#433500] drop-shadow-lg'
+                                className='m-2 p-2 text-2xl rounded-xl cursor-pointer bg-[#433500] drop-shadow-lg smallFont smallPadding'
                               >
                                 {word}
                               </div>
@@ -381,7 +398,7 @@ const ClassificationGame: React.FC<GameProps> = ({
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className='p-2 w-3/4 flex justify-center'
+              className='p-2 w-3/4 max-sm:w-full flex justify-center flex-wrap'
             >
               {categoriesData.propositions.map(
                 (word: string, index: number) => (
@@ -391,7 +408,7 @@ const ClassificationGame: React.FC<GameProps> = ({
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className='m-2 p-2 text-2xl rounded-xl cursor-pointer bg-[#433500] drop-shadow-lg'
+                        className='m-2 p-2 text-2xl rounded-xl cursor-pointer bg-[#433500] drop-shadow-lg smallFont'
                       >
                         {word}
                       </div>
@@ -412,7 +429,7 @@ const ClassificationGame: React.FC<GameProps> = ({
         {message}
       </p>
       <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1'
         onClick={handleValidate}
       >
         Valider

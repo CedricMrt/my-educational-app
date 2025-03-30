@@ -21,7 +21,7 @@ export default {
     },
     screens: {
       h400: {
-        raw: "(max-height: 400px)",
+        raw: "(max-height: 500px)",
       },
       h650: {
         raw: "(max-height: 650px)",
