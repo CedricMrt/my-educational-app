@@ -100,12 +100,12 @@ const ComparisonGame = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
-      <h3 className='text-black text-2xl font-bold'>
-        Glisse le signe correct entre les nombres !
+      <h3 className='text-black text-2xl font-bold ml-3 landscape:text-xl max-sm:text-xl'>
+        Glisse le signe correct !
       </h3>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className='flex items-center gap-5 p-2'>
-          <span className='text-5xl max-sm:text-3xl text-center min-w-14'>
+          <span className='text-5xl max-sm:text-3xl text-center min-w-14 mediumFont'>
             {number1}
           </span>
           <Droppable
@@ -116,7 +116,7 @@ const ComparisonGame = ({
           >
             {(provided) => (
               <div
-                className={`flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12 text-3xl rounded-xl ${
+                className={`flex items-center justify-center m-2 px-4 p-2 text-3xl rounded-xl mediumPadding ${
                   droppedSign !== null
                     ? "bg-gradient-to-r from-[#2D2305] to-[#433500]"
                     : "bg-[#2D2305]"
@@ -129,7 +129,7 @@ const ComparisonGame = ({
               </div>
             )}
           </Droppable>
-          <span className='text-5xl max-sm:text-3xl text-center min-w-14'>
+          <span className='text-5xl max-sm:text-3xl text-center min-w-14 mediumFont'>
             {number2}
           </span>
         </div>
@@ -142,7 +142,7 @@ const ComparisonGame = ({
         >
           {(provided) => (
             <div
-              className='flex justify-center gap-6'
+              className='flex justify-center'
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -154,7 +154,7 @@ const ComparisonGame = ({
                 >
                   {(provided) => (
                     <div
-                      className='flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12  text-3xl rounded-xl cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500]'
+                      className='flex items-center justify-center m-2 px-4 p-2 text-3xl rounded-xl cursor-grab bg-gradient-to-r from-[#2D2305] to-[#433500] mediumPadding'
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -173,19 +173,19 @@ const ComparisonGame = ({
           )}
         </Droppable>
       </DragDropContext>
-      <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
-        onClick={handleValidate}
-      >
-        Valider
-      </button>
       <p
-        className={`text-[#291b17] transition-opacity duration-500 ${
+        className={`text-[#291b17] mt-1 transition-opacity duration-500 ${
           message ? "opacity-100" : "opacity-0"
         }`}
       >
         {message}
       </p>
+      <button
+        className='p-2 mt-1 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+        onClick={handleValidate}
+      >
+        Valider
+      </button>
     </div>
   );
 };

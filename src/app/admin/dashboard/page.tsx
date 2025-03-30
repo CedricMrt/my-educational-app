@@ -146,7 +146,6 @@ const Dashboard = () => {
             throw new Error("School is null");
           }
 
-          // Création d'un identifiant unique
           const uniquename = `${student.name.toLowerCase()}.${
             student.password
           }`;
@@ -296,13 +295,13 @@ const Dashboard = () => {
               title: {
                 display: false,
                 text: "Type de Réponse",
-                color: "#F6EEB4", // Couleur du titre de l'axe X
+                color: "#F6EEB4",
               },
               ticks: {
-                color: "#F6EEB4", // Couleur des étiquettes de l'axe X
+                color: "#F6EEB4",
               },
               grid: {
-                color: "#F6EEB4", // Couleur es de grill)
+                color: "#F6EEB4",
               },
             },
             y: {
@@ -310,13 +309,13 @@ const Dashboard = () => {
               title: {
                 display: false,
                 text: "Nombre de Réponses",
-                color: "#F6EEB4", // Couleur du titre de l'axe Y
+                color: "#F6EEB4",
               },
               ticks: {
-                color: "#F6EEB4", // Couleur des étiquettes de l'axe Y
+                color: "#F6EEB4",
               },
               grid: {
-                color: "#F6EEB4", // Couleur des lignes de grille de l'axe Y
+                color: "#F6EEB4",
               },
             },
           },
@@ -440,6 +439,31 @@ const Dashboard = () => {
                       Séléctionner une boite vide et saisir la lettre manquante.
                     </p>
                   </li>
+                  <li className='mb-4'>
+                    <h3 className='underline text-[#FFFF57]'>Pronoms:</h3>
+                    <p>
+                      Cliquer sur un pronom (il,elle,nous,vous,ils,elles), alors
+                      le groupe sujet de la phrase sera remplacé par celui-ci.
+                    </p>
+                  </li>
+                  <li className='mb-4'>
+                    <h3 className='underline text-[#FFFF57]'>Terminaisons:</h3>
+                    <p>
+                      {(() => {
+                        const activePeriodId = periods.find(
+                          (period) => period.active
+                        )?.id;
+                        switch (activePeriodId) {
+                          case 2:
+                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbes à son pronom.";
+                          case 3:
+                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbes à son pronom.";
+                          default:
+                            return "Après un choix aléatoire d&apos;un verbe, relier chaque pronoms à la bonne terminaison de ce verbe.";
+                        }
+                      })()}
+                    </p>
+                  </li>
                 </ul>
                 <h2 className='text-2xl text-[#FFE629]'>Mathématiques</h2>
                 <ul className='ml-5'>
@@ -506,7 +530,7 @@ const Dashboard = () => {
                 <h2 className='text-2xl text-[#FFE629]'>Anglais</h2>
                 <ul className='ml-5'>
                   <li className='mb-4'>
-                    <h3 className='underline text-[#FFFF57]'>Relier:</h3>
+                    <h3 className='underline text-[#FFFF57]'>Traduction:</h3>
                     <p>
                       Relier les mots en anglais soit à leur traduction en
                       français, soit leur image ou bien leur couleur. Il suffit

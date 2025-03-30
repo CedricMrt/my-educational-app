@@ -191,11 +191,21 @@ const dragReducer = (state: StateType, action: ActionType): StateType => {
       const { source, destination } = action.payload;
       if (!destination) return state;
 
-      const sourceList = [...state[source.droppableId as keyof StateType]];
-      const destList = [...state[destination.droppableId as keyof StateType]];
+      const sourceList = [...state[source.droppableId]];
+      const destList = [...state[destination.droppableId]];
+
+      if (
+        source.droppableId === destination.droppableId &&
+        source.index === destination.index
+      ) {
+        return state;
+      }
+
       const [movedItem] = sourceList.splice(source.index, 1);
 
-      destList.splice(destination.index, 0, movedItem);
+      if (!destList.includes(movedItem)) {
+        destList.splice(destination.index, 0, movedItem);
+      }
 
       return {
         ...state,

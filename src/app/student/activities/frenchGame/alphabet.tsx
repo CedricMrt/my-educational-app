@@ -61,24 +61,21 @@ const AlphabetActivity = ({
         console.error("Erreur lors de l'enregistrement :", error);
       }
     } else {
-      setMessage("Certaines réponses sont incorrectes. Réessaye !");
+      setMessage("Certaines réponses sont incorrectes.");
     }
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-full h-full'>
+    <div className='flex flex-col justify-around items-center w-full h-full h400:w-[84%]'>
       <h1 className='text-black font-bold text-2xl'>
         Complétez l&apos;Alphabet
       </h1>
-      <p className='text-black font-bold'>
-        Remplissez les lettres manquantes :
-      </p>
-      <div className='flex justify-center flex-wrap gap-2 mt-5'>
+      <div className='flex justify-center flex-wrap gap-2 mt-3'>
         {fullAlphabet.map((letter, index) =>
           missingIndexes.includes(index) ? (
             <input
               key={index}
-              className='w-10 h-10 text-2xl text-center bg-[#14120B] rounded-xl'
+              className='w-10 h-10 text-2xl text-center bg-[#14120B] rounded-xl h400:w-8 h400:h-8'
               type='text'
               maxLength={1}
               value={userInput[index] || ""}
@@ -87,19 +84,13 @@ const AlphabetActivity = ({
           ) : (
             <span
               key={index}
-              className='text-3xl font-bold w-8 text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
+              className='text-3xl h400:text-xl font-bold w-8 text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'
             >
               {letter}
             </span>
           )
         )}
       </div>
-      <button
-        className='mt-5 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
-        onClick={checkAnswers}
-      >
-        Valider
-      </button>
       <p
         className={`text-[#291b17] transition-opacity duration-500 ${
           message ? "opacity-100" : "opacity-0"
@@ -107,6 +98,12 @@ const AlphabetActivity = ({
       >
         {message}
       </p>
+      <button
+        className='mt-3 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0'
+        onClick={checkAnswers}
+      >
+        Valider
+      </button>
     </div>
   );
 };

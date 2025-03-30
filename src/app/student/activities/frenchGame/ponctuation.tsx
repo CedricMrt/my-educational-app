@@ -28,7 +28,7 @@ const Tool = ({
   return (
     <div
       onClick={() => onClick(type)}
-      className='flex items-center justify-center w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-xl cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
+      className='flex items-center justify-center m-1 w-20 h-12 p-2 max-sm:w-14 max-sm:h-8 text-2xl rounded-xl cursor-pointer bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg smallSize'
       style={{
         opacity: isActive ? 0.5 : 1,
       }}
@@ -120,7 +120,7 @@ const InteractiveCorrection = ({
       "magiques",
     ],
     [
-      "draco",
+      "drago",
       "malfoy",
       "se",
       "moque",
@@ -167,7 +167,7 @@ const InteractiveCorrection = ({
       "se",
       "dispute",
       "avec",
-      "draco",
+      "drago",
       "pendant",
       "le",
       "cours",
@@ -304,10 +304,10 @@ const InteractiveCorrection = ({
       "Harry mange à la table de Gryffondor, Ron lui parle de sa dernière aventure.",
       "Harry dort dans un placard sous l'escalier, Dudley le réveille en sautant sur les marches.",
       "Hermione étudie dans la bibliothèque, Harry et Ron jouent aux échecs magiques.",
-      "Draco Malfoy se moque de Harry dans le couloir, Pansy Parkinson rit de ses blagues.",
+      "Drago Malfoy se moque de Harry dans le couloir, Pansy Parkinson rit de ses blagues.",
       "Hagrid prend soin de son dragon, Harry l’aide à nourrir Norbert.",
       "Dumbledore parle aux élèves dans la grande salle, Harry écoute attentivement.",
-      "Ron se dispute avec Draco pendant le cours de potions, Hermione essaie de calmer tout le monde.",
+      "Ron se dispute avec Drago pendant le cours de potions, Hermione essaie de calmer tout le monde.",
       "Les Weasley décorent leur sapin de Noël, Harry les aide en accrochant des guirlandes.",
       "Luna Lovegood lit un livre étrange, Harry la regarde en se demandant ce qu'elle fait.",
       "Neville trébuche dans le hall, Ginny lui tend la main pour l’aider.",
@@ -342,8 +342,8 @@ const InteractiveCorrection = ({
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-full h-full'>
-      <h1 className='text-2xl text-black'>Corrige la phrase</h1>
+    <div className='flex flex-col justify-around items-center w-full h-full h400:w-[86%]'>
+      <h1 className='text-2xl font-bold text-black'>Corrige la phrase</h1>
       <p className='max-w-[90%] text-xl max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
         {currentSentence.map((word, index) => (
           <Word
@@ -357,7 +357,7 @@ const InteractiveCorrection = ({
         ))}
       </p>
       <div className='space-x-5'>
-        <strong className='[text-shadow:_1px_1px_0px_rgb(0_0_0_/_0.8)] max-sm:hidden'>
+        <strong className='[text-shadow:_1px_1px_0px_rgb(0_0_0_/_0.8)] motionHidden'>
           Outils :
         </strong>
         <div className='flex gap-5'>

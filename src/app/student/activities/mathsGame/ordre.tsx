@@ -103,8 +103,8 @@ const SortingGame = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
-      <div className='text-black text-2xl font-bold flex items-center justify-center'>
-        <span>
+      <div className='text-black text-2xl font-bold flex items-center justify-center smallFont'>
+        <span className=''>
           Trier en ordre : {orderType === "asc" ? "Croissant" : "Décroissant"}
         </span>
         {orderType === "asc" ? (
@@ -113,8 +113,8 @@ const SortingGame = ({
             alt='Signal montant'
             width={50}
             height={50}
-            className='ml-2'
-            style={{ width: "auto", height: "auto" }}
+            style={{ height: "auto" }}
+            className='ml-2 max-sm:w-8'
           />
         ) : (
           <Image
@@ -122,8 +122,8 @@ const SortingGame = ({
             alt='Signal descendant'
             width={50}
             height={50}
-            className='ml-2'
-            style={{ width: "auto", height: "auto" }}
+            style={{ height: "auto" }}
+            className='ml-2 max-sm:w-8'
           />
         )}
       </div>
@@ -138,7 +138,7 @@ const SortingGame = ({
             <ul
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className='flex space-x-6'
+              className='flex'
             >
               {numbers.map((num, index) => (
                 <Draggable
@@ -151,7 +151,7 @@ const SortingGame = ({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className='py-3 px-5 bg-gradient-to-r from-[#2D2305] to-[#433500] text-4xl max-lg:text-3xl max-md:text-xl max-sm:text-lg text-center rounded-xl'
+                      className='py-3 px-5 bg-gradient-to-r from-[#2D2305] to-[#433500] text-4xl max-lg:text-3xl max-md:text-xl max-sm:text-lg text-center rounded-xl m-2 smallPadding smallFont'
                     >
                       {num}
                     </li>
@@ -163,19 +163,19 @@ const SortingGame = ({
           )}
         </Droppable>
       </DragDropContext>
-      <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
-        onClick={handleValidate}
-      >
-        Valider
-      </button>
       <p
-        className={`text-[#291b17] transition-opacity duration-500 ${
+        className={`text-[#291b17] mt-2 transition-opacity duration-500 ${
           message ? "opacity-100" : "opacity-0"
         }`}
       >
         {message}
       </p>
+      <button
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 mt-2 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+        onClick={handleValidate}
+      >
+        Valider
+      </button>
     </div>
   );
 };

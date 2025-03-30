@@ -9,8 +9,9 @@ import MathsGame3 from "./mathsGame/comparaison";
 import MathsGame4 from "./mathsGame/Heures";
 import FrenchGame1 from "./frenchGame/ponctuation";
 import FrenchGame2 from "./frenchGame/alphabet";
-import FrenchGame3 from "./frenchGame/relier";
-import EnglishGame1 from "./englishGame/relier";
+import FrenchGame3 from "./frenchGame/terminaisons";
+import FrenchGame4 from "./frenchGame/pronoms";
+import EnglishGame1 from "./englishGame/traduction";
 import DiscoveryWorldGame1 from "./discoveryWorldGame/classification";
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
@@ -112,7 +113,7 @@ const SubjectPage = () => {
             <div className='mb-4 min-h-16 w-full'>
               {subject === "mathsGame" && (
                 <div className='flex justify-around w-full landscape:flex-wrap'>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Opérations
                     </h2>
@@ -123,10 +124,10 @@ const SubjectPage = () => {
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame1")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Ordre
                     </h2>
@@ -137,10 +138,10 @@ const SubjectPage = () => {
                       src={"/img/serdaigle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame2")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Comparaison
                     </h2>
@@ -151,10 +152,10 @@ const SubjectPage = () => {
                       src={"/img/serpentar.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame3")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Les Heures
                     </h2>
@@ -165,14 +166,14 @@ const SubjectPage = () => {
                       src={"/img/poufsouffle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("mathsGame4")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
                 </div>
               )}
               {subject === "frenchGame" && period && (
-                <div className='flex justify-around w-full'>
-                  <div className='flex flex-col items-center mr-4'>
+                <div className='flex justify-around w-full landscape:flex-wrap'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Ponctuation
                     </h2>
@@ -183,10 +184,10 @@ const SubjectPage = () => {
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("frenchGame1")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Alphabet
                     </h2>
@@ -197,12 +198,12 @@ const SubjectPage = () => {
                       src={"/img/serdaigle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("frenchGame2")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
-                  <div className='flex flex-col items-center mr-4'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                      Relier
+                      Terminaisons
                     </h2>
                     <Image
                       className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
@@ -211,16 +212,30 @@ const SubjectPage = () => {
                       src={"/img/poufsouffle.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("frenchGame3")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center mr-2'>
+                    <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
+                      Pronoms
+                    </h2>
+                    <Image
+                      className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
+                      width={60}
+                      height={60}
+                      src={"/img/serpentar.png"}
+                      alt='activity icon'
+                      onClick={() => handleActivityClick("frenchGame4")}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
                 </div>
               )}
               {subject === "englishGame" && (
-                <div className='flex justify-around w-full'>
-                  <div className='flex flex-col items-center mr-4'>
+                <div className='flex justify-around w-full landscape:flex-wrap'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
-                      Relier
+                      Traduction
                     </h2>
                     <Image
                       className='cursor-pointer rounded-lg [box-shadow:_0_0_8px_rgb(255_255_255_/_40%)]'
@@ -229,14 +244,14 @@ const SubjectPage = () => {
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("englishGame1")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
                 </div>
               )}
               {subject === "discoveryWorldGame" && (
-                <div className='flex justify-around w-full'>
-                  <div className='flex flex-col items-center mr-4'>
+                <div className='flex justify-around w-full landscape:flex-wrap'>
+                  <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
                       Classification
                     </h2>
@@ -247,7 +262,7 @@ const SubjectPage = () => {
                       src={"/img/griffondor.png"}
                       alt='activity icon'
                       onClick={() => handleActivityClick("discoveryWorldGame1")}
-                      style={{ width: "auto", height: "auto" }}
+                      style={{ width: "50px", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -257,7 +272,7 @@ const SubjectPage = () => {
               href='/student/dashboard'
               className='text-center [text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)] mb-4'
             >
-              Retour vers la liste des matières
+              Retour liste des matières
             </Link>
           </div>
           <motion.img
@@ -265,7 +280,7 @@ const SubjectPage = () => {
             alt='gif niffleur'
             width={150}
             height={150}
-            className='absolute top-[20px] left-[40%]'
+            className='absolute top-[20px] left-[40%] landscape:top-[-18%] landscape:left-[45%] motionHidden'
             initial={{ opacity: 0, y: 300 }}
             animate={
               showNiffleur ? { opacity: 1, y: 155 } : { opacity: 0, y: 300 }
@@ -273,7 +288,7 @@ const SubjectPage = () => {
             transition={{ duration: 0.5 }}
           />
           <motion.div
-            className='bubble top-[13%] left-[55%]'
+            className='bubble top-[13%] left-[55%] landscape:top-[1%] landscape:left-[54%] motionHidden'
             initial={{ opacity: 0, scale: 0.5 }}
             animate={
               showNiffleur
@@ -365,6 +380,18 @@ const SubjectPage = () => {
                 subject &&
                 school && (
                   <FrenchGame3
+                    school={school}
+                    subject={subject}
+                    studentId={student.id}
+                    period={period ? Number(period.id) : 0}
+                    onCorrectAnswer={handleCorrectAnswer}
+                  />
+                )}
+              {selectedActivity === "frenchGame4" &&
+                student &&
+                subject &&
+                school && (
+                  <FrenchGame4
                     school={school}
                     subject={subject}
                     studentId={student.id}

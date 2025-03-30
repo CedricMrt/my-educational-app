@@ -130,8 +130,11 @@ const getRandomCategory = (previousCategory?: Category): Category => {
   return newCategory;
 };
 
-const getRandomItems = (category: Category) => {
-  return categories[category].sort(() => 0.5 - Math.random()).slice(0, 5);
+const getRandomItems = (category: Category, isSmallScreen: boolean) => {
+  const maxItems = isSmallScreen ? 3 : 5;
+  return categories[category]
+    .sort(() => 0.5 - Math.random())
+    .slice(0, maxItems);
 };
 
 const MatchingGame = ({
@@ -142,6 +145,10 @@ const MatchingGame = ({
   onCorrectAnswer,
 }: GameProps) => {
   const [category, setCategory] = useState(getRandomCategory());
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const [items, setItems] = useState<
     { word: string; image?: string; text?: string; color?: string }[]
   >([]);
@@ -159,7 +166,21 @@ const MatchingGame = ({
   const [highlightedWord, setHighlightedWord] = useState<string | null>(null);
 
   useEffect(() => {
-    const selectedItems = getRandomItems(category);
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const isSmallScreen = screenSize.width < 500 || screenSize.height < 500;
+    const selectedItems = getRandomItems(category, isSmallScreen);
     setItems(selectedItems);
 
     const shuffledValues = selectedItems
@@ -169,7 +190,7 @@ const MatchingGame = ({
     setShuffledItems(shuffledValues as string[]);
     setConnections([]);
     setLines([]);
-  }, [category]);
+  }, [category, screenSize]);
 
   const handleSelectWord = (word: string) => {
     setSelectedWord(word);
@@ -265,7 +286,7 @@ const MatchingGame = ({
         studentId,
         subject,
         period,
-        "relier",
+        "traduction",
         isCorrect
       );
 
@@ -298,14 +319,17 @@ const MatchingGame = ({
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-full h-full'>
+    <div className='flex flex-col justify-around items-center w-full h-full h400:w-[84%]'>
       <h2 className='text-black text-2xl font-bold'>
         Relie les éléments entre eux
       </h2>
-      <div className='flex relative max-h-[300px] w-3/4' ref={containerRef}>
-        <div className='flex flex-col justify-between items-center w-1/2'>
+      <div
+        className='flex relative max-h-[300px] h-[90%] w-3/4'
+        ref={containerRef}
+      >
+        <div className='flex flex-col justify-between items-center w-1/2 h-full'>
           {items.map((item) => (
-            <div key={item.word} className='flex items-center h-16 w-full'>
+            <div key={item.word} className='flex items-center w-full'>
               <span
                 className={`w-1/2 p-2 rounded ${
                   selectedWord === item.word ? "bg-[#14120B]" : "bg-[#1B180F]"
@@ -331,7 +355,7 @@ const MatchingGame = ({
         </div>
         <div className='flex flex-col justify-between items-center w-1/2'>
           {shuffledItems.map((item, index) => (
-            <div key={index} className='flex items-center h-16 w-full'>
+            <div key={index} className='flex items-center w-full'>
               <div
                 className='w-1/2 flex justify-center cursor-pointer'
                 data-image={item}
@@ -340,7 +364,7 @@ const MatchingGame = ({
                 <div className='w-4 h-4 rounded-full bg-black'></div>
               </div>
               <span
-                className='w-1/2 p-2 max-h-14 bg-[#1B180F] rounded flex items-center justify-center'
+                className='w-1/2 p-2 max-h-14 h400:max-h-10 bg-[#1B180F] rounded flex items-center justify-center'
                 data-image={item}
                 onClick={() => handleSelectImg(item)}
               >
@@ -350,8 +374,8 @@ const MatchingGame = ({
                     alt={item}
                     width={50}
                     height={50}
-                    className='max-h-14'
-                    style={{ width: "auto", height: "auto" }}
+                    style={{ height: "auto" }}
+                    className='max-h-14 h400:max-h-10'
                   />
                 )}
                 {!item.includes("/img/") && !item.startsWith("#") && (
@@ -381,36 +405,35 @@ const MatchingGame = ({
           ))}
         </svg>
       </div>
+      <p
+        className={`text-[#291b17] mt-1 transition-opacity duration-500 ${
+          message ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {message}
+      </p>
       <div className='w-3/4 flex justify-between items-center'>
         <button
           onClick={handleListenWords}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1 max-sm:mt-1 max-sm:py-0'
         >
           Ecouter
         </button>
         <button
           onClick={handleResetLines}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1 max-sm:mt-1 max-sm:py-0'
         >
           Annuler
         </button>
         <div className=''>
           <button
             onClick={handleValidate}
-            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1 max-sm:mt-1 max-sm:py-0'
           >
             Valider
           </button>
         </div>
       </div>
-
-      <p
-        className={`text-[#291b17] transition-opacity duration-500 ${
-          message ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {message}
-      </p>
     </div>
   );
 };

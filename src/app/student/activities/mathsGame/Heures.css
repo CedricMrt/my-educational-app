@@ -50,3 +50,18 @@
   transform-origin: 50% 100%;
   width: 2%;
 }
+
+@media (max-width: 400px), (max-height: 400px) {
+  .clock {
+    height: 10em;
+    width: 8em;
+  }
+
+  .smallInput {
+    padding: 0.25rem;
+  }
+
+  .smallMargin {
+    margin-top: 0.5rem;
+  }
+}

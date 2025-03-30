@@ -133,7 +133,7 @@ const LoginForm = () => {
                   : "text-[#fee949f5] bg-gradient-to-r from-[#14120B] to-[#1B180F]"
               }`}
             >
-              Connexion Administrateur
+              Connexion Professeur
             </button>
             <button
               onClick={() => setFormType("studentLogin")}
@@ -153,14 +153,14 @@ const LoginForm = () => {
                   : "text-[#fee949f5] bg-gradient-to-r from-[#14120B] to-[#1B180F]"
               }`}
             >
-              Inscription Administrateur
+              Inscription Professeur
             </button>
           </div>
           <div className='transition-opacity duration-500 ease-in-out [box-shadow:3px_3px_14px_3px_rgb(255_255_255_/_40%)] rounded-lg backdrop-blur-sm'>
             {formType === "teacherLogin" && (
               <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
                 <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
-                  Connexion Administrateur
+                  Connexion Professeur
                 </h2>
                 <div className=''>
                   <label
@@ -269,7 +269,7 @@ const LoginForm = () => {
             {formType === "teacherSignUp" && (
               <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
                 <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
-                  Inscription Administrateur
+                  Inscription Professeur
                 </h2>
                 <div>
                   <label
@@ -316,7 +316,7 @@ const LoginForm = () => {
         <div>
           <Link
             href='/'
-            className='px-4 py-2 bg-[#433500] rounded-lg hover:bg-[#2D2305] transition'
+            className='px-4 py-2 bg-[#433500] rounded-xl hover:bg-[#2D2305] transition drop-shadow-lg'
             onClick={deleteSchoolStorage}
           >
             Retour au choix d&apos;école

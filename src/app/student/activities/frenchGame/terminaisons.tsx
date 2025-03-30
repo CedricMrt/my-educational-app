@@ -124,8 +124,36 @@ const getRandomVerb = (previousVerb?: Verb): Verb => {
   return newVerb;
 };
 
-const getRandomItems = (Verb: Verb) => {
-  return verbs[Verb].sort(() => 0.5 - Math.random()).slice(0, 6);
+const getRandomItems = (Verb: Verb, period: number, isSmallScreen: boolean) => {
+  const maxItems = isSmallScreen ? 4 : 6;
+
+  if (period === 1) {
+    return verbs[Verb].sort(() => 0.5 - Math.random()).slice(0, maxItems);
+  }
+
+  const pronouns = ["je", "tu", "il,elle", "nous", "vous", "ils,elles"];
+  const selectedPairs: { sujet: string; text: string }[] = [];
+  const shuffledVerbs = Object.keys(verbs) as Verb[];
+
+  while (selectedPairs.length < maxItems) {
+    const randomVerb =
+      shuffledVerbs[Math.floor(Math.random() * shuffledVerbs.length)];
+    const availableSubjects = verbs[randomVerb].filter(
+      (v) =>
+        pronouns.includes(v.sujet) &&
+        !selectedPairs.some((pair) => pair.sujet === v.sujet)
+    );
+
+    if (availableSubjects.length > 0) {
+      const randomSubject =
+        availableSubjects[Math.floor(Math.random() * availableSubjects.length)];
+      if (randomSubject.text) {
+        selectedPairs.push(randomSubject as { sujet: string; text: string });
+      }
+    }
+  }
+
+  return selectedPairs;
 };
 
 const MatchingGame = ({
@@ -136,6 +164,10 @@ const MatchingGame = ({
   onCorrectAnswer,
 }: GameProps) => {
   const [Verb, setVerb] = useState(getRandomVerb());
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const [items, setItems] = useState<
     { sujet: string; image?: string; text?: string; color?: string }[]
   >([]);
@@ -152,7 +184,21 @@ const MatchingGame = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const selectedItems = getRandomItems(Verb);
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const isSmallScreen = screenSize.width < 500 || screenSize.height < 500;
+    const selectedItems = getRandomItems(Verb, period, isSmallScreen);
     setItems(selectedItems);
 
     const shuffledValues = selectedItems
@@ -162,7 +208,7 @@ const MatchingGame = ({
     setShuffledItems(shuffledValues as string[]);
     setConnections([]);
     setLines([]);
-  }, [Verb]);
+  }, [Verb, period, screenSize]);
 
   const handleSelectsujet = (sujet: string) => {
     setSelectedsujet(sujet);
@@ -219,7 +265,7 @@ const MatchingGame = ({
         studentId,
         subject,
         period,
-        "relier",
+        "terminaisons",
         isCorrect
       );
 
@@ -252,14 +298,19 @@ const MatchingGame = ({
   };
 
   return (
-    <div className='flex flex-col justify-around items-center w-full h-full'>
-      <h2 className='text-black text-2xl font-bold'>
-        Relie le pronom sujet à la bonne terminaison
+    <div className='flex flex-col justify-around items-center w-full h-full h400:w-[84%]'>
+      <h2 className='text-black text-2xl font-bold smallFont'>
+        {screenSize.width < 500 || screenSize.height < 500
+          ? "Relie le pronom à sa terminaison"
+          : "Relie le pronom sujet à la bonne terminaison"}
       </h2>
-      <div className='flex relative max-h-[300px] w-3/4' ref={containerRef}>
-        <div className='flex flex-col justify-between items-center w-1/2'>
+      <div
+        className='flex relative max-h-[300px] h-[90%] w-3/4'
+        ref={containerRef}
+      >
+        <div className='flex flex-col justify-between items-center w-1/2 h-full'>
           {items.map((item) => (
-            <div key={item.sujet} className='flex items-center h-16 w-full'>
+            <div key={item.sujet} className='flex items-center w-full'>
               <span
                 className={`w-1/2 text-center p-2 rounded ${
                   selectedsujet === item.sujet ? "bg-[#14120B]" : "bg-[#1B180F]"
@@ -279,9 +330,9 @@ const MatchingGame = ({
             </div>
           ))}
         </div>
-        <div className='flex flex-col justify-between items-center w-1/2'>
+        <div className='flex flex-col justify-between items-center w-1/2 h-full'>
           {shuffledItems.map((item, index) => (
-            <div key={index} className='flex items-center h-16 w-full'>
+            <div key={index} className='flex items-center w-full'>
               <div
                 className='w-1/2 flex justify-center cursor-pointer'
                 data-image={`${item}_${index}`}
@@ -313,30 +364,29 @@ const MatchingGame = ({
           ))}
         </svg>
       </div>
-      <div className='w-1/2 flex justify-between items-center'>
+      <p
+        className={`text-[#291b17] mt-1 transition-opacity duration-500 ${
+          message ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {message}
+      </p>
+      <div className='w-1/2 h400:w-3/4 max-sm:w-full flex justify-between items-center'>
         <button
           onClick={handleResetLines}
-          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+          className='p-2 bg-[#433500] text-[#F5E147] text-2xl py-1 rounded-xl hover:bg-[#362B00] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1 max-sm:mt-1 max-sm:py-0'
         >
           Annuler
         </button>
         <div className=''>
           <button
             onClick={handleValidate}
-            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+            className='p-2 bg-[#FFE770] text-[#9E6C00] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl h400:py-0 h400:mt-1 max-sm:mt-1 max-sm:py-0'
           >
             Valider
           </button>
         </div>
       </div>
-
-      <p
-        className={`text-[#291b17] transition-opacity duration-500 ${
-          message ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {message}
-      </p>
     </div>
   );
 };

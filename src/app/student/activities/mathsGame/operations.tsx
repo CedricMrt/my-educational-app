@@ -107,7 +107,7 @@ const Game = ({
   return (
     <div className='flex flex-col justify-around items-center w-full h-full'>
       <select
-        className='p-2 rounded-xl text-2xl bg-gradient-to-r from-[#2D2305] to-[#433500]'
+        className='p-2 rounded-xl text-2xl bg-gradient-to-r from-[#2D2305] to-[#433500] smallFont'
         value={operation}
         onChange={(e) => setOperation(e.target.value)}
       >
@@ -119,15 +119,15 @@ const Game = ({
         </option>
       </select>
       {displayMode === "inline" ? (
-        <div className='space-x-3 flex'>
-          <span className='text-6xl'>{number1}</span>
-          <span className='text-6xl'>
+        <div className='flex'>
+          <span className='text-6xl mr-1 mediumFont'>{number1}</span>
+          <span className='text-6xl mr-1 mediumFont'>
             {operation === "addition" ? "+" : "-"}
           </span>
-          <span className='text-6xl'>{number2}</span>
-          <span className='text-6xl'>=</span>
+          <span className='text-6xl mr-1 mediumFont'>{number2}</span>
+          <span className='text-6xl mr-1 mediumFont'>=</span>
           <input
-            className='max-w-20 text-center text-4xl px-3 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+            className='max-w-20 text-center text-2xl px-3 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600 smallPadding'
             type='text'
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
@@ -135,26 +135,30 @@ const Game = ({
         </div>
       ) : (
         <div className='flex flex-col items-end text-6xl font-mono'>
-          <div className='flex gap-2'>
-            <span className='w-18 text-right tracking-[0.5rem]'>{number1}</span>
+          <div className='flex'>
+            <span className='w-18 text-right tracking-[0.5rem] mediumFont'>
+              {number1}
+            </span>
           </div>
-          <div className='flex gap-2'>
-            <span className='text-left w-6'>
+          <div className='flex'>
+            <span className='text-left w-6 mediumFont'>
               {operation === "addition" ? "+" : "-"}
             </span>
-            <span className='w-32 text-right tracking-[0.5rem]'>{number2}</span>
+            <span className='w-32 text-right tracking-[0.5rem] mediumFont'>
+              {number2}
+            </span>
           </div>
           <hr className='w-32 border-2 border-black my-2' />
-          <div className='flex gap-2'>
+          <div className='flex'>
             <input
-              className='w-10 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
+              className='w-10 mr-1 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
               type='text'
               maxLength={1}
               value={hundreds}
               onChange={(e) => setHundreds(e.target.value)}
             />
             <input
-              className='w-10 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
+              className='w-10 mr-1 text-center text-4xl border rounded-xl bg-green-200 text-gray-600'
               type='text'
               maxLength={1}
               value={tens}
@@ -170,19 +174,19 @@ const Game = ({
           </div>
         </div>
       )}
-      <button
-        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
-        onClick={handleValidate}
-      >
-        Valider
-      </button>
       <p
-        className={`text-[#291b17] transition-opacity duration-500 ${
+        className={`text-[#291b17] mt-2 transition-opacity duration-500 ${
           message ? "opacity-100" : "opacity-0"
         }`}
       >
         {message}
       </p>
+      <button
+        className='p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 mt-2 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+        onClick={handleValidate}
+      >
+        Valider
+      </button>
     </div>
   );
 };

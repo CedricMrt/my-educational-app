@@ -71,6 +71,7 @@ body {
   border: 2px solid #836a21;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
+  margin-right: 0.5rem;
   border-radius: 50px;
   text-decoration: none;
   text-align: center;
@@ -119,4 +120,35 @@ body {
   left: -15%;
   box-shadow: 0.5vmin 0, 2vmin -0.5vmin #2d2305, 2vmin -0.5vmin 0 0.5vmin;
   clip-path: polygon(0% 49%, 150% 48%, 150% 100%, 0% 100%);
+}
+
+@media (max-width: 500px), (max-height: 500px) {
+  .smallSize {
+    width: 56px;
+    height: 32px;
+  }
+
+  .mediumPadding {
+    padding: 4px 10px;
+  }
+
+  .smallPadding {
+    padding: 4px 6px;
+  }
+
+  .mediumFont {
+    font-size: 2.5rem;
+  }
+
+  .smallFont {
+    font-size: 1rem;
+  }
+
+  .smallImage {
+    width: 30px;
+  }
+
+  .motionHidden {
+    display: none;
+  }
 }

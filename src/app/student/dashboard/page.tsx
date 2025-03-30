@@ -26,12 +26,11 @@ const StudentDashboard = () => {
       <div className='flex flex-col h-[100vh]'>
         <Navbar />
 
-        {/* Niffleur - Animation d'arrivée depuis la gauche */}
         <motion.div
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className='absolute bottom-20 left-0'
+          className='absolute top-20 left-0'
         >
           <Image
             width={200}
@@ -47,7 +46,7 @@ const StudentDashboard = () => {
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className='absolute right-0 bottom-20'
+            className='absolute right-0 top-20'
           >
             <Image
               width={80}

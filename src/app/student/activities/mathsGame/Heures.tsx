@@ -133,7 +133,9 @@ const ClockGame = ({
     <div className='flex flex-col justify-around items-center w-full h-full'>
       {gameMode === 1 ? (
         <>
-          <p className='text-black font-bold text-2xl'>Quelle heure est-il ?</p>
+          <p className='text-black font-bold text-2xl smallFont'>
+            Quelle heure est-il ?
+          </p>
           <article className='clock'>
             <div className='hours-container'>
               <div
@@ -169,9 +171,9 @@ const ClockGame = ({
                 }
                 setInputTimeHour(value);
               }}
-              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16'
+              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16 smallInput smallMargin'
             />
-            <p className='mt-4 mx-3 text-3xl'>:</p>
+            <p className='mt-4 mx-3 text-3xl smallMargin'>:</p>
             <input
               type='text'
               placeholder='mm'
@@ -188,13 +190,13 @@ const ClockGame = ({
                 }
                 setInputTimeMinutes(value);
               }}
-              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16'
+              className='mt-4 p-2 text-center text-xl border rounded-xl bg-[#2D2305] max-w-16 smallInput smallMargin smallFont'
             />
           </div>
         </>
       ) : (
         <>
-          <p className='text-black font-bold text-2xl'>
+          <p className='text-black font-bold text-2xl smallFont'>
             Place les aiguilles pour afficher :{" "}
             {targetTime.hours.toString().padStart(2, "0")}:
             {targetTime.minutes.toString().padStart(2, "0")}
@@ -219,7 +221,7 @@ const ClockGame = ({
           </article>
           <button
             onClick={() => setIsSettingHours((prev) => !prev)}
-            className={`mt-2 p-2 text-xl rounded-xl drop-shadow-lg ${
+            className={`mt-2 p-2 text-xl rounded-xl drop-shadow-lg smallFont smallPadding ${
               isSettingHours
                 ? "bg-[#F5E147] text-[#433500]"
                 : "bg-[#433500] text-[#F5E147]"
@@ -229,14 +231,19 @@ const ClockGame = ({
           </button>
         </>
       )}
-
+      <p
+        className={`text-[#291b17] mt-1 transition-opacity duration-500 ${
+          message ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {message}
+      </p>
       <button
         onClick={handleValidate}
-        className='mt-4 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl'
+        className='mt-2 p-2 bg-[#FFE770] text-[#5C7C2F] text-2xl py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-xl smallMargin smallPadding'
       >
         Valider
       </button>
-      <p className='mt-2'>{message}</p>
     </div>
   );
 };
