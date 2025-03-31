@@ -171,7 +171,7 @@ const SubjectPage = () => {
                   </div>
                 </div>
               )}
-              {subject === "frenchGame" && period && (
+              {subject === "frenchGame" && (
                 <div className='flex justify-around w-full landscape:flex-wrap'>
                   <div className='flex flex-col items-center mr-2'>
                     <h2 className='[text-shadow:_1px_2px_0px_rgb(0_0_0_/_0.8)]'>
