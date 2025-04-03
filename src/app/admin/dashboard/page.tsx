@@ -101,7 +101,7 @@ const Dashboard = () => {
   const fetchPeriods = useCallback(async () => {
     if (user && school) {
       const periodsQuery = query(
-        collection(db, `schools/${school?.id}/periods`),
+        collection(db, `schools/${school.id}/periods`),
         where("uid", "==", user.uid)
       );
       const periodsSnapshot = await getDocs(periodsQuery);
