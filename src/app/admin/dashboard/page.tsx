@@ -198,38 +198,54 @@ const Dashboard = () => {
     setStudents(newStudents);
   };
 
-  const handleTogglePeriod = async (periodId: number): Promise<void> => {
-    const updatedPeriods: Period[] = periods.map((period) =>
-      period.id === periodId
-        ? { ...period, active: !period.active }
-        : { ...period, active: false }
-    );
+  const handleTogglePeriod = async (periodId: number) => {
+  if (!school?.id) return;
 
-    try {
-      updatedPeriods.forEach(async (period) => {
-        const periodQuery = query(
-          collection(db, `schools/${school?.id}/periods`),
-          where("uid", "==", user?.uid),
-          where("id", "==", period.id)
-        );
-        const periodSnapshot = await getDocs(periodQuery);
-        if (!periodSnapshot.empty) {
-          const periodDoc = periodSnapshot.docs[0];
-          const periodRef = doc(
-            db,
-            `schools/${school?.id}/periods`,
-            periodDoc.id
-          );
-          await updateDoc(periodRef, { active: period.active });
-        } else {
-          console.error("Aucune période trouvée pour cet ID");
-        }
+  try {
+    // 1. Trouver la période à modifier
+    const periodToUpdate = periods.find(p => p.id === periodId);
+    if (!periodToUpdate) return;
+
+    // 2. Préparer la nouvelle valeur active
+    const newActiveState = !periodToUpdate.active;
+
+    // 3. Mettre à jour Firestore
+    const periodQuery = query(
+      collection(db, `schools/${school.id}/periods`),
+      where("id", "==", periodId)
+    );
+    const snapshot = await getDocs(periodQuery);
+
+    if (!snapshot.empty) {
+      const batch = writeBatch(db);
+      
+      // Désactiver toutes les périodes d'abord
+      const allPeriodsQuery = query(collection(db, `schools/${school.id}/periods`));
+      const allPeriodsSnapshot = await getDocs(allPeriodsQuery);
+      allPeriodsSnapshot.docs.forEach(doc => {
+        batch.update(doc.ref, { active: false });
       });
-      setPeriods(updatedPeriods);
-    } catch (error) {
-      console.error("Error updating period:", error);
+
+      // Activer uniquement la période sélectionnée
+      snapshot.docs.forEach(doc => {
+        batch.update(doc.ref, { active: newActiveState });
+      });
+
+      await batch.commit();
     }
-  };
+
+    // 4. Mettre à jour l'état local
+    setPeriods(prevPeriods => 
+      prevPeriods.map(p => ({
+        ...p,
+        active: p.id === periodId ? newActiveState : false
+      }))
+    );
+  } catch (error) {
+    console.error("Error updating period:", error);
+    toast.error("Erreur lors de la mise à jour de la période");
+  }
+};
 
   const handleDeleteStudent = async (studentId: string) => {
     try {
