@@ -4,7 +4,6 @@ import { db, auth, getStudentStats } from "../../lib/firebaseConfig";
 import {
   collection,
   getDocs,
-  updateDoc,
   doc,
   query,
   where,
@@ -28,20 +27,42 @@ import {
 } from "chart.js";
 import { useSchool } from "@/app/utils/SchoolContext";
 
+interface Period {
+  id: number;
+  active: boolean;
+}
+
+interface Student {
+  id: string;
+  name: string;
+  lastName: string;
+  password: string;
+  uid: string;
+}
+
+interface GameStats {
+  correctCount: number;
+  incorrectCount: number;
+}
+
+interface ChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string[];
+    borderColor: string[];
+    borderWidth: number;
+  }[];
+  options: {
+    title: object;
+    scales: object;
+  };
+  average: string;
+  gameName: string;
+}
+
 const Dashboard = () => {
-  interface Period {
-    id: number;
-    active: boolean;
-  }
-
-  interface Student {
-    id: string;
-    name: string;
-    lastName: string;
-    password: string;
-    uid: string;
-  }
-
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -75,48 +96,26 @@ const Dashboard = () => {
     discoveryWorldGame: "Découverte du monde",
   };
 
-  interface GameStats {
-    correctCount: number;
-    incorrectCount: number;
-  }
-  interface ChartData {
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-      borderColor: string[];
-      borderWidth: number;
-    }[];
-    options: {
-      title: object;
-      scales: object;
-    };
-    average: string;
-    gameName: string;
-  }
-
   const [chartData, setChartData] = useState<ChartData[] | null>(null);
 
   const fetchPeriods = useCallback(async () => {
-  if (!school?.id) return;
+    if (!school?.id) return;
 
-  try {
-    const periodsQuery = query(
-      collection(db, `schools/${school.id}/periods`)
-    );
-    const periodsSnapshot = await getDocs(periodsQuery);
-    const periodsData = periodsSnapshot.docs.map((doc) => ({
-      id: doc.data().id,
-      active: doc.data().active || false,
-      // Suppression de la référence à uid si non utilisé
-    }));
-    setPeriods(periodsData);
-  } catch (error) {
-    console.error("Error fetching periods:", error);
-    toast.error("Erreur lors du chargement des périodes");
-  }
-}, [school?.id]);
+    try {
+      const periodsQuery = query(
+        collection(db, `schools/${school.id}/periods`)
+      );
+      const periodsSnapshot = await getDocs(periodsQuery);
+      const periodsData = periodsSnapshot.docs.map((doc) => ({
+        id: doc.data().id,
+        active: doc.data().active || false,
+      }));
+      setPeriods(periodsData);
+    } catch (error) {
+      console.error("Error fetching periods:", error);
+      toast.error("Erreur lors du chargement des périodes");
+    }
+  }, [school?.id]);
 
   const fetchStudents = useCallback(async () => {
     if (user && school) {
@@ -137,15 +136,11 @@ const Dashboard = () => {
   }, [user, school]);
 
   useEffect(() => {
-  console.log("Loading state:", loading);
-  console.log("User state:", user);
-  console.log("School state:", school);
-
-  if (!loading && user && school) {
-    fetchPeriods();
-    fetchStudents();
-  }
-}, [loading, user, school]);
+    if (!loading && user && school) {
+      fetchPeriods();
+      fetchStudents();
+    }
+  }, [loading, user, school, fetchPeriods, fetchStudents]);
 
   const handleCreateStudent = async () => {
     try {
@@ -178,6 +173,7 @@ const Dashboard = () => {
       await fetchStudents();
     } catch (error) {
       console.error("Error creating students:", error);
+      toast.error("Erreur lors de la création des élèves");
     }
   };
 
@@ -199,53 +195,49 @@ const Dashboard = () => {
   };
 
   const handleTogglePeriod = async (periodId: number) => {
-  if (!school?.id) return;
+    if (!school?.id) return;
 
-  try {
-    // 1. Trouver la période à modifier
-    const periodToUpdate = periods.find(p => p.id === periodId);
-    if (!periodToUpdate) return;
+    try {
+      const periodToUpdate = periods.find((p) => p.id === periodId);
+      if (!periodToUpdate) return;
 
-    // 2. Préparer la nouvelle valeur active
-    const newActiveState = !periodToUpdate.active;
+      const newActiveState = !periodToUpdate.active;
 
-    // 3. Mettre à jour Firestore
-    const periodQuery = query(
-      collection(db, `schools/${school.id}/periods`),
-      where("id", "==", periodId)
-    );
-    const snapshot = await getDocs(periodQuery);
+      const periodQuery = query(
+        collection(db, `schools/${school.id}/periods`),
+        where("id", "==", periodId)
+      );
+      const snapshot = await getDocs(periodQuery);
 
-    if (!snapshot.empty) {
-      const batch = writeBatch(db);
-      
-      // Désactiver toutes les périodes d'abord
-      const allPeriodsQuery = query(collection(db, `schools/${school.id}/periods`));
-      const allPeriodsSnapshot = await getDocs(allPeriodsQuery);
-      allPeriodsSnapshot.docs.forEach(doc => {
-        batch.update(doc.ref, { active: false });
-      });
+      if (!snapshot.empty) {
+        const batch = writeBatch(db);
 
-      // Activer uniquement la période sélectionnée
-      snapshot.docs.forEach(doc => {
-        batch.update(doc.ref, { active: newActiveState });
-      });
+        const allPeriodsQuery = query(
+          collection(db, `schools/${school.id}/periods`)
+        );
+        const allPeriodsSnapshot = await getDocs(allPeriodsQuery);
+        allPeriodsSnapshot.docs.forEach((doc) => {
+          batch.update(doc.ref, { active: false });
+        });
 
-      await batch.commit();
+        snapshot.docs.forEach((doc) => {
+          batch.update(doc.ref, { active: newActiveState });
+        });
+
+        await batch.commit();
+      }
+
+      setPeriods((prevPeriods) =>
+        prevPeriods.map((p) => ({
+          ...p,
+          active: p.id === periodId ? newActiveState : false,
+        }))
+      );
+    } catch (error) {
+      console.error("Error updating period:", error);
+      toast.error("Erreur lors de la mise à jour de la période");
     }
-
-    // 4. Mettre à jour l'état local
-    setPeriods(prevPeriods => 
-      prevPeriods.map(p => ({
-        ...p,
-        active: p.id === periodId ? newActiveState : false
-      }))
-    );
-  } catch (error) {
-    console.error("Error updating period:", error);
-    toast.error("Erreur lors de la mise à jour de la période");
-  }
-};
+  };
 
   const handleDeleteStudent = async (studentId: string) => {
     try {
@@ -257,6 +249,7 @@ const Dashboard = () => {
       await fetchStudents();
     } catch (error) {
       console.error("Error deleting student:", error);
+      toast.error("Erreur lors de la suppression de l'élève");
     }
   };
 
@@ -305,14 +298,18 @@ const Dashboard = () => {
             display: true,
             text: `Statistiques pour ${gameName}`,
             color: "#F6EEB4",
-            size: 20,
-            weight: "bold",
+            font: {
+              size: 20,
+              weight: "bold",
+            },
           },
           responsive: true,
           plugins: {
             legend: {
               position: "top",
-              color: "#F6EEB4",
+              labels: {
+                color: "#F6EEB4",
+              },
             },
           },
           scales: {
@@ -462,14 +459,15 @@ const Dashboard = () => {
                   <li className='mb-4'>
                     <h3 className='underline text-[#FFFF57]'>Alphabet:</h3>
                     <p>
-                      Séléctionner une boite vide et saisir la lettre manquante.
+                      Sélectionner une boîte vide et saisir la lettre manquante.
                     </p>
                   </li>
                   <li className='mb-4'>
                     <h3 className='underline text-[#FFFF57]'>Pronoms:</h3>
                     <p>
-                      Cliquer sur un pronom (il,elle,nous,vous,ils,elles), alors
-                      le groupe sujet de la phrase sera remplacé par celui-ci.
+                      Cliquer sur un pronom (il, elle, nous, vous, ils, elles),
+                      alors le groupe sujet de la phrase sera remplacé par
+                      celui-ci.
                     </p>
                   </li>
                   <li className='mb-4'>
@@ -481,11 +479,11 @@ const Dashboard = () => {
                         )?.id;
                         switch (activePeriodId) {
                           case 2:
-                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbes à son pronom.";
+                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbe à son pronom.";
                           case 3:
-                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbes à son pronom.";
+                            return "Après un choix aléatoire de plusieurs verbes, relier la terminaison de chaque verbe à son pronom.";
                           default:
-                            return "Après un choix aléatoire d&apos;un verbe, relier chaque pronoms à la bonne terminaison de ce verbe.";
+                            return "Après un choix aléatoire d'un verbe, relier chaque pronom à la bonne terminaison de ce verbe.";
                         }
                       })()}
                     </p>
@@ -496,7 +494,7 @@ const Dashboard = () => {
                   <li className='mb-4'>
                     <h3 className='underline text-[#FFFF57]'>Opérations:</h3>
                     <p>
-                      Séléctionnez Addition ou Soustraction, aléatoirement les
+                      Sélectionnez Addition ou Soustraction, aléatoirement les
                       opérations seront en ligne ou en colonne avec des nombres
                       compris entre{" "}
                       {(() => {
@@ -546,9 +544,9 @@ const Dashboard = () => {
                   <li className='mb-4'>
                     <h3 className='underline text-[#FFFF57]'>Les heures:</h3>
                     <p>
-                      Deux mode de jeu choisi aléatoirement, soit lire
+                      Deux modes de jeu choisis aléatoirement, soit lire
                       l&apos;heure et saisir la réponse, soit régler les
-                      aiguilles suivant l&apos; heure indiquée en séléctionnant
+                      aiguilles suivant l&apos;heure indiquée en sélectionnant
                       avec le bouton celles des heures ou des minutes.
                     </p>
                   </li>
@@ -560,7 +558,7 @@ const Dashboard = () => {
                     <p>
                       Relier les mots en anglais soit à leur traduction en
                       français, soit leur image ou bien leur couleur. Il suffit
-                      de cliquer sur le mot anglais puis sur la réponse voulu.
+                      de cliquer sur le mot anglais puis sur la réponse voulue.
                     </p>
                   </li>
                 </ul>
@@ -571,11 +569,11 @@ const Dashboard = () => {
                       Classification:
                     </h3>
                     <p>
-                      Un theme est choisi au hasard entre Vivant/Non vivant,
+                      Un thème est choisi au hasard entre Vivant/Non vivant,
                       Ovipare/Vivipare, Carnivore/Herbivore/Omnivore, ou
                       Marin/Terrestre/Aérien avec leur définition, suivi
-                      d&apos;une liste de mot à faire glisser dans les
-                      différentes catégories
+                      d&apos;une liste de mots à faire glisser dans les
+                      différentes catégories.
                     </p>
                   </li>
                 </ul>
@@ -630,7 +628,7 @@ const Dashboard = () => {
                     className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
                     onClick={handleAddStudentField}
                   >
-                    Ajouter un Champs
+                    Ajouter un Champ
                   </button>
                   <button
                     className='p-2 rounded-xl bg-gradient-to-r from-[#2D2305] to-[#433500] drop-shadow-lg'
@@ -648,7 +646,7 @@ const Dashboard = () => {
                         className='flex gap-2 items-center text-white text-md'
                       >
                         <span>
-                          {student.name} {student.lastName} {student.password}
+                          {student.name} {student.lastName}
                         </span>
                         <Image
                           className='cursor-pointer max-w-8'
@@ -672,7 +670,7 @@ const Dashboard = () => {
                     className='p-2 rounded-xl bg-[#433500] bg-gradient-to-r from-[#2D2305] to-[#433500]'
                     onChange={(e) => setSelectedStudentId(e.target.value)}
                   >
-                    <option value={""}>Choisir un éleve</option>
+                    <option value={""}>Choisir un élève</option>
                     {existingStudents.map((student) => (
                       <option key={student.id} value={student.id}>
                         {student.name} {student.lastName}
