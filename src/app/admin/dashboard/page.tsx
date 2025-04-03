@@ -111,6 +111,7 @@ const Dashboard = () => {
         active: doc.data().active || false,
       }));
       setPeriods(periodsData);
+      console.log("Periods state:", periods)
     }
   }, [school, user]);
 
@@ -140,7 +141,6 @@ const Dashboard = () => {
   if (!loading && user && school) {
     fetchPeriods();
     fetchStudents();
-    console.log("Periods state:", periods)
   }
 }, [loading, user, school]);
 
