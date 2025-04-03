@@ -16,6 +16,7 @@ import AdminGuard from "@/app/utils/AdminGuard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Image from "next/image";
 import { Bar } from "react-chartjs-2";
+import toast from "react-hot-toast";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,7 +31,6 @@ import { useSchool } from "@/app/utils/SchoolContext";
 const Dashboard = () => {
   interface Period {
     id: number;
-    uid: string;
     active: boolean;
   }
 
