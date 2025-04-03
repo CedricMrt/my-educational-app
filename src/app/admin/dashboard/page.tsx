@@ -99,21 +99,24 @@ const Dashboard = () => {
   const [chartData, setChartData] = useState<ChartData[] | null>(null);
 
   const fetchPeriods = useCallback(async () => {
-    if (user && school) {
-      const periodsQuery = query(
-        collection(db, `schools/${school.id}/periods`),
-        where("uid", "==", user.uid)
-      );
-      const periodsSnapshot = await getDocs(periodsQuery);
-      const periodsData = periodsSnapshot.docs.map((doc) => ({
-        id: doc.data().id,
-        uid: doc.data().uid,
-        active: doc.data().active || false,
-      }));
-      setPeriods(periodsData);
-      console.log("Periods state:", periods)
-    }
-  }, [school, user]);
+  if (!school?.id) return;
+
+  try {
+    const periodsQuery = query(
+      collection(db, `schools/${school.id}/periods`)
+    );
+    const periodsSnapshot = await getDocs(periodsQuery);
+    const periodsData = periodsSnapshot.docs.map((doc) => ({
+      id: doc.data().id,
+      active: doc.data().active || false,
+      // Suppression de la référence à uid si non utilisé
+    }));
+    setPeriods(periodsData);
+  } catch (error) {
+    console.error("Error fetching periods:", error);
+    toast.error("Erreur lors du chargement des périodes");
+  }
+}, [school?.id]);
 
   const fetchStudents = useCallback(async () => {
     if (user && school) {
