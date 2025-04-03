@@ -361,7 +361,7 @@ const Dashboard = () => {
     fetchStats();
   }, [school, selectedStudentId, selectedSubject, periods, calculateChartData]);
 
-  if (loading) {
+  if (!user || !school || loading) {
     return (
       <div className='h-[100vh] flex justify-center items-center'>
         <p className='text-2xl'>Chargement...</p>
