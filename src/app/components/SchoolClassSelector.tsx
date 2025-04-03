@@ -131,7 +131,15 @@ const SchoolClassSelector = () => {
           type='text'
           className='p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E4C767] bg-[#FFFAB8] text-[#473B1F]'
           value={newSchool}
-          onChange={(e) => setNewSchool(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            // Vérifie si la valeur ne contient que des lettres
+            if (/^[A-Za-z]+$/.test(value) || value === "") {
+              setNewSchool(value);
+            }
+          }}
+          pattern='^[A-Za-z]+$'
+          title='Veuillez entrer uniquement des lettres.'
           placeholder='Nom de la nouvelle école'
         />
         <select

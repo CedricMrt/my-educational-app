@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
@@ -78,12 +78,7 @@ const LoginForm = () => {
 
   const handleTeacherSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+      await createUserWithEmailAndPassword(auth, email, password);
 
       if (!school.id) {
         toast.error("École non trouvée. Veuillez réessayer.");
