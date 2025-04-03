@@ -133,9 +133,15 @@ const Dashboard = () => {
   }, [user, school]);
 
   useEffect(() => {
+  console.log("Loading state:", loading);
+  console.log("User state:", user);
+  console.log("School state:", school);
+
+  if (!loading && user && school) {
     fetchPeriods();
     fetchStudents();
-  }, [user, fetchPeriods, fetchStudents]);
+  }
+}, [loading, user, school]);
 
   const handleCreateStudent = async () => {
     try {
