@@ -560,7 +560,7 @@ const Dashboard = () => {
                 {students.map((student, index) => (
                   <div className='flex space-x-2 w-full' key={index}>
                     <input
-                      className='w-1/3 max-h-7 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      className='w-1/3 max-h-7 max-w-40 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
                       type='text'
                       value={student.name}
                       onChange={(e) =>
@@ -569,7 +569,7 @@ const Dashboard = () => {
                       placeholder='Prénom'
                     />
                     <input
-                      className='w-1/3 max-h-7 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      className='w-1/3 max-h-7 max-w-40 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
                       type='text'
                       value={student.lastName}
                       onChange={(e) =>
@@ -578,7 +578,7 @@ const Dashboard = () => {
                       placeholder='Nom'
                     />
                     <input
-                      className='w-1/3 max-h-7 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      className='w-1/3 max-h-7 max-w-40 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
                       type='password'
                       value={student.password}
                       onChange={(e) =>
@@ -588,7 +588,7 @@ const Dashboard = () => {
                     />
                     {index !== 0 && (
                       <Image
-                        className='cursor-pointer'
+                        className='cursor-pointer max-w-8'
                         width={30}
                         height={30}
                         alt='delete icon'
@@ -625,7 +625,7 @@ const Dashboard = () => {
                           {student.name} {student.lastName} {student.password}
                         </span>
                         <Image
-                          className='cursor-pointer'
+                          className='cursor-pointer max-w-8'
                           width={30}
                           height={30}
                           alt='delete icon'
