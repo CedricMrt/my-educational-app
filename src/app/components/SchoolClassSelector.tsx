@@ -58,27 +58,44 @@ const SchoolClassSelector = () => {
   };
 
   const handleCreateSchool = async () => {
-    if (newSchool && level) {
-      const newSchoolData = {
-        name: newSchool,
-        level: level,
-      };
+  if (!newSchool || !level) {
+    toast.error("Veuillez entrer un nom d'école et un niveau");
+    return;
+  }
 
-      const docRef = await addDoc(collection(db, "schools"), newSchoolData);
+  try
+    const newSchoolData = {
+      name: newSchool,
+      level: level,
+    };
 
-      const newEntry = { id: docRef.id, ...newSchoolData };
-      setSchools([...schools, newEntry]);
+    const docRef = await addDoc(collection(db, "schools"), newSchoolData);
+    const newSchoolEntry = { id: docRef.id, ...newSchoolData }
+    const periodsCollection = collection(db, `schools/${docRef.id}/periods`);
+    
+    const defaultPeriods = [
+      { id: 1, active: true },
+      { id: 2, active: false },
+      { id: 3, active: false }
+    ];
+    
+    const batch = writeBatch(db);
+    defaultPeriods.forEach(period => {
+      const periodRef = doc(periodsCollection);
+      batch.set(periodRef, period);
+    });
+    await batch.commit();
 
-      sessionStorage.setItem("school", JSON.stringify(newEntry));
-      toast.success("École créée et sauvegardée !");
-      router.push("/home");
+    setSchools([...schools, newSchoolEntry]);
+    sessionStorage.setItem("school", JSON.stringify(newSchoolEntry));
+    toast.success("École et périodes créées avec succès !");
+    router.push("/home");
 
-      setSchool(docRef.id);
-      setNewSchool("");
-    } else {
-      toast.error("Veuillez entrer un nom d'école et un niveau !");
-    }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+    toast.error("Erreur lors de la création");
+  }
+};
 
   return (
     <div className='rounded-lg p-6 bg-transparent border-2 border-solid border-[#F3D768] backdrop-blur-sm [box-shadow:_0_1px_10px_2px_rgb(255_255_255_/_40%)]'>
