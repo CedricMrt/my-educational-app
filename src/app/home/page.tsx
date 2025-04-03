@@ -90,21 +90,6 @@ const LoginForm = () => {
         return;
       }
 
-      const periods = [
-        { id: 1, uid: user.uid, active: true },
-        { id: 2, uid: user.uid, active: false },
-        { id: 3, uid: user.uid, active: false },
-      ];
-
-      const schoolPeriodsCollection = collection(
-        db,
-        `schools/${school.id}/periods`
-      );
-
-      for (const period of periods) {
-        await addDoc(schoolPeriodsCollection, period);
-      }
-
       toast.success("Inscription réussie !");
       router.push("/admin/dashboard");
     } catch (error) {
