@@ -103,8 +103,9 @@ const SchoolClassSelector = () => {
   };
 
   return (
-    <div className='rounded-lg p-6 bg-transparent border-2 border-solid border-[#F3D768] backdrop-blur-sm [box-shadow:_0_1px_10px_2px_rgb(255_255_255_/_40%)]'>
-      <div className='flex flex-col items-center justify-center space-y-4 text-yellow'>
+    <div className='relative rounded-lg p-6 bg-transparent border-2 border-solid border-[#F3D768] [box-shadow:_0_1px_10px_2px_rgb(255_255_255_/_40%)]'>
+      <div className='absolute inset-0 rounded-lg backdrop-blur-sm'></div>
+      <div className='relative z-10 flex flex-col items-center justify-center space-y-4 text-yellow'>
         <label className='text-lg font-bold'>Sélectionnez une école :</label>
         <select
           className='p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E4C767] bg-[#FFFAB8] text-[#473B1F]'

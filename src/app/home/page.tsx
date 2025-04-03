@@ -139,75 +139,77 @@ const LoginForm = () => {
               Inscription Professeur
             </button>
           </div>
-          <div className='transition-opacity duration-500 ease-in-out [box-shadow:3px_3px_14px_3px_rgb(255_255_255_/_40%)] rounded-lg backdrop-blur-sm'>
-            {formType === "teacherLogin" && (
-              <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
-                <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
-                  Connexion Professeur
-                </h2>
-                <div className=''>
-                  <label
-                    className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                    htmlFor='email'
-                  >
-                    Email
-                  </label>
-                  <input
-                    type='email'
-                    id='email'
-                    className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className=''>
-                  <label
-                    className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                    htmlFor='password'
-                  >
-                    Mot de passe
-                  </label>
-                  <input
-                    type='password'
-                    id='password'
-                    className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className=''>
-                  <button
-                    onClick={handleTeacherLogin}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
-                  >
-                    Connexion
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {formType === "studentLogin" && (
-              <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
-                <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
-                  Connexion Elève
-                </h2>
-                <div className='flex space-x-1 max-w-80'>
-                  <div>
+          <div className='transition-opacity duration-500 ease-in-out [box-shadow:3px_3px_14px_3px_rgb(255_255_255_/_40%)] rounded-lg relative'>
+            <div className='absolute inset-0 rounded-lg backdrop-blur-sm'></div>
+            <div className='relative z-10'>
+              {formType === "teacherLogin" && (
+                <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+                  <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
+                    Connexion Professeur
+                  </h2>
+                  <div className=''>
                     <label
                       className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                      htmlFor='name'
+                      htmlFor='email'
                     >
-                      Prénom
+                      Email
                     </label>
                     <input
-                      type='text'
-                      id='name'
-                      className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      type='email'
+                      id='email'
+                      className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
-                  {/* <div>
+                  <div className=''>
+                    <label
+                      className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
+                      htmlFor='password'
+                    >
+                      Mot de passe
+                    </label>
+                    <input
+                      type='password'
+                      id='password'
+                      className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className=''>
+                    <button
+                      onClick={handleTeacherLogin}
+                      className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
+                    >
+                      Connexion
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {formType === "studentLogin" && (
+                <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+                  <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
+                    Connexion Elève
+                  </h2>
+                  <div className='flex space-x-1 max-w-80'>
+                    <div>
+                      <label
+                        className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
+                        htmlFor='name'
+                      >
+                        Prénom
+                      </label>
+                      <input
+                        type='text'
+                        id='name'
+                        className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                    {/* <div>
                     <label
                       className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
                       htmlFor='surname'
@@ -222,78 +224,79 @@ const LoginForm = () => {
                       onChange={(e) => setSurname(e.target.value)}
                     />
                   </div> */}
+                  </div>
+                  <div>
+                    <label
+                      className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
+                      htmlFor='password'
+                    >
+                      Mot de passe
+                    </label>
+                    <input
+                      type='password'
+                      id='password'
+                      className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      onClick={handleStudentLogin}
+                      className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
+                    >
+                      Connexion
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label
-                    className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                    htmlFor='password'
-                  >
-                    Mot de passe
-                  </label>
-                  <input
-                    type='password'
-                    id='password'
-                    className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <button
-                    onClick={handleStudentLogin}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
-                  >
-                    Connexion
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
 
-            {formType === "teacherSignUp" && (
-              <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
-                <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
-                  Inscription Professeur
-                </h2>
-                <div>
-                  <label
-                    className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                    htmlFor='email'
-                  >
-                    Email
-                  </label>
-                  <input
-                    type='email'
-                    id='email'
-                    className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+              {formType === "teacherSignUp" && (
+                <div className='p-4 rounded-lg shadow-md border-2 border-[#f2a65a] w-full space-y-3 opacity-100'>
+                  <h2 className='text-2xl font-bold text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]'>
+                    Inscription Professeur
+                  </h2>
+                  <div>
+                    <label
+                      className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
+                      htmlFor='email'
+                    >
+                      Email
+                    </label>
+                    <input
+                      type='email'
+                      id='email'
+                      className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
+                      htmlFor='password'
+                    >
+                      Mot de passe
+                    </label>
+                    <input
+                      type='password'
+                      id='password'
+                      className='w-full px-2 py-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className='mb-4'>
+                    <button
+                      onClick={handleTeacherSignUp}
+                      className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-xl hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
+                    >
+                      Inscription
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label
-                    className='block [text-shadow:_0_0px_4px_rgb(0_0_0_/_0.8)] text-sm font-bold'
-                    htmlFor='password'
-                  >
-                    Mot de passe
-                  </label>
-                  <input
-                    type='password'
-                    id='password'
-                    className='w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-200 text-gray-600'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className='mb-4'>
-                  <button
-                    onClick={handleTeacherSignUp}
-                    className='w-full bg-[#FFE770] text-[#5C7C2F] py-1 rounded-lg hover:bg-[#F3D768] focus:outline-none focus:ring-2 focus:ring-[#FFE770] transition-transform duration-200 active:scale-95 cursor-pointer drop-shadow-lg'
-                  >
-                    Inscription
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
         <div>
