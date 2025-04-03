@@ -16,7 +16,6 @@ import DiscoveryWorldGame1 from "./discoveryWorldGame/classification";
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { useSchool } from "@/app/utils/SchoolContext";
 import { motion } from "framer-motion";
 
 const Loading = () => (
@@ -32,8 +31,13 @@ const SubjectPage = () => {
     lastName: string;
     uid: string;
   }
+  interface School {
+    id: string;
+    name: string;
+    level: string;
+  }
 
-  const { school } = useSchool();
+  const [school, setSchool] = useState<School | null>(null);
   const [student, setStudent] = useState<Student | null>(null);
   const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -52,7 +56,9 @@ const SubjectPage = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedStudent = sessionStorage.getItem("student");
-      if (storedStudent) {
+      const storedSchool = sessionStorage.getItem("school");
+      if (storedStudent && storedSchool) {
+        setSchool(JSON.parse(storedSchool));
         setStudent(JSON.parse(storedStudent));
       }
     }
@@ -74,7 +80,7 @@ const SubjectPage = () => {
 
     fetchActivePeriod();
   }, [school]);
-  console.log(student, period);
+  console.log(school, student, period);
   interface ActivityClickHandler {
     (activity: string): void;
   }
