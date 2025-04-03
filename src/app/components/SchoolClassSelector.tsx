@@ -94,7 +94,7 @@ const SchoolClassSelector = () => {
 
       setSchools([...schools, newSchoolEntry]);
       sessionStorage.setItem("school", JSON.stringify(newSchoolEntry));
-      toast.success("École et périodes créées avec succès !");
+      toast.success("École créées avec succès !");
       router.push("/home");
     } catch (error) {
       console.error("Error:", error);
@@ -133,13 +133,12 @@ const SchoolClassSelector = () => {
           value={newSchool}
           onChange={(e) => {
             const value = e.target.value;
-            // Vérifie si la valeur ne contient que des lettres
-            if (/^[A-Za-z]+$/.test(value) || value === "") {
+            if (/^[A-Za-z\s]+$/.test(value) || value === "") {
               setNewSchool(value);
             }
           }}
-          pattern='^[A-Za-z]+$'
-          title='Veuillez entrer uniquement des lettres.'
+          pattern='^[A-Za-z\s]+$'
+          title='Veuillez entrer uniquement des lettres et des espaces.'
           placeholder='Nom de la nouvelle école'
         />
         <select

@@ -88,8 +88,11 @@ const LoginForm = () => {
       toast.success("Inscription réussie !");
       router.push("/admin/dashboard");
     } catch (error) {
-      console.error("Error signing up:", error);
-      toast.error("Erreur d'inscription. Veuillez réessayer.");
+      if ((error as { code: string }).code === "auth/email-already-in-use") {
+        toast.error("Ce compte existe déjà, veuillez vous connecter.");
+      } else {
+        toast.error("Erreur d'inscription. Veuillez réessayer.");
+      }
     }
   };
 

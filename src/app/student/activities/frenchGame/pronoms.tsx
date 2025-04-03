@@ -142,7 +142,9 @@ const InteractiveCorrection = ({
 
   return (
     <div className='flex flex-col justify-around items-center w-full h-full h400:w-[84%]'>
-      <h1 className='text-2xl font-bold text-black'>Corrige la phrase</h1>
+      <h1 className='text-2xl font-bold text-black'>
+        Change le groupe nominal par le pronom qui correspond
+      </h1>
       <p className='max-w-[90%] text-xl text-black max-lg:text-2xl max-sm:text-base h780:text-2xl h1050:text-3xl'>
         {correctedSentence}
       </p>

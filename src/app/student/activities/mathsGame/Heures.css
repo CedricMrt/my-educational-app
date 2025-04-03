@@ -2,10 +2,11 @@
   border-radius: 50%;
   background: #fefce9 url(/img/ios_clock.png) no-repeat center;
   background-size: 88%;
-  height: 16em;
-  padding-bottom: 31%;
+  height: 50vmin;
+  width: 50vmin;
   position: relative;
-  width: 16em;
+  max-width: 256px;
+  max-height: 256px;
 }
 
 .clock:after {
@@ -51,10 +52,24 @@
   width: 2%;
 }
 
+@media (max-width: 832px) {
+  .clock {
+    height: 50vmin;
+    width: 50vmin;
+  }
+}
+
+@media (max-height: 570px) {
+  .clock {
+    width: 40vmin;
+    height: 40vmin;
+  }
+}
+/* Media query pour les petits écrans */
 @media (max-width: 400px), (max-height: 400px) {
   .clock {
-    height: 10em;
-    width: 8em;
+    width: 25vmin;
+    height: 25vmin;
   }
 
   .smallInput {

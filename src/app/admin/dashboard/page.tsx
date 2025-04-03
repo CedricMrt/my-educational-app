@@ -25,11 +25,16 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useSchool } from "@/app/utils/SchoolContext";
 
 interface Period {
   id: number;
   active: boolean;
+}
+
+interface School {
+  id: string;
+  name: string;
+  level: string;
 }
 
 interface Student {
@@ -72,7 +77,7 @@ const Dashboard = () => {
     Legend
   );
 
-  const { school } = useSchool();
+  const [school, setSchool] = useState<School | null>(null);
   const [students, setStudents] = useState<Student[]>([
     { id: "", name: "", lastName: "", password: "", uid: "" },
   ]);
@@ -96,21 +101,40 @@ const Dashboard = () => {
     discoveryWorldGame: "Découverte du monde",
   };
 
+  useEffect(() => {
+    const storedSchool = sessionStorage.getItem("school");
+    if (storedSchool) {
+      try {
+        const parsedSchool = JSON.parse(storedSchool);
+        setSchool(parsedSchool);
+      } catch (error) {
+        console.error("Erreur de parsing du sessionStorage:", error);
+      }
+    }
+  }, []);
+
   const [chartData, setChartData] = useState<ChartData[] | null>(null);
 
   const fetchPeriods = useCallback(async () => {
     if (!school?.id) return;
 
     try {
+      console.log("Fetching periods for school ID:", school.id);
       const periodsQuery = query(
         collection(db, `schools/${school.id}/periods`)
       );
       const periodsSnapshot = await getDocs(periodsQuery);
-      const periodsData = periodsSnapshot.docs.map((doc) => ({
-        id: doc.data().id,
-        active: doc.data().active || false,
-      }));
-      setPeriods(periodsData);
+
+      if (periodsSnapshot.empty) {
+        console.log("No periods found for this school.");
+      } else {
+        const periodsData = periodsSnapshot.docs.map((doc) => ({
+          id: doc.data().id,
+          active: doc.data().active || false,
+        }));
+        console.log("Fetched periods:", periodsData);
+        setPeriods(periodsData);
+      }
     } catch (error) {
       console.error("Error fetching periods:", error);
       toast.error("Erreur lors du chargement des périodes");
@@ -136,6 +160,9 @@ const Dashboard = () => {
   }, [user, school]);
 
   useEffect(() => {
+    console.log("User:", user);
+    console.log("School ID:", school?.id);
+    console.log("Loading:", loading);
     if (!loading && user && school) {
       fetchPeriods();
       fetchStudents();
