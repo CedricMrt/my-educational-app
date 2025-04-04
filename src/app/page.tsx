@@ -1,40 +1,43 @@
 "use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import "./globals.css";
 import Navbar from "./components/Navbar";
-import { useRouter } from "next/navigation";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./lib/firebaseConfig";
-import { useEffect, useState } from "react";
 import SchoolClassSelector from "./components/SchoolClassSelector";
 
 export default function Home() {
-  const currentYear = new Date().getFullYear();
-  const [user] = useAuthState(auth);
-  const [student, setStudent] = useState<string | null>(null);
-  const router = useRouter();
+  const [currentYear] = useState(new Date().getFullYear());
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const studentFromStorage = sessionStorage.getItem("student");
-      setStudent(studentFromStorage);
-    }
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      router.push("/admin/dashboard");
-    } else if (student) {
-      router.push("/student/dashboard");
-    }
-  }, [user, router, student]);
+  if (showLoader) {
+    return (
+      <div className='fixed inset-0 flex items-center justify-center bg-black z-50'>
+        <div className='text-center'>
+          <Image
+            src='/3dgifmaker54074.gif'
+            alt='Loading...'
+            width={500}
+            height={500}
+            unoptimized
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div>
+    <>
       <header className='bg-[#00000050]'>
         <Navbar />
       </header>
-      <main className='min-h-[calc(100vh-98.5px)] flex justify-center items-center bg-[#00000050]'>
+      <main className='min-h-[calc(100vh-106.5px)] flex justify-center items-center bg-[#00000050]'>
         <SchoolClassSelector />
       </main>
       <footer className='flex items-center justify-center bg-[#00000050]'>
@@ -49,6 +52,6 @@ export default function Home() {
           />
         </a>
       </footer>
-    </div>
+    </>
   );
 }
